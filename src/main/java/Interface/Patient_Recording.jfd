@@ -1,0 +1,168 @@
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.4.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[718,fill]"
+			"$rowConstraints": "[53][29][34][35][56]"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "recording_title"
+				"text": "Recordings"
+				"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 6, false )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "signal_select_label"
+				"text": "Please Select a Signal:"
+				"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+				"preferredSize": new java.awt.Dimension( 180, 22 )
+				"minimumSize": new java.awt.Dimension( 180, 22 )
+				"maximumSize": new java.awt.Dimension( 180, 22 )
+				"iconTextGap": 0
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "signal_selector"
+				auxiliary() {
+					"JavaCodeGenerator.variableModifiers": 1
+					"JavaCodeGenerator.preCreateCode": "String[] signal_pack = new String[8];\nsignal_pack[0] = \"ECG lead I\";\nsignal_pack[1] = \"ECG lead II\";\nsignal_pack[2] = \"Respiratory Pattern\";\nsignal_pack[3] = \"Heart Rate\";\nsignal_pack[4] = \"Respiratory Rate\";\nsignal_pack[5] = \"Systolic Blood Pressure\";\nsignal_pack[6] = \"Diastolic Blood Pressure\";\nsignal_pack[7] = \"Body Temperature\";\n"
+					"JavaCodeGenerator.customCreateCode": "new JComboBox(signal_pack);"
+				}
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "blank2"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "blank"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[43,fill][99,fill][51,fill][95,fill][31,fill][103,fill]"
+				"$rowConstraints": "[56]"
+			} ) {
+				name: "date_select_panel"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "year_label"
+					"text": "Year:"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "year_selector"
+					auxiliary() {
+						"JavaCodeGenerator.preCreateCode": "Integer[] years = new Integer[10];\n\tfor (int i=0; i < 10; i++){\n    \tint the_year = -i+2023;\n        years[i]=the_year;\n}"
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(years);"
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "month_label"
+					"text": "Month:"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "month_selector"
+					auxiliary() {
+						"JavaCodeGenerator.preCreateCode": "Integer[] month = new Integer[12];\n\tfor (int i=0; i < 12; i++){\n    \tint the_month = i+1;\n        month[i]=the_month;\n}"
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(month);"
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "day_label"
+					"text": "Day:"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "day_selector"
+					auxiliary() {
+						"JavaCodeGenerator.preCreateCode": "Integer[] days = new Integer[31];\n\tfor (int i=0; i < 31; i++){\n    \tint the_day = i+1;\n        days[i]=the_day;\n}"
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(days);"
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[73,fill][51,fill][4,fill][39,fill][60,fill][50,fill][0,fill][48,fill]"
+				"$rowConstraints": "[46]"
+			} ) {
+				name: "time_intervel_select_panel"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "start_time_label"
+					"text": "Start Time:"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "start_time_hour"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "colon"
+					"text": ":"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "start_time_min"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "end_time_label"
+					"text": "End Time:"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "end_time_hour"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "colon2"
+					"text": ":"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 6 0"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "end_time_min"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 3"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "generate_button"
+				"text": "Generate"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 590, 300 )
+		} )
+	}
+}
