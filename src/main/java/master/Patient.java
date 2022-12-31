@@ -95,7 +95,7 @@ public class Patient extends JButton {
 
 
         panelEcg1 = load_chart(5000,"ecg1");
-        //panelTemperature=load_chartLabel(15000,"temperature");
+        panelTemperature=load_chartLabel(15000,"temperature");
 
         display(this.reference_value);
     }
