@@ -36,10 +36,16 @@ public class Patient extends JButton {
 
     private inputData dataEcg1;
     private inputData dataTemperature;
-    private SeriesChartPane panelEcg1;
-    private Chart_Label_Display panelTemperature;
+    public SeriesChartPane panelEcg1;
+    public Chart_Label_Display panelTemperature;
 
+    public Chart_Label_Display panelHeartRate;
 
+    public Chart_Label_Display panelSysBloodPressure;
+
+    public Chart_Label_Display panelDiaBloodPressure;
+
+    public Chart_Label_Display panelRespiratoryRate;
 
     public Patient(String first_name,
                    String last_name,
@@ -95,7 +101,7 @@ public class Patient extends JButton {
 
 
         panelEcg1 = load_chart(5000,"ecg1");
-        //panelTemperature=load_chartLabel(15000,"temperature");
+        panelTemperature=load_chartLabel(15000,"temperature");
 
         display(this.reference_value);
     }
@@ -121,7 +127,7 @@ public class Patient extends JButton {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new Chart_Label_Display(new inputData(tempData),timestamp,type);
+        return new Chart_Label_Display(this, new inputData(tempData),timestamp,type);
     }
 
     private void display(String reference_value) {
@@ -141,7 +147,6 @@ public class Patient extends JButton {
     public void patient_mouseClicked(MouseEvent e) {
         if(e.getClickCount()==1){
             display(this.reference_value);
-
         }
         else if(e.getClickCount()==2){
             Patient_Editor editor = new Patient_Editor(this.mainGUI, this);

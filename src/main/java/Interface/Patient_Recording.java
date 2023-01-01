@@ -21,7 +21,7 @@ public class Patient_Recording extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+        // Generated using JFormDesigner Educational license - Tianyu Wei
         recording_title = new JLabel();
         signal_select_label = new JLabel();
         String[] signal_pack = new String[8];
@@ -177,7 +177,7 @@ public class Patient_Recording extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+    // Generated using JFormDesigner Educational license - Tianyu Wei
     private JLabel recording_title;
     private JLabel signal_select_label;
     public JComboBox signal_selector;

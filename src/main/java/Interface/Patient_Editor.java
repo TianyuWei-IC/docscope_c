@@ -1,5 +1,6 @@
 package Interface;
 
+import chartPanel.Chart_Label_Display;
 import master.Patient;
 import net.miginfocom.swing.MigLayout;
 
@@ -53,12 +54,6 @@ public class Patient_Editor extends JFrame {
     }
 
     private void save_button(ActionEvent e) {
-
-//        String gender = "male";
-//        if (female_button.isSelected()){
-//            gender = "female";
-//        }
-
         this.new_patient.first_name = this.first_name_field.getText();
         this.new_patient.last_name = this.last_name_field.getText();
 
@@ -83,6 +78,14 @@ public class Patient_Editor extends JFrame {
 
 
         String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
+
+        new_patient.panelTemperature.getThreshold();
+        new_patient.panelHeartRate.getThreshold();
+        new_patient.panelSysBloodPressure.getThreshold();
+        new_patient.panelDiaBloodPressure.getThreshold();
+        new_patient.panelRespiratoryRate.getThreshold();
+
+
         this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         mainGUI.patient_list.updateUI();
         this.dispose();

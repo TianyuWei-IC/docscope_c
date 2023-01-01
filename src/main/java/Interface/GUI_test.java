@@ -113,14 +113,14 @@ public class GUI_test extends JFrame {
                     "[49]"));
 
                 //---- label1 ----
-                label1.setText("master.Patient List");
+                label1.setText("Patient List");
                 label1.setFont(label1.getFont().deriveFont(label1.getFont().getStyle() | Font.BOLD, label1.getFont().getSize() + 6f));
                 label1.setHorizontalAlignment(SwingConstants.CENTER);
                 label1.setVerticalAlignment(SwingConstants.TOP);
                 NewPatient.add(label1, "cell 0 0");
 
                 //---- add_new_patient ----
-                add_new_patient.setText("Add a New master.Patient");
+                add_new_patient.setText("Add a New Patient");
                 add_new_patient.addActionListener(e -> add_new_patient(e));
                 NewPatient.add(add_new_patient, "cell 0 1");
             }

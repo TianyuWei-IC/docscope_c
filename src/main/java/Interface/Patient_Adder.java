@@ -69,7 +69,7 @@ public class Patient_Adder extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         panel1 = new JPanel();
         title = new JLabel();
@@ -154,12 +154,12 @@ public class Patient_Adder extends JFrame {
                     "[104]"));
 
                 //---- title ----
-                title.setText("master.Patient");
+                title.setText("Patient");
                 title.setFont(title.getFont().deriveFont(title.getFont().getSize() + 6f));
                 panel1.add(title, "cell 0 0");
 
                 //---- patient_ref ----
-                patient_ref.setText("master.Patient Reference: ");
+                patient_ref.setText("Patient Reference: ");
                 panel1.add(patient_ref, "cell 1 0");
                 panel1.add(ref_selector, "cell 1 0");
             }
@@ -288,11 +288,11 @@ public class Patient_Adder extends JFrame {
                 threshold.add(body_temperature, "cell 0 1");
 
                 //---- temp_min ----
-                temp_min.setText("36.4");
+                temp_min.setText("35.0");
                 threshold.add(temp_min, "cell 2 1");
 
                 //---- temp_max ----
-                temp_max.setText("38.0");
+                temp_max.setText("40.0");
                 threshold.add(temp_max, "cell 3 1");
 
                 //---- degree ----
@@ -304,7 +304,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(heart_rate, "cell 0 2");
 
                 //---- hr_min ----
-                hr_min.setText("60");
+                hr_min.setText("40");
                 threshold.add(hr_min, "cell 2 2");
 
                 //---- hr_max ----
@@ -328,7 +328,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(sys_min, "cell 2 3");
 
                 //---- sys_max ----
-                sys_max.setText("120");
+                sys_max.setText("140");
                 threshold.add(sys_max, "cell 3 3");
 
                 //---- mmHg_high ----
@@ -344,7 +344,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(dia_min, "cell 2 4");
 
                 //---- dia_max ----
-                dia_max.setText("80");
+                dia_max.setText("90");
                 threshold.add(dia_max, "cell 3 4");
 
                 //---- mmHg_low ----
@@ -356,11 +356,11 @@ public class Patient_Adder extends JFrame {
                 threshold.add(respiratory_rate, "cell 0 5");
 
                 //---- resp_min ----
-                resp_min.setText("12");
+                resp_min.setText("10");
                 threshold.add(resp_min, "cell 2 5");
 
                 //---- resp_max ----
-                resp_max.setText("20");
+                resp_max.setText("35");
                 threshold.add(resp_max, "cell 3 5");
 
                 //---- per_min ----
@@ -393,7 +393,7 @@ public class Patient_Adder extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel panel1;
     private JLabel title;

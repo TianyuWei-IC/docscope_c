@@ -1,10 +1,12 @@
 package master;
 
-import Interface.GUI_test;
+import Interface.Urgent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.time.ZoneId;
+import java.util.TimeZone;
 
 public class Monitor {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -22,12 +24,15 @@ public class Monitor {
 
 
 
-                GUI_test mainPanel=new GUI_test();
-                mainPanel.setVisible(true);
-                mainPanel.real_time_plots.setEnabled(false);
-                mainPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainPanel.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//                GUI_test mainPanel=new GUI_test();
+//                mainPanel.setVisible(true);
+//                mainPanel.real_time_plots.setEnabled(false);
+//                mainPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                mainPanel.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+                Urgent newwar = new Urgent();
+                newwar.setVisible(true);
+                newwar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //                inputData model = new inputData(tempData);
 //
 //                JFrame frame = new JFrame("Testing");
@@ -42,6 +47,8 @@ public class Monitor {
 //                frame.pack();
 //                frame.setLocationRelativeTo(null);
 //                frame.setVisible(true);
+
+
             }
         });
     }

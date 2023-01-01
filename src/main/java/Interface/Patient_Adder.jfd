@@ -196,7 +196,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "temp_min"
-						"text": "36.4"
+						"text": "35.0"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -205,7 +205,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "temp_max"
-						"text": "38.0"
+						"text": "40.0"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -226,7 +226,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "hr_min"
-						"text": "60"
+						"text": "40"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -271,7 +271,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "sys_max"
-						"text": "120"
+						"text": "140"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -301,7 +301,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "dia_max"
-						"text": "80"
+						"text": "90"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -322,7 +322,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "resp_min"
-						"text": "12"
+						"text": "10"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -331,7 +331,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "resp_max"
-						"text": "20"
+						"text": "35"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
