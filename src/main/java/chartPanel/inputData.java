@@ -8,7 +8,9 @@ public class inputData {
     public List[] partData;
     private Integer position = 0;
     int size;
-    public inputData(List<Double> initialValue){
+    public long dataBaseInitialTime;
+    public inputData(List<Double> initialValue,long dataBaseInitialTime){
+        this.dataBaseInitialTime=dataBaseInitialTime;
         size=initialValue.size();
         List<Double> initialTime = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
@@ -19,9 +21,6 @@ public class inputData {
 
 
     public List[] getData(List<Double> newData){
-
-
-
         for(double data:newData) {
             // change to the next 'actual' value depending on the step, this can be changed to a command that grab one data
             // from server at that time instant
@@ -31,9 +30,9 @@ public class inputData {
         }
 
         // if the position in the 'display array' is smaller than 1949
-        if (position+50<size){
-            List valueFormer=partData[1].subList(position+50, partData[1].size());
-            List timeFormer=partData[0].subList(position+50, partData[1].size());
+        if (position+300<size){
+            List valueFormer=partData[1].subList(position+300, partData[1].size());
+            List timeFormer=partData[0].subList(position+300, partData[1].size());
             List valueLatter=partData[1].subList(0,position+1);
             List timeLatter=partData[0].subList(0,position+1);
             return new List[]{timeFormer,valueFormer,timeLatter,valueLatter};

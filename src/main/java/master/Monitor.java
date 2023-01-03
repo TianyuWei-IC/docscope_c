@@ -8,6 +8,11 @@ import java.io.IOException;
 
 public class Monitor {
     public static void main(String[] args) throws IOException, InterruptedException {
+        try {
+            // Registers the driver
+            Class.forName("org.postgresql.Driver");
+        } catch (Exception e) {
+        }
         new Monitor();
     }
     public Monitor() throws IOException {

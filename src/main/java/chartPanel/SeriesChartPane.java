@@ -11,12 +11,12 @@ import java.util.List;
 
 public class SeriesChartPane extends JPanel  {
 
-    private inputData dataInput;
+    public inputData dataInput;
     private XYChart chart;
-    public Timestamp time;
+    public long time;
 
 
-    public SeriesChartPane(inputData dataInput,Timestamp time,String data_type) {
+    public SeriesChartPane(inputData dataInput,long time,String data_type) {
         this.dataInput = dataInput;
         this.time=time;
         chart = new XYChartBuilder().width(1000).height(120).title("master.Monitor").build();
@@ -28,11 +28,13 @@ public class SeriesChartPane extends JPanel  {
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setMarkerSize(0);
         chart.getStyler().setXAxisTicksVisible(false);
+        chart.getStyler().setXAxisMin(0.0);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 
         if(data_type=="ecg1"){
             chart.getStyler().setYAxisMax(1.5);
             chart.getStyler().setYAxisMin(-0.5);
+            chart.getStyler().setXAxisMax(15.0);
         }
 
 

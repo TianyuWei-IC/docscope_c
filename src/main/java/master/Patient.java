@@ -7,11 +7,13 @@ import chartPanel.SeriesChartPane;
 import chartPanel.inputData;
 import netRelated.netAction;
 import netRelated.requestPack;
+import netRelated.responsePack;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -92,37 +94,33 @@ public class Patient extends JButton {
             }
         });
 
-
-
-        panelEcg1 = load_chart(5000,"ecg1");
+        panelEcg1 = load_chart(10000,"ecg1");
         //panelTemperature=load_chartLabel(15000,"temperature");
 
         display(this.reference_value);
     }
 
-    private SeriesChartPane load_chart(long chart_capacity, String type) {
-        List<Double> tempData;
+    private SeriesChartPane load_chart(long chart_capacity, String type){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        try {
-            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
-                    ,"http://localhost:8080/docScope_s/"+type).valueList;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new SeriesChartPane(new inputData(tempData),timestamp,type);
+        long dataBaseInitialTime=netAction.getInitialTime();
+        responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
+                timestamp.getTime(),
+                dataBaseInitialTime);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
     }
 
-    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
-        List<Double> tempData;
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        try {
-            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
-                    ,"http://localhost:8080/docScope_s/"+type).valueList;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new Chart_Label_Display(new inputData(tempData),timestamp,type);
-    }
+//    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
+//        List<Double> tempData;
+//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+////        try {
+////            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
+////                    ,"http://localhost:8080/docScope_s/"+type).valueList;
+////        } catch (IOException e) {
+////            throw new RuntimeException(e);
+////        }
+//        tempData=new sqlDatabase().recordData(timestamp.getTime()-chart_capacity,timestamp.getTime());
+//        return new Chart_Label_Display(new inputData(tempData),timestamp,type);
+//    }
 
     private void display(String reference_value) {
         this.mainGUI.ecg1.setVisible(false);
