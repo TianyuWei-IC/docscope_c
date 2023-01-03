@@ -120,6 +120,7 @@ public class netAction {
         } catch (Exception e) {
             System.out.println("resultSet fail in value");
         }
+        System.out.println(values);
         try {
             s.close();
             conn.close();

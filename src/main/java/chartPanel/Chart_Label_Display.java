@@ -63,8 +63,8 @@ public class Chart_Label_Display {
 
         this.value_label.setText(df.format(value_instant));
 
-        urgent_or_not(value_instant);
-        warning_or_not(value_instant);
+//        urgent_or_not(value_instant);
+//        warning_or_not(value_instant);
 
         display_chart.repaint();
         value_label.repaint();

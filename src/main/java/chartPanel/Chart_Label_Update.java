@@ -24,7 +24,7 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
             Thread.sleep(1000);
             long currentTime=new Timestamp(System.currentTimeMillis()).getTime();
 
-            responsePack respPack=netAction.recordData(previousTime,
+            responsePack respPack=netAction.recordDataTemp(previousTime,
                     currentTime,
                     this.chartLabel.dataInput.dataBaseInitialTime);
             List<Double> newData= respPack.valueList;
