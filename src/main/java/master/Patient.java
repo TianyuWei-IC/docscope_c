@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+
 public class Patient extends JButton {
     public String first_name;
     public String last_name;
@@ -106,7 +107,7 @@ public class Patient extends JButton {
 
 
         panelEcg1 = load_chart(5000,"ecg1");
-        panelTemperature=load_chartLabel(15000,"temperature");
+//        panelTemperature=load_chartLabel(15000,"temperature");
 
         display(this.reference_value);
         this.addActionListener(e -> switch_patient(e));
@@ -136,17 +137,17 @@ public class Patient extends JButton {
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
     }
 
-    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
-        List<Double> tempData;
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        try {
-            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
-                    ,"http://localhost:8080/docScope_s/"+type).valueList;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new Chart_Label_Display(this, new inputData(tempData),timestamp,type);
-    }
+//    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
+//        List<Double> tempData;
+//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//        try {
+//            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
+//                    ,"http://localhost:8080/docScope_s/"+type).valueList;
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return new Chart_Label_Display(this, new inputData(tempData),timestamp,type);
+//    }
 
     private void display(String reference_value) {
         this.mainGUI.ecg1.setVisible(false);
