@@ -92,8 +92,8 @@ public class netAction {
         PreparedStatement s = null;
 
         String order = "select temperature from other where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / 2);
-        int index2 = (int) floor((endTime - initialTime) / 2);
+        int index1 = (int) floor((startTime - initialTime) / 1000);
+        int index2 = (int) floor((endTime - initialTime) / 1000);
         if (index1 <= 0) {
             System.out.println("empty");
         }
@@ -110,7 +110,7 @@ public class netAction {
         try {
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
-                values.add(resultSet.getDouble("ecg1"));
+                values.add(resultSet.getDouble("temperature"));
             }
 //            System.out.println("returned size is "+values.size());
             respPack.setLastTime(startTime+1000*(values.size()));
