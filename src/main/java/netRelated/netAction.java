@@ -46,7 +46,7 @@ public class netAction {
         Connection conn = null;
         PreparedStatement s = null;
 
-        String orderEcg1 = "select id,ecg1 from ecgresp where id>? and id<=?";
+        String orderEcg1 = "select ecg1 from ecgresp where id>? and id<=?";
         int index1 = (int) floor((startTime - initialTime) / 2);
         int index2 = (int) floor((endTime - initialTime) / 2);
         if (index1 <= 0) {
@@ -67,14 +67,11 @@ public class netAction {
             while (resultSet.next()) {
                 values.add(resultSet.getDouble("ecg1"));
             }
-            System.out.println("returned size is "+values.size());
-
-//            Long size=Long.valueOf(""+values.size());
-//            respPack.setLastTime(startTime+2*size);
+//            System.out.println("returned size is "+values.size());
             respPack.setLastTime(startTime+2*(values.size()));
-            System.out.println("last time is " + respPack.lastTime);
-            System.out.println("start time is " + startTime);
-            System.out.println("end time is " + endTime);
+//            System.out.println("last time is " + respPack.lastTime);
+//            System.out.println("start time is " + startTime);
+//            System.out.println("end time is " + endTime);
         } catch (Exception e) {
             System.out.println("resultSet fail in value");
         }
@@ -87,6 +84,51 @@ public class netAction {
         respPack.setValueList(values);
         return respPack;
         }
+    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
+
+        List<Double> values = new ArrayList<>();
+        responsePack respPack = new responsePack();
+        Connection conn = null;
+        PreparedStatement s = null;
+
+        String order = "select temperature from other where id>? and id<=?";
+        int index1 = (int) floor((startTime - initialTime) / 2);
+        int index2 = (int) floor((endTime - initialTime) / 2);
+        if (index1 <= 0) {
+            System.out.println("empty");
+        }
+        try {
+            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            s = conn.prepareStatement(order);
+//                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+//                    ResultSet.CONCUR_READ_ONLY);
+            s.setInt(1, index1);
+            s.setInt(2, index2);
+        } catch (SQLException e) {
+            System.out.println("statement fail in value");
+        }
+        try {
+            ResultSet resultSet = s.executeQuery();
+            while (resultSet.next()) {
+                values.add(resultSet.getDouble("ecg1"));
+            }
+//            System.out.println("returned size is "+values.size());
+            respPack.setLastTime(startTime+1000*(values.size()));
+//            System.out.println("last time is " + respPack.lastTime);
+//            System.out.println("start time is " + startTime);
+//            System.out.println("end time is " + endTime);
+        } catch (Exception e) {
+            System.out.println("resultSet fail in value");
+        }
+        try {
+            s.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("end connection fail");
+        }
+        respPack.setValueList(values);
+        return respPack;
+    }
     public static long getInitialTime(){
 
         Connection conn = null;

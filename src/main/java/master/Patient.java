@@ -137,7 +137,14 @@ public class Patient extends JButton {
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
     }
 
-//    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
+    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        long dataBaseInitialTime=netAction.getInitialTime();
+        responsePack respPack =netAction.recordDataTemp(timestamp.getTime()-chart_capacity,
+                timestamp.getTime(),
+                dataBaseInitialTime);
+        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
+
 //        List<Double> tempData;
 //        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //        try {
@@ -147,7 +154,7 @@ public class Patient extends JButton {
 //            throw new RuntimeException(e);
 //        }
 //        return new Chart_Label_Display(this, new inputData(tempData),timestamp,type);
-//    }
+    }
 
     private void display(String reference_value) {
         this.mainGUI.ecg1.setVisible(false);

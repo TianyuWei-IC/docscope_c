@@ -13,9 +13,9 @@ import java.util.List;
 
 public class Chart_Label_Display {
     private Patient patient;
-    private inputData dataInput;
+    public inputData dataInput;
     private XYChart chart;
-    public Timestamp time;
+    public long time;
     public JPanel display_chart;
     public JLabel value_label;
     private DecimalFormat df;
@@ -26,7 +26,7 @@ public class Chart_Label_Display {
     private String data_type;
 
 
-    public Chart_Label_Display(Patient patient,inputData dataInput, Timestamp time, String data_type) {
+    public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type) {
         this.patient = patient;
         this.dataInput = dataInput;
         this.time=time;

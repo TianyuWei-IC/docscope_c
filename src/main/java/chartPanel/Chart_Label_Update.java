@@ -15,11 +15,25 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
 
     public Chart_Label_Update(Chart_Label_Display chartLabel) {
         this.chartLabel = chartLabel;
-        this.previousTime=this.chartLabel.time.getTime();
+        this.previousTime=this.chartLabel.time;
     }
 
     @Override
     protected Void doInBackground() throws Exception {
+        while (true) {
+            Thread.sleep(1000);
+            long currentTime=new Timestamp(System.currentTimeMillis()).getTime();
+
+            responsePack respPack=netAction.recordData(previousTime,
+                    currentTime,
+                    this.chartLabel.dataInput.dataBaseInitialTime);
+            List<Double> newData= respPack.valueList;
+//            System.out.println(newData.size());
+            if (newData.size()!=0){
+                chartLabel.updateData(chartLabel.getDataInput().getData(newData));
+            }
+            previousTime=respPack.lastTime;
+        }
 //        while (true) {
 //            Thread.sleep(1100);
 //            long timestamp=new Timestamp(System.currentTimeMillis()).getTime();
@@ -35,7 +49,6 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
 //                else previousTime=respPack.lastTime;
 //            }
 //        }
-        return null;
     }
 }
 
