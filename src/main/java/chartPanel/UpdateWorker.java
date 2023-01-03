@@ -33,7 +33,7 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
             List<Double> newData= respPack.valueList;
 //            System.out.println(newData.size());
             if (newData.size()!=0){
-                chart.updateData(chart.getDataInput().getData(newData));
+                chart.updateData(chart.getDataInput().getData(newData,100));
             }
             previousTime=respPack.lastTime;
         }

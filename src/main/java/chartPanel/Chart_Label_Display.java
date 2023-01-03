@@ -82,7 +82,7 @@ public class Chart_Label_Display {
         if (data_type=="body temperature"){
             chart.getStyler().setYAxisMax(42.0);
             chart.getStyler().setYAxisMin(35.0);
-            //chart.getStyler().setXAxisMax(4.0);
+//            chart.getStyler().setXAxisMax(10.0);
         }else if(data_type=="heart rate"){
             chart.getStyler().setYAxisMax(200.0);
             chart.getStyler().setYAxisMin(0.0);
