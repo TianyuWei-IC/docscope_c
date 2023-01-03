@@ -1,6 +1,7 @@
 package Interface;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import com.toedter.calendar.*;
 import net.miginfocom.swing.*;
@@ -20,9 +21,13 @@ public class Patient_Recording extends JFrame {
         this.mainGUI = mainGUI;
     }
 
+    private void PatientRecordingWindowClosing(WindowEvent e) {
+        this.mainGUI.recordings.setEnabled(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         recording_title = new JLabel();
         signal_select_label = new JLabel();
         String[] signal_pack = new String[8];
@@ -74,6 +79,12 @@ public class Patient_Recording extends JFrame {
         generate_button = new JButton();
 
         //======== this ========
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                PatientRecordingWindowClosing(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
@@ -193,7 +204,7 @@ public class Patient_Recording extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JLabel recording_title;
     private JLabel signal_select_label;
     public JComboBox signal_selector;

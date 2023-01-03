@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.4.1" encoding: "UTF-8"
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.5" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -94,6 +94,9 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "recordings"
 						"text": "Recordings"
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "recordings", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0,dock center"
