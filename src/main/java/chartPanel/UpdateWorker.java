@@ -18,25 +18,24 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
 
     public UpdateWorker(SeriesChartPane chart) {
         this.chart = chart;
-        this.previousTime=this.chart.time.getTime();
+        this.previousTime=this.chart.time;
     }
 
     @Override
     protected Void doInBackground() throws Exception {
         while (true) {
-            Thread.sleep(100);
-            long timestamp=new Timestamp(System.currentTimeMillis()).getTime();
-            requestPack reqPack =new requestPack(previousTime,timestamp);
-            responsePack respPack=netAction.postRequestData(reqPack,"http://localhost:8080/docScope_s/ecg1");
+            Thread.sleep(50);
+            long currentTime=new Timestamp(System.currentTimeMillis()).getTime();
+
+            responsePack respPack=netAction.recordData(previousTime,
+                    currentTime,
+                    this.chart.dataInput.dataBaseInitialTime);
             List<Double> newData= respPack.valueList;
+//            System.out.println(newData.size());
             if (newData.size()!=0){
-                System.out.println(newData.size());
                 chart.updateData(chart.getDataInput().getData(newData));
-                if(respPack.lastTime==0) {
-                    previousTime=timestamp;
-                }
-                    else previousTime=respPack.lastTime;
             }
+            previousTime=respPack.lastTime;
         }
     }
 }

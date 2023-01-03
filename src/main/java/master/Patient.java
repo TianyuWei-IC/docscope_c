@@ -7,14 +7,15 @@ import chartPanel.SeriesChartPane;
 import chartPanel.inputData;
 import netRelated.netAction;
 import netRelated.requestPack;
+import netRelated.responsePack;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.sql.Timestamp;
 
 public class Patient extends JButton {
     public String first_name;
@@ -126,16 +127,13 @@ public class Patient extends JButton {
         this.time_milli = time_now.getTime();
     }
 
-    private SeriesChartPane load_chart(long chart_capacity, String type) {
-        List<Double> tempData;
+    private SeriesChartPane load_chart(long chart_capacity, String type){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        try {
-            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
-                    ,"http://localhost:8080/docScope_s/"+type).valueList;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new SeriesChartPane(new inputData(tempData),timestamp,type);
+        long dataBaseInitialTime=netAction.getInitialTime();
+        responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
+                timestamp.getTime(),
+                dataBaseInitialTime);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
     }
 
     private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
