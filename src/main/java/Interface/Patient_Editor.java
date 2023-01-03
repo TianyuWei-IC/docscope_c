@@ -1,5 +1,6 @@
 package Interface;
 
+import java.awt.event.*;
 import chartPanel.Chart_Label_Display;
 import master.Patient;
 import net.miginfocom.swing.MigLayout;
@@ -7,7 +8,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-
+import javax.swing.AbstractButton;
 import static java.lang.Integer.parseInt;
 
 
@@ -49,7 +50,6 @@ public class Patient_Editor extends JFrame {
         this.dia_max.setText(String.valueOf(this.new_patient.dia_max));
         this.resp_min.setText(String.valueOf(this.new_patient.resp_min));
         this.resp_max.setText(String.valueOf(this.new_patient.resp_max));
-        mainGUI.patient_list.add(this.new_patient);
         mainGUI.patient_list.updateUI();
     }
 
@@ -79,16 +79,17 @@ public class Patient_Editor extends JFrame {
 
         String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
 
-        new_patient.panelTemperature.getThreshold();
-        new_patient.panelHeartRate.getThreshold();
-        new_patient.panelSysBloodPressure.getThreshold();
-        new_patient.panelDiaBloodPressure.getThreshold();
-        new_patient.panelRespiratoryRate.getThreshold();
+//        this.new_patient.panelTemperature.getThreshold();
+//        this.new_patient.panelHeartRate.getThreshold();
+//        this.new_patient.panelSysBloodPressure.getThreshold();
+//        this.new_patient.panelDiaBloodPressure.getThreshold();
+//        this.new_patient.panelRespiratoryRate.getThreshold();
 
 
         this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         mainGUI.patient_list.updateUI();
         this.dispose();
+        this.new_patient.setEnabled(true);
     }
 
     private void createUIComponents() {
@@ -98,13 +99,31 @@ public class Patient_Editor extends JFrame {
     private void delete_button(ActionEvent e) {
         mainGUI.patient_list.remove(this.new_patient);
         mainGUI.patient_list.updateUI();
+
+        mainGUI.ecg1.removeAll();
+        mainGUI.ecg2.removeAll();
+        mainGUI.temp_display_value.removeAll();
+        mainGUI.repaint();
         this.dispose();
+
+        // switch to another available patient
+        if (mainGUI.patient_list.getComponentCount()!=0){
+
+            JButton next_button = (JButton) mainGUI.patient_list.getComponent(0);
+            next_button.setEnabled(true);
+            next_button.doClick();
+        }
+
+    }
+
+    private void PatientEditorWindowClosing(WindowEvent e) {
+        this.new_patient.setEnabled(true);
     }
 
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         panel1 = new JPanel();
         title = new JLabel();
@@ -164,6 +183,12 @@ public class Patient_Editor extends JFrame {
         button1 = new JButton();
 
         //======== this ========
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                PatientEditorWindowClosing(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
@@ -191,12 +216,12 @@ public class Patient_Editor extends JFrame {
                     "[104]"));
 
                 //---- title ----
-                title.setText("master.Patient");
+                title.setText("Patient");
                 title.setFont(title.getFont().deriveFont(title.getFont().getSize() + 6f));
                 panel1.add(title, "cell 0 0");
 
                 //---- patient_ref ----
-                patient_ref.setText("master.Patient Reference: ");
+                patient_ref.setText("Patient Reference: ");
                 panel1.add(patient_ref, "cell 1 0");
                 panel1.add(ref_selector, "cell 1 0");
             }
@@ -429,7 +454,7 @@ public class Patient_Editor extends JFrame {
                 panel2.add(save_button, "cell 0 0,align right center,grow 0 0");
 
                 //---- button1 ----
-                button1.setText("Delete This master.Patient");
+                button1.setText("Delete This Patient");
                 button1.setMaximumSize(new Dimension(130, 50));
                 button1.setMinimumSize(new Dimension(130, 50));
                 button1.setPreferredSize(new Dimension(130, 50));
@@ -451,7 +476,7 @@ public class Patient_Editor extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel panel1;
     private JLabel title;

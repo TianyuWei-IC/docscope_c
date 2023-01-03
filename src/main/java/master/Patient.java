@@ -14,6 +14,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.sql.Timestamp;
 
 public class Patient extends JButton {
     public String first_name;
@@ -46,6 +47,9 @@ public class Patient extends JButton {
     public Chart_Label_Display panelDiaBloodPressure;
 
     public Chart_Label_Display panelRespiratoryRate;
+
+    private Timestamp time = new Timestamp(System.currentTimeMillis());
+    private long time_milli;
 
     public Patient(String first_name,
                    String last_name,
@@ -104,6 +108,22 @@ public class Patient extends JButton {
         panelTemperature=load_chartLabel(15000,"temperature");
 
         display(this.reference_value);
+        this.addActionListener(e -> switch_patient(e));
+        this.time_milli = time.getTime();
+    }
+
+    private void switch_patient(ActionEvent e) {
+
+        display(this.reference_value);
+        Timestamp time_now = new Timestamp(System.currentTimeMillis());
+        System.out.println(time_now.getTime()-time_milli);
+        if ((time_now.getTime()-time_milli)<=300){
+
+            this.setEnabled(false);
+            Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
+            editor.setVisible(true);
+        }
+        this.time_milli = time_now.getTime();
     }
 
     private SeriesChartPane load_chart(long chart_capacity, String type) {
@@ -145,12 +165,9 @@ public class Patient extends JButton {
     }
 
     public void patient_mouseClicked(MouseEvent e) {
-        if(e.getClickCount()==1){
-            display(this.reference_value);
-        }
-        else if(e.getClickCount()==2){
-            Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
-            editor.setVisible(true);
-        }
+//        if(e.getClickCount()==2){
+//            Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
+//            editor.setVisible(true);
+//        }
     }
 }

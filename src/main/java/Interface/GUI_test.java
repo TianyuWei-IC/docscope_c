@@ -3,6 +3,7 @@ package Interface;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import com.toedter.calendar.*;
 
 import net.miginfocom.swing.*;
 
@@ -33,6 +34,7 @@ public class GUI_test extends JFrame {
 
     private void add_new_patient(ActionEvent e) {
         Patient_Adder editor = new Patient_Adder(this);
+        this.add_new_patient.setEnabled(false);
         editor.setVisible(true);
     }
 
@@ -42,7 +44,7 @@ public class GUI_test extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patientList_recordings = new JPanel();
         NewPatient = new JPanel();
         label1 = new JLabel();
@@ -425,11 +427,11 @@ public class GUI_test extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     public JPanel patientList_recordings;
     public JPanel NewPatient;
     private JLabel label1;
-    private JButton add_new_patient;
+    public JButton add_new_patient;
     public JScrollPane patient;
     public JPanel patient_list;
     private JPanel panel1;

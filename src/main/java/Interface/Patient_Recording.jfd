@@ -5,8 +5,8 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[718,fill]"
-			"$rowConstraints": "[53][29][34][35][56]"
+			"$columnConstraints": "[311,fill]"
+			"$rowConstraints": "[53][29][41][34][35][56]"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -46,6 +46,18 @@ new FormModel {
 				name: "blank"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 1"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[729,fill]"
+				"$rowConstraints": "[114]"
+			} ) {
+				name: "JCalender_test"
+				auxiliary() {
+					"JavaCodeGenerator.postCreateCode": "JDateChooser chooser = new JDateChooser();\nJCalender_test.add(chooser);"
+				}
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
@@ -99,7 +111,7 @@ new FormModel {
 					"value": "cell 5 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 2"
+				"value": "cell 0 3"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
@@ -152,17 +164,17 @@ new FormModel {
 					"value": "cell 7 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 3"
+				"value": "cell 0 4"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "generate_button"
 				"text": "Generate"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 4"
+				"value": "cell 0 5"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 590, 300 )
+			"size": new java.awt.Dimension( 400, 350 )
 		} )
 	}
 }

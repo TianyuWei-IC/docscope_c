@@ -59,11 +59,16 @@ public class Patient_Adder extends JFrame {
 
         mainGUI.patient_list.add(new_patient);
         mainGUI.patient_list.updateUI();
+        this.mainGUI.add_new_patient.setEnabled(true);
         this.dispose();
     }
 
     private void createUIComponents() {
         // TODO: add custom component creation code here
+    }
+
+    private void PatientAdderWindowClosing(WindowEvent e) {
+        this.mainGUI.add_new_patient.setEnabled(true);
     }
 
 
@@ -127,6 +132,12 @@ public class Patient_Adder extends JFrame {
         save_button.setBorderPainted(false);
 
         //======== this ========
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                PatientAdderWindowClosing(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 

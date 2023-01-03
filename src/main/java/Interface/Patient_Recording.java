@@ -2,6 +2,7 @@ package Interface;
 
 import java.awt.*;
 import javax.swing.*;
+import com.toedter.calendar.*;
 import net.miginfocom.swing.*;
 /*
  * Created by JFormDesigner on Thu Dec 29 18:21:53 GMT 2022
@@ -21,7 +22,7 @@ public class Patient_Recording extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         recording_title = new JLabel();
         signal_select_label = new JLabel();
         String[] signal_pack = new String[8];
@@ -36,6 +37,9 @@ public class Patient_Recording extends JFrame {
         signal_selector = new JComboBox(signal_pack);
         blank2 = new JLabel();
         blank = new JLabel();
+        JCalender_test = new JPanel();
+        JDateChooser chooser = new JDateChooser();
+        JCalender_test.add(chooser);
         date_select_panel = new JPanel();
         year_label = new JLabel();
         Integer[] years = new Integer[10];
@@ -74,10 +78,11 @@ public class Patient_Recording extends JFrame {
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
             // columns
-            "[718,fill]",
+            "[311,fill]",
             // rows
             "[53]" +
             "[29]" +
+            "[41]" +
             "[34]" +
             "[35]" +
             "[56]"));
@@ -98,6 +103,17 @@ public class Patient_Recording extends JFrame {
         contentPane.add(signal_selector, "cell 0 1");
         contentPane.add(blank2, "cell 0 1");
         contentPane.add(blank, "cell 0 1");
+
+        //======== JCalender_test ========
+        {
+            JCalender_test.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "[729,fill]",
+                // rows
+                "[114]"));
+        }
+        contentPane.add(JCalender_test, "cell 0 2");
 
         //======== date_select_panel ========
         {
@@ -128,7 +144,7 @@ public class Patient_Recording extends JFrame {
             date_select_panel.add(day_label, "cell 4 0");
             date_select_panel.add(day_selector, "cell 5 0");
         }
-        contentPane.add(date_select_panel, "cell 0 2");
+        contentPane.add(date_select_panel, "cell 0 3");
 
         //======== time_intervel_select_panel ========
         {
@@ -166,23 +182,24 @@ public class Patient_Recording extends JFrame {
             time_intervel_select_panel.add(colon2, "cell 6 0");
             time_intervel_select_panel.add(end_time_min, "cell 7 0");
         }
-        contentPane.add(time_intervel_select_panel, "cell 0 3");
+        contentPane.add(time_intervel_select_panel, "cell 0 4");
 
         //---- generate_button ----
         generate_button.setText("Generate");
-        contentPane.add(generate_button, "cell 0 4");
+        contentPane.add(generate_button, "cell 0 5");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JLabel recording_title;
     private JLabel signal_select_label;
     public JComboBox signal_selector;
     private JLabel blank2;
     private JLabel blank;
+    private JPanel JCalender_test;
     private JPanel date_select_panel;
     private JLabel year_label;
     private JComboBox year_selector;
