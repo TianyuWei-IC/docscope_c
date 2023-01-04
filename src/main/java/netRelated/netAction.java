@@ -55,8 +55,6 @@ public class netAction {
         try {
             conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             s = conn.prepareStatement(orderEcg1);
-//                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-//                    ResultSet.CONCUR_READ_ONLY);
             s.setInt(1, index1);
             s.setInt(2, index2);
         } catch (SQLException e) {
@@ -67,8 +65,8 @@ public class netAction {
             while (resultSet.next()) {
                 values.add(resultSet.getDouble("ecg1"));
             }
-//            System.out.println("returned size is "+values.size());
             respPack.setLastTime(startTime+2*(values.size()));
+//            System.out.println("returned size is "+values.size());
 //            System.out.println("last time is " + respPack.lastTime);
 //            System.out.println("start time is " + startTime);
 //            System.out.println("end time is " + endTime);
@@ -112,15 +110,15 @@ public class netAction {
             while (resultSet.next()) {
                 values.add(resultSet.getDouble("temperature"));
             }
-//            System.out.println("returned size is "+values.size());
             respPack.setLastTime(startTime+1000*(values.size()));
-//            System.out.println("last time is " + respPack.lastTime);
-//            System.out.println("start time is " + startTime);
-//            System.out.println("end time is " + endTime);
+            System.out.println("returned size is "+values.size());
+            System.out.println("last time is " + respPack.lastTime);
+            System.out.println("start time is " + startTime);
+            System.out.println("end time is " + endTime);
         } catch (Exception e) {
             System.out.println("resultSet fail in value");
         }
-        System.out.println(values);
+//        System.out.println(values);
         try {
             s.close();
             conn.close();

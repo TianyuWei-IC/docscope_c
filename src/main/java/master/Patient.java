@@ -144,16 +144,6 @@ public class Patient extends JButton {
                 timestamp.getTime(),
                 dataBaseInitialTime);
         return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
-
-//        List<Double> tempData;
-//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        try {
-//            tempData = netAction.postRequestData(new requestPack(timestamp.getTime()-chart_capacity,timestamp.getTime())
-//                    ,"http://localhost:8080/docScope_s/"+type).valueList;
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return new Chart_Label_Display(this, new inputData(tempData),timestamp,type);
     }
 
     private void display(String reference_value) {

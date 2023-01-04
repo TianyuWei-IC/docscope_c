@@ -43,7 +43,6 @@ public class Chart_Label_Display {
         this.color = new Color(0x1D7926);
         value_label = new JLabel();
         value_label.setForeground(this.color);
-        this.dataInput = dataInput;
         this.df=new DecimalFormat("0.00000");
 
         Chart_Label_Update updater = new Chart_Label_Update(this);
@@ -75,14 +74,14 @@ public class Chart_Label_Display {
         chart.addSeries("latter", dataInput.partData[0], dataInput.partData[1]);
         chart.getStyler().setChartBackgroundColor(new Color(0xFFFFFF));
         chart.getStyler().setLegendVisible(false);
-        chart.getStyler().setMarkerSize(0);
-        chart.getStyler().setXAxisTicksVisible(false);
+//        chart.getStyler().setMarkerSize(0);
+        chart.getStyler().setXAxisTicksVisible(true);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 
         if (data_type=="body temperature"){
             chart.getStyler().setYAxisMax(42.0);
             chart.getStyler().setYAxisMin(35.0);
-//            chart.getStyler().setXAxisMax(10.0);
+            chart.getStyler().setXAxisMax(0.035);
         }else if(data_type=="heart rate"){
             chart.getStyler().setYAxisMax(200.0);
             chart.getStyler().setYAxisMin(0.0);
