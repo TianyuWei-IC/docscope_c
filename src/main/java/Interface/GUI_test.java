@@ -29,6 +29,7 @@ public class GUI_test extends JFrame {
     private void recordings(ActionEvent e) {
         Patient_Recording recorder = new Patient_Recording(this);
         recorder.setVisible(true);
+        this.recordings.setEnabled(false);
     }
 
 
@@ -44,7 +45,7 @@ public class GUI_test extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patientList_recordings = new JPanel();
         NewPatient = new JPanel();
         label1 = new JLabel();
@@ -427,7 +428,7 @@ public class GUI_test extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     public JPanel patientList_recordings;
     public JPanel NewPatient;
     private JLabel label1;
@@ -437,7 +438,7 @@ public class GUI_test extends JFrame {
     private JPanel panel1;
     public JButton real_time_plots;
     private JPanel panel2;
-    private JButton recordings;
+    public JButton recordings;
     public JPanel value_display;
     private JPanel hr_panel;
     private JLabel hr_title;
