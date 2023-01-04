@@ -39,7 +39,7 @@ public class inputData {
         }else{
 //            List valueFormer=partData[1].subList(position, partData[1].size());
 //            List timeFormer=partData[0].subList(position, partData[1].size());
-            List valueFormer=new ArrayList();
+            List valueFormer=new ArrayList<>();
             List timeFormer=new ArrayList<>();
             valueFormer.add(partData[1].get(partData[1].size()-1));
             timeFormer.add(partData[0].get(partData[1].size()-1));
