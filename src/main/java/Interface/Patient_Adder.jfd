@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.4.1" encoding: "UTF-8"
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.5" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -19,7 +19,7 @@ new FormModel {
 					"$columnConstraints": "[281,fill][299,fill]"
 					"$rowConstraints": "[104]"
 				} ) {
-					name: "panel1"
+					name: "title_and_reference"
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "title"
 						"text": "Patient"
@@ -360,7 +360,7 @@ new FormModel {
 					"background": new java.awt.Color( 49, 100, 244, 255 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
-						"JavaCodeGenerator.postCreateCode": "save_button.setOpaque(true);\nsave_button.setBorderPainted(false);"
+						"JavaCodeGenerator.postCreateCode": "save_button.setOpaque(true);\nsave_button.setBorderPainted(false);\n//save_button.disableProperty().bind(this.first_name_field.getText())"
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "save_button", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

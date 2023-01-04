@@ -15,6 +15,7 @@ public class Chart_Label_Display {
     private Patient patient;
     public inputData dataInput;
     private XYChart chart;
+
     public long time;
     public JPanel display_chart;
     public JLabel value_label;
@@ -24,7 +25,9 @@ public class Chart_Label_Display {
     private Double threshold_double_low;
     private Double baseline_value;
     private String data_type;
-
+    private Boolean pop_or_not;
+    private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
+    private long time_milli;
 
     public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type) {
         this.patient = patient;
@@ -46,6 +49,9 @@ public class Chart_Label_Display {
         this.dataInput = dataInput;
         this.df=new DecimalFormat("0.00000");
 
+        this.time_milli = time_urgent.getTime();
+        this.pop_or_not = true;
+
         Chart_Label_Update updater = new Chart_Label_Update(this);
         updater.execute();
     }
@@ -60,11 +66,12 @@ public class Chart_Label_Display {
         chart.updateXYSeries("latter", data[2], data[3], null);
 
         double value_instant = (double) data[3].get(data[3].size()-1);
-
         this.value_label.setText(df.format(value_instant));
 
-//        urgent_or_not(value_instant);
-//        warning_or_not(value_instant);
+        urgent_or_warning(value_instant);
+        //urgent_window_pop(value_instant);
+
+
 
         display_chart.repaint();
         value_label.repaint();
@@ -82,7 +89,6 @@ public class Chart_Label_Display {
         if (data_type=="body temperature"){
             chart.getStyler().setYAxisMax(42.0);
             chart.getStyler().setYAxisMin(35.0);
-//            chart.getStyler().setXAxisMax(10.0);
         }else if(data_type=="heart rate"){
             chart.getStyler().setYAxisMax(200.0);
             chart.getStyler().setYAxisMin(0.0);
@@ -123,38 +129,37 @@ public class Chart_Label_Display {
         }
     }
 
-    public void urgent_or_not(double value_instant){
+    public void urgent_or_warning(double value_instant){
         if(data_type == "heart rate" | data_type == "systolic blood pressure" |
                 data_type == "diastolic blood pressure" | data_type == "respiratory rate" | data_type == "body temperature") {
 
             if (value_instant > this.threshold_double_high) {
-                Urgent urgent_window = new Urgent();
-                urgent_window.setVisible(true);
-                urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
-                urgent_window.abnormal_signal.setText(data_type.toUpperCase());
-                urgent_window.high_low.setText("HIGH");
                 this.value_label.setForeground(new Color(255,0,0));
-
+                if (this.pop_or_not){
+                    Urgent urgent_window = new Urgent();
+                    urgent_window.setVisible(true);
+                    urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
+                    urgent_window.abnormal_signal.setText(data_type.toUpperCase());
+                    urgent_window.high_low.setText("HIGH");
+                    this.pop_or_not = false;
+                }
             }else if(value_instant < this.threshold_double_low){
-                Urgent urgent_window = new Urgent();
-                urgent_window.setVisible(true);
-                urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
-                urgent_window.abnormal_signal.setText(data_type.toUpperCase());
-                urgent_window.high_low.setText("LOW");
                 this.value_label.setForeground(new Color(255,0,0));
-            }
-        }
-    }
-
-    public void warning_or_not(double value_instant) {
-        if (data_type == "heart rate" | data_type == "systolic blood pressure" |
-                data_type == "diastolic blood pressure" | data_type == "respiratory rate" | data_type == "body temperature") {
-
-            if (value_instant < this.threshold_double_high & value_instant > (0.6*this.threshold_double_high+0.4*this.baseline_value)) {
+                if (this.pop_or_not){
+                    Urgent urgent_window = new Urgent();
+                    urgent_window.setVisible(true);
+                    urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
+                    urgent_window.abnormal_signal.setText(data_type.toUpperCase());
+                    urgent_window.high_low.setText("LOW");
+                    this.pop_or_not = false;
+                }
+            } else if(value_instant < this.threshold_double_high & value_instant > ((0.6*this.threshold_double_high)+(0.4*this.baseline_value))) {
                 this.value_label.setForeground(new Color(228, 217, 34));
-
-            } else if (value_instant > this.threshold_double_low & value_instant < (0.6*this.threshold_double_low+0.4*this.baseline_value)) {
+            } else if(value_instant > this.threshold_double_low & value_instant < ((0.6*this.threshold_double_low)+(0.4*this.baseline_value))) {
                 this.value_label.setForeground(new Color(228, 217, 34));
+            } else {
+                this.value_label.setForeground(new Color(57, 95, 64));
+                this.pop_or_not = true;
             }
         }
     }

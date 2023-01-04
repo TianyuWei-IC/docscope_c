@@ -104,7 +104,8 @@ public class Patient extends JButton {
             }
         });
 
-
+        System.out.println(this.first_name.isEmpty());
+        System.out.println(this.last_name.isEmpty());
 
         panelEcg1 = load_chart(5000,"ecg1");
         panelTemperature=load_chartLabel(100000,"body temperature");
@@ -157,6 +158,7 @@ public class Patient extends JButton {
     }
 
     private void display(String reference_value) {
+
         this.mainGUI.ecg1.setVisible(false);
         this.mainGUI.ecg1.removeAll();
         this.mainGUI.ecg1.add(this.panelEcg1);
@@ -167,7 +169,10 @@ public class Patient extends JButton {
         this.mainGUI.ecg2.add(this.panelTemperature.display_chart);
         this.mainGUI.ecg2.setVisible(true);
 
+        this.mainGUI.temp_display_value.setVisible(false);
+        this.mainGUI.temp_display_value.removeAll();
         this.mainGUI.temp_display_value.add(this.panelTemperature.value_label);
+        this.mainGUI.temp_display_value.setVisible(true);
     }
 
     public void patient_mouseClicked(MouseEvent e) {
