@@ -130,7 +130,7 @@ public class Patient_Adder extends JFrame {
         save_button = new JButton();
         save_button.setOpaque(true);
         save_button.setBorderPainted(false);
-        //save_button.disableProperty().bind(this.first_name_field.getText())
+        //save_button.disableProperty().bind(this.first_name_field.isEmpty());
 
         //======== this ========
         addWindowListener(new WindowAdapter() {

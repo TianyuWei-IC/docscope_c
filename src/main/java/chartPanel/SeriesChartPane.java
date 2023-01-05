@@ -14,7 +14,7 @@ public class SeriesChartPane extends JPanel  {
     public inputData dataInput;
     private XYChart chart;
     public long time;
-
+    public UpdateWorker worker;
 
     public SeriesChartPane(inputData dataInput,long time,String data_type) {
         this.dataInput = dataInput;
@@ -41,7 +41,7 @@ public class SeriesChartPane extends JPanel  {
         XChartPanel<XYChart> chartPane = new XChartPanel<>(chart);
         add(chartPane);
 
-        UpdateWorker worker = new UpdateWorker(this);
+        this.worker = new UpdateWorker(this);
         worker.execute();
     }
 
@@ -54,7 +54,7 @@ public class SeriesChartPane extends JPanel  {
     public void updateData(List[] data) {
         chart.updateXYSeries("ecg_former", data[0], data[1], null);
         chart.updateXYSeries("ecg_latter", data[2], data[3], null);
-
+        System.out.println("still running");
         repaint();
     }
 

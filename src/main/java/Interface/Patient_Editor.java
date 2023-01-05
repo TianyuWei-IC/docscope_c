@@ -31,7 +31,6 @@ public class Patient_Editor extends JFrame {
 
         this.first_name_field.setText(this.new_patient.first_name);
         this.last_name_field.setText(this.new_patient.last_name);
-        System.out.println(this.new_patient.gender);
         if (this.new_patient.gender=="male"){
             this.male_button.setSelected(true);
         }else{
@@ -117,7 +116,8 @@ public class Patient_Editor extends JFrame {
             next_button.setEnabled(true);
             next_button.doClick();
         }
-
+        this.new_patient.panelEcg1.worker.cancel(true);
+        this.new_patient = null;
     }
 
     private void PatientEditorWindowClosing(WindowEvent e) {

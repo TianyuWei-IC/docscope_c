@@ -360,7 +360,7 @@ new FormModel {
 					"background": new java.awt.Color( 49, 100, 244, 255 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
-						"JavaCodeGenerator.postCreateCode": "save_button.setOpaque(true);\nsave_button.setBorderPainted(false);\n//save_button.disableProperty().bind(this.first_name_field.getText())"
+						"JavaCodeGenerator.postCreateCode": "save_button.setOpaque(true);\nsave_button.setBorderPainted(false);\n//save_button.disableProperty().bind(this.first_name_field.isEmpty());"
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "save_button", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

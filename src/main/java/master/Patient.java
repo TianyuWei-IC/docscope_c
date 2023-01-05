@@ -103,10 +103,6 @@ public class Patient extends JButton {
                 patient_mouseClicked(e);
             }
         });
-
-        System.out.println(this.first_name.isEmpty());
-        System.out.println(this.last_name.isEmpty());
-
         panelEcg1 = load_chart(5000,"ecg1");
         panelTemperature=load_chartLabel(100000,"body temperature");
 
@@ -119,7 +115,6 @@ public class Patient extends JButton {
 
         display(this.reference_value);
         Timestamp time_now = new Timestamp(System.currentTimeMillis());
-        System.out.println(time_now.getTime()-time_milli);
         if ((time_now.getTime()-time_milli)<=300){
 
             this.setEnabled(false);
