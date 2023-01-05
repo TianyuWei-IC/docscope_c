@@ -74,9 +74,9 @@ public class Patient_Adder extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
-        panel1 = new JPanel();
+        title_and_reference = new JPanel();
         title = new JLabel();
         patient_ref = new JLabel();
         String[] patient_ref_pack = new String[3];
@@ -130,6 +130,7 @@ public class Patient_Adder extends JFrame {
         save_button = new JButton();
         save_button.setOpaque(true);
         save_button.setBorderPainted(false);
+        //save_button.disableProperty().bind(this.first_name_field.getText())
 
         //======== this ========
         addWindowListener(new WindowAdapter() {
@@ -154,9 +155,9 @@ public class Patient_Adder extends JFrame {
                 "[261]" +
                 "[64]"));
 
-            //======== panel1 ========
+            //======== title_and_reference ========
             {
-                panel1.setLayout(new MigLayout(
+                title_and_reference.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
                     "[281,fill]" +
@@ -167,14 +168,14 @@ public class Patient_Adder extends JFrame {
                 //---- title ----
                 title.setText("Patient");
                 title.setFont(title.getFont().deriveFont(title.getFont().getSize() + 6f));
-                panel1.add(title, "cell 0 0");
+                title_and_reference.add(title, "cell 0 0");
 
                 //---- patient_ref ----
                 patient_ref.setText("Patient Reference: ");
-                panel1.add(patient_ref, "cell 1 0");
-                panel1.add(ref_selector, "cell 1 0");
+                title_and_reference.add(patient_ref, "cell 1 0");
+                title_and_reference.add(ref_selector, "cell 1 0");
             }
-            patient_editor_main_panel.add(panel1, "cell 0 0");
+            patient_editor_main_panel.add(title_and_reference, "cell 0 0");
 
             //======== patient_profile ========
             {
@@ -404,9 +405,9 @@ public class Patient_Adder extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
-    private JPanel panel1;
+    private JPanel title_and_reference;
     private JLabel title;
     private JLabel patient_ref;
     public JComboBox ref_selector;

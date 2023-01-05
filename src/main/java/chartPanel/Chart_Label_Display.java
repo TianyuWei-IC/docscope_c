@@ -15,6 +15,7 @@ public class Chart_Label_Display {
     private Patient patient;
     public inputData dataInput;
     private XYChart chart;
+
     public long time;
     public JPanel display_chart;
     public JLabel value_label;
@@ -24,7 +25,9 @@ public class Chart_Label_Display {
     private Double threshold_double_low;
     private Double baseline_value;
     private String data_type;
-
+    private Boolean pop_or_not;
+    private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
+    private long time_milli;
 
     public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type) {
         this.patient = patient;
@@ -43,7 +46,11 @@ public class Chart_Label_Display {
         this.color = new Color(0x1D7926);
         value_label = new JLabel();
         value_label.setForeground(this.color);
+        this.dataInput = dataInput;
         this.df=new DecimalFormat("0.00000");
+
+        this.time_milli = time_urgent.getTime();
+        this.pop_or_not = true;
 
         Chart_Label_Update updater = new Chart_Label_Update(this);
         updater.execute();
@@ -59,11 +66,12 @@ public class Chart_Label_Display {
         chart.updateXYSeries("latter", data[2], data[3], null);
 
         double value_instant = (double) data[3].get(data[3].size()-1);
-
         this.value_label.setText(df.format(value_instant));
 
-        urgent_or_not(value_instant);
-        warning_or_not(value_instant);
+        urgent_or_warning(value_instant);
+        //urgent_window_pop(value_instant);
+
+
 
         display_chart.repaint();
         value_label.repaint();
@@ -75,7 +83,7 @@ public class Chart_Label_Display {
         chart.getStyler().setChartBackgroundColor(new Color(0xFFFFFF));
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setMarkerSize(0);
-        chart.getStyler().setXAxisTicksVisible(true);
+        chart.getStyler().setXAxisTicksVisible(false);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 
         if (data_type=="body temperature"){
@@ -121,38 +129,37 @@ public class Chart_Label_Display {
         }
     }
 
-    public void urgent_or_not(double value_instant){
+    public void urgent_or_warning(double value_instant){
         if(data_type == "heart rate" | data_type == "systolic blood pressure" |
                 data_type == "diastolic blood pressure" | data_type == "respiratory rate" | data_type == "body temperature") {
 
             if (value_instant > this.threshold_double_high) {
-                Urgent urgent_window = new Urgent();
-                urgent_window.setVisible(true);
-                urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
-                urgent_window.abnormal_signal.setText(data_type.toUpperCase());
-                urgent_window.high_low.setText("HIGH");
                 this.value_label.setForeground(new Color(255,0,0));
-
+                if (this.pop_or_not){
+                    Urgent urgent_window = new Urgent();
+                    urgent_window.setVisible(true);
+                    urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
+                    urgent_window.abnormal_signal.setText(data_type.toUpperCase());
+                    urgent_window.high_low.setText("HIGH");
+                    this.pop_or_not = false;
+                }
             }else if(value_instant < this.threshold_double_low){
-                Urgent urgent_window = new Urgent();
-                urgent_window.setVisible(true);
-                urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
-                urgent_window.abnormal_signal.setText(data_type.toUpperCase());
-                urgent_window.high_low.setText("LOW");
                 this.value_label.setForeground(new Color(255,0,0));
-            }
-        }
-    }
-
-    public void warning_or_not(double value_instant) {
-        if (data_type == "heart rate" | data_type == "systolic blood pressure" |
-                data_type == "diastolic blood pressure" | data_type == "respiratory rate" | data_type == "body temperature") {
-
-            if (value_instant < this.threshold_double_high & value_instant > (0.6*this.threshold_double_high+0.4*this.baseline_value)) {
+                if (this.pop_or_not){
+                    Urgent urgent_window = new Urgent();
+                    urgent_window.setVisible(true);
+                    urgent_window.patient_name.setText(patient.first_name+" "+patient.last_name);
+                    urgent_window.abnormal_signal.setText(data_type.toUpperCase());
+                    urgent_window.high_low.setText("LOW");
+                    this.pop_or_not = false;
+                }
+            } else if(value_instant < this.threshold_double_high & value_instant > ((0.6*this.threshold_double_high)+(0.4*this.baseline_value))) {
                 this.value_label.setForeground(new Color(228, 217, 34));
-
-            } else if (value_instant > this.threshold_double_low & value_instant < (0.6*this.threshold_double_low+0.4*this.baseline_value)) {
+            } else if(value_instant > this.threshold_double_low & value_instant < ((0.6*this.threshold_double_low)+(0.4*this.baseline_value))) {
                 this.value_label.setForeground(new Color(228, 217, 34));
+            } else {
+                this.value_label.setForeground(new Color(57, 95, 64));
+                this.pop_or_not = true;
             }
         }
     }

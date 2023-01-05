@@ -88,6 +88,10 @@ public class Patient_Editor extends JFrame {
 
         this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         mainGUI.patient_list.updateUI();
+
+        // VERY IMPORTANT, need to get threshold after edit
+        this.new_patient.panelTemperature.getThreshold();
+
         this.dispose();
         this.new_patient.setEnabled(true);
     }
