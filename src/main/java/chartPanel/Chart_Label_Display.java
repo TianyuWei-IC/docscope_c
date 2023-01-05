@@ -28,7 +28,7 @@ public class Chart_Label_Display {
     private Boolean pop_or_not;
     private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
     private long time_milli;
-
+    public  Chart_Label_Update updater;
     public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type) {
         this.patient = patient;
         this.dataInput = dataInput;
@@ -52,7 +52,7 @@ public class Chart_Label_Display {
         this.time_milli = time_urgent.getTime();
         this.pop_or_not = true;
 
-        Chart_Label_Update updater = new Chart_Label_Update(this);
+        this.updater = new Chart_Label_Update(this);
         updater.execute();
     }
 

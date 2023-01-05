@@ -42,31 +42,9 @@ public class Patient_Recording extends JFrame {
         signal_selector = new JComboBox(signal_pack);
         blank2 = new JLabel();
         blank = new JLabel();
-        JCalender_test = new JPanel();
-        JDateChooser chooser = new JDateChooser();
-        JCalender_test.add(chooser);
-        date_select_panel = new JPanel();
-        year_label = new JLabel();
-        Integer[] years = new Integer[10];
-            for (int i=0; i < 10; i++){
-            	int the_year = -i+2023;
-                years[i]=the_year;
-        }
-        year_selector = new JComboBox(years);
-        month_label = new JLabel();
-        Integer[] month = new Integer[12];
-            for (int i=0; i < 12; i++){
-            	int the_month = i+1;
-                month[i]=the_month;
-        }
-        month_selector = new JComboBox(month);
-        day_label = new JLabel();
-        Integer[] days = new Integer[31];
-            for (int i=0; i < 31; i++){
-            	int the_day = i+1;
-                days[i]=the_day;
-        }
-        day_selector = new JComboBox(days);
+        panel1 = new JPanel();
+        label1 = new JLabel();
+        dateChooser1 = new JDateChooser();
         time_intervel_select_panel = new JPanel();
         start_time_label = new JLabel();
         start_time_hour = new JTextField();
@@ -79,6 +57,7 @@ public class Patient_Recording extends JFrame {
         generate_button = new JButton();
 
         //======== this ========
+        setFont(new Font(Font.DIALOG, Font.PLAIN, 8));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -93,7 +72,6 @@ public class Patient_Recording extends JFrame {
             // rows
             "[53]" +
             "[29]" +
-            "[41]" +
             "[34]" +
             "[35]" +
             "[56]"));
@@ -115,47 +93,23 @@ public class Patient_Recording extends JFrame {
         contentPane.add(blank2, "cell 0 1");
         contentPane.add(blank, "cell 0 1");
 
-        //======== JCalender_test ========
+        //======== panel1 ========
         {
-            JCalender_test.setLayout(new MigLayout(
+            panel1.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
-                "[729,fill]",
+                "[113,fill]" +
+                "[158,fill]",
                 // rows
-                "[114]"));
+                "[]"));
+
+            //---- label1 ----
+            label1.setText("Choose the Date:");
+            label1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            panel1.add(label1, "cell 0 0");
+            panel1.add(dateChooser1, "cell 1 0");
         }
-        contentPane.add(JCalender_test, "cell 0 2");
-
-        //======== date_select_panel ========
-        {
-            date_select_panel.setLayout(new MigLayout(
-                "hidemode 3",
-                // columns
-                "[43,fill]" +
-                "[99,fill]" +
-                "[51,fill]" +
-                "[95,fill]" +
-                "[31,fill]" +
-                "[103,fill]",
-                // rows
-                "[56]"));
-
-            //---- year_label ----
-            year_label.setText("Year:");
-            date_select_panel.add(year_label, "cell 0 0");
-            date_select_panel.add(year_selector, "cell 1 0");
-
-            //---- month_label ----
-            month_label.setText("Month:");
-            date_select_panel.add(month_label, "cell 2 0");
-            date_select_panel.add(month_selector, "cell 3 0");
-
-            //---- day_label ----
-            day_label.setText("Day:");
-            date_select_panel.add(day_label, "cell 4 0");
-            date_select_panel.add(day_selector, "cell 5 0");
-        }
-        contentPane.add(date_select_panel, "cell 0 3");
+        contentPane.add(panel1, "cell 0 2");
 
         //======== time_intervel_select_panel ========
         {
@@ -193,11 +147,11 @@ public class Patient_Recording extends JFrame {
             time_intervel_select_panel.add(colon2, "cell 6 0");
             time_intervel_select_panel.add(end_time_min, "cell 7 0");
         }
-        contentPane.add(time_intervel_select_panel, "cell 0 4");
+        contentPane.add(time_intervel_select_panel, "cell 0 3");
 
         //---- generate_button ----
         generate_button.setText("Generate");
-        contentPane.add(generate_button, "cell 0 5");
+        contentPane.add(generate_button, "cell 0 4");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -210,14 +164,9 @@ public class Patient_Recording extends JFrame {
     public JComboBox signal_selector;
     private JLabel blank2;
     private JLabel blank;
-    private JPanel JCalender_test;
-    private JPanel date_select_panel;
-    private JLabel year_label;
-    private JComboBox year_selector;
-    private JLabel month_label;
-    private JComboBox month_selector;
-    private JLabel day_label;
-    private JComboBox day_selector;
+    private JPanel panel1;
+    private JLabel label1;
+    private JDateChooser dateChooser1;
     private JPanel time_intervel_select_panel;
     private JLabel start_time_label;
     private JTextField start_time_hour;

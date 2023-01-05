@@ -117,6 +117,7 @@ public class Patient_Editor extends JFrame {
             next_button.doClick();
         }
         this.new_patient.panelEcg1.worker.cancel(true);
+        this.new_patient.panelTemperature.updater.cancel(true);
         this.new_patient = null;
     }
 
