@@ -34,7 +34,6 @@ public class SeriesChartPane extends JPanel  {
         if(data_type=="ecg1"){
             chart.getStyler().setYAxisMax(1.5);
             chart.getStyler().setYAxisMin(-0.5);
-//            chart.getStyler().setXAxisMax(15.0);
         }
 
 
