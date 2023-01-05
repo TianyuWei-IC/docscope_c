@@ -62,8 +62,8 @@ public class Chart_Label_Display {
 
         this.value_label.setText(df.format(value_instant));
 
-//        urgent_or_not(value_instant);
-//        warning_or_not(value_instant);
+        urgent_or_not(value_instant);
+        warning_or_not(value_instant);
 
         display_chart.repaint();
         value_label.repaint();
@@ -74,14 +74,13 @@ public class Chart_Label_Display {
         chart.addSeries("latter", dataInput.partData[0], dataInput.partData[1]);
         chart.getStyler().setChartBackgroundColor(new Color(0xFFFFFF));
         chart.getStyler().setLegendVisible(false);
-//        chart.getStyler().setMarkerSize(0);
+        chart.getStyler().setMarkerSize(0);
         chart.getStyler().setXAxisTicksVisible(true);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 
         if (data_type=="body temperature"){
             chart.getStyler().setYAxisMax(42.0);
             chart.getStyler().setYAxisMin(35.0);
-            chart.getStyler().setXAxisMax(0.035);
         }else if(data_type=="heart rate"){
             chart.getStyler().setYAxisMax(200.0);
             chart.getStyler().setYAxisMin(0.0);

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class inputData {
     public List[] partData;
-    private Integer position = 0;
+    private int position = 0;
     int size;
     public long dataBaseInitialTime;
     public inputData(List<Double> initialValue,long dataBaseInitialTime){
@@ -17,6 +17,7 @@ public class inputData {
             initialTime.add(0.002*i);
         }
         partData= new List[]{initialTime, initialValue};
+        System.out.println("initial size "+size);
     }
 
 
@@ -31,10 +32,10 @@ public class inputData {
             }
         }
         if (position+whiteSpace<size-1){
-            List valueFormer=partData[1].subList(position+whiteSpace, partData[1].size()-1);
-            List timeFormer=partData[0].subList(position+whiteSpace, partData[1].size()-1);
-            List valueLatter=partData[1].subList(0,position);
-            List timeLatter=partData[0].subList(0,position);
+            List valueFormer=partData[1].subList(position+whiteSpace, size);
+            List timeFormer=partData[0].subList(position+whiteSpace, size);
+            List valueLatter=partData[1].subList(0,position+1);
+            List timeLatter=partData[0].subList(0,position+1);
             return new List[]{timeFormer,valueFormer,timeLatter,valueLatter};
         }else{
 //            List valueFormer=partData[1].subList(position, partData[1].size());
@@ -43,8 +44,8 @@ public class inputData {
             List timeFormer=new ArrayList<>();
             valueFormer.add(partData[1].get(size-1));
             timeFormer.add(partData[0].get(size-1));
-            List valueLatter=partData[1].subList(0,position);
-            List timeLatter=partData[0].subList(0,position);
+            List valueLatter=partData[1].subList(0,position+1);
+            List timeLatter=partData[0].subList(0,position+1);
             return new List[]{timeFormer,valueFormer,timeLatter,valueLatter};
         }
     }
