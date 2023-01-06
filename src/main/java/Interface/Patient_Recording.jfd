@@ -6,7 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
 			"$columnConstraints": "[311,fill]"
-			"$rowConstraints": "[53][29][34][35][56]"
+			"$rowConstraints": "[53][29][34][35][19][54]"
 		} ) {
 			name: "this"
 			"font": new java.awt.Font( "Dialog", 0, 8 )
@@ -126,15 +126,21 @@ new FormModel {
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3"
 			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "* For ECG,the recommend time interval is 10 seconds"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4"
+			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "generate_button"
 				"text": "Generate"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 4"
+				"value": "cell 0 5"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 350 )
+			"size": new java.awt.Dimension( 385, 315 )
 		} )
 	}
 }

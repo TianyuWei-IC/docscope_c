@@ -31,7 +31,6 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
                     currentTime,
                     this.chart.dataInput.dataBaseInitialTime);
             List<Double> newData= respPack.valueList;
-//            System.out.println(newData.size());
             if (newData.size()!=0){
                 chart.updateData(chart.getDataInput().getData(newData,100));
             }

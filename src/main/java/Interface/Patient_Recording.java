@@ -54,6 +54,7 @@ public class Patient_Recording extends JFrame {
         end_time_hour = new JTextField();
         colon2 = new JLabel();
         end_time_min = new JTextField();
+        label2 = new JLabel();
         generate_button = new JButton();
 
         //======== this ========
@@ -74,7 +75,8 @@ public class Patient_Recording extends JFrame {
             "[29]" +
             "[34]" +
             "[35]" +
-            "[56]"));
+            "[19]" +
+            "[54]"));
 
         //---- recording_title ----
         recording_title.setText("Recordings");
@@ -149,9 +151,13 @@ public class Patient_Recording extends JFrame {
         }
         contentPane.add(time_intervel_select_panel, "cell 0 3");
 
+        //---- label2 ----
+        label2.setText("* For ECG,the recommend time interval is 10 seconds");
+        contentPane.add(label2, "cell 0 4");
+
         //---- generate_button ----
         generate_button.setText("Generate");
-        contentPane.add(generate_button, "cell 0 4");
+        contentPane.add(generate_button, "cell 0 5");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -176,6 +182,7 @@ public class Patient_Recording extends JFrame {
     private JTextField end_time_hour;
     private JLabel colon2;
     private JTextField end_time_min;
+    private JLabel label2;
     private JButton generate_button;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

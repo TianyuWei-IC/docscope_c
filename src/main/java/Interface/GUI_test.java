@@ -57,27 +57,71 @@ public class GUI_test extends JFrame {
         panel2 = new JPanel();
         recordings = new JButton();
         value_display = new JPanel();
+        panel7 = new JPanel();
+        label12 = new JLabel();
+        panel8 = new JPanel();
+        label10 = new JLabel();
+        textField5 = new JTextField();
+        label11 = new JLabel();
+        button5 = new JButton();
+        panel9 = new JPanel();
+        label13 = new JLabel();
+        panel10 = new JPanel();
+        label14 = new JLabel();
+        textField6 = new JTextField();
+        label15 = new JLabel();
+        button6 = new JButton();
+        panel11 = new JPanel();
+        label16 = new JLabel();
+        panel12 = new JPanel();
+        label17 = new JLabel();
+        textField7 = new JTextField();
+        label18 = new JLabel();
+        button7 = new JButton();
         hr_panel = new JPanel();
         hr_title = new JLabel();
         hr_display = new JPanel();
         hr_display_value = new JPanel();
         hr_unit = new JLabel();
+        panel3 = new JPanel();
+        label2 = new JLabel();
+        textField1 = new JTextField();
+        label3 = new JLabel();
+        button1 = new JButton();
         resp_panel = new JPanel();
         resp_title = new JLabel();
         resp_display = new JPanel();
         resp_display_value = new JPanel();
         resp_unit = new JLabel();
+        panel4 = new JPanel();
+        panel13 = new JPanel();
+        label19 = new JLabel();
+        textField8 = new JTextField();
+        label20 = new JLabel();
+        button8 = new JButton();
         bp_panel = new JPanel();
         bp_title = new JLabel();
         bp_display = new JPanel();
         bp_values = new JPanel();
         slash = new JLabel();
         bp_unit = new JLabel();
+        panel5 = new JPanel();
+        panel14 = new JPanel();
+        label4 = new JLabel();
+        textField2 = new JTextField();
+        label5 = new JLabel();
+        button2 = new JButton();
         temp_panel = new JPanel();
         temp_title = new JLabel();
         temp_display = new JPanel();
         temp_display_value = new JPanel();
         temp_unit = new JLabel();
+        panel6 = new JPanel();
+        panel15 = new JPanel();
+        label6 = new JLabel();
+        textField3 = new JTextField();
+        label7 = new JLabel();
+        button3 = new JButton();
         report_button = new JButton();
         plotPanel = new JPanel();
         ecg_table = new JPanel();
@@ -180,13 +224,147 @@ public class GUI_test extends JFrame {
             value_display.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
-                "[300,fill]",
+                "[284,fill]",
                 // rows
-                "[240]" +
-                "[242]" +
-                "[253]" +
-                "[231]" +
-                "[93]"));
+                "[61]" +
+                "[55]" +
+                "[56]" +
+                "[212]" +
+                "[228]" +
+                "[195]" +
+                "[189]" +
+                "[65]" +
+                "[]"));
+
+            //======== panel7 ========
+            {
+                panel7.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[345,fill]",
+                    // rows
+                    "[]" +
+                    "[]"));
+
+                //---- label12 ----
+                label12.setText("ECG Lead I");
+                panel7.add(label12, "cell 0 0");
+
+                //======== panel8 ========
+                {
+                    panel8.setLayout(new MigLayout(
+                        "hidemode 3,alignx center",
+                        // columns
+                        "[23,fill]" +
+                        "[57,fill]" +
+                        "[28,fill]" +
+                        "[65,fill]",
+                        // rows
+                        "[]"));
+
+                    //---- label10 ----
+                    label10.setText("Plot");
+                    panel8.add(label10, "cell 0 0");
+                    panel8.add(textField5, "cell 1 0");
+
+                    //---- label11 ----
+                    label11.setText("mins");
+                    panel8.add(label11, "cell 2 0");
+
+                    //---- button5 ----
+                    button5.setText("update");
+                    panel8.add(button5, "cell 3 0");
+                }
+                panel7.add(panel8, "cell 0 1");
+            }
+            value_display.add(panel7, "cell 0 0");
+
+            //======== panel9 ========
+            {
+                panel9.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[297,fill]",
+                    // rows
+                    "[]" +
+                    "[]" +
+                    "[]"));
+
+                //---- label13 ----
+                label13.setText("ECG Lead II");
+                panel9.add(label13, "cell 0 0");
+
+                //======== panel10 ========
+                {
+                    panel10.setLayout(new MigLayout(
+                        "hidemode 3,alignx center",
+                        // columns
+                        "[23,fill]" +
+                        "[57,fill]" +
+                        "[28,fill]" +
+                        "[65,fill]",
+                        // rows
+                        "[]"));
+
+                    //---- label14 ----
+                    label14.setText("Plot");
+                    panel10.add(label14, "cell 0 0");
+                    panel10.add(textField6, "cell 1 0");
+
+                    //---- label15 ----
+                    label15.setText("mins");
+                    panel10.add(label15, "cell 2 0");
+
+                    //---- button6 ----
+                    button6.setText("update");
+                    panel10.add(button6, "cell 3 0");
+                }
+                panel9.add(panel10, "cell 0 1");
+            }
+            value_display.add(panel9, "cell 0 1");
+
+            //======== panel11 ========
+            {
+                panel11.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[287,fill]",
+                    // rows
+                    "[]" +
+                    "[]"));
+
+                //---- label16 ----
+                label16.setText("Respiratory Pattern");
+                panel11.add(label16, "cell 0 0");
+
+                //======== panel12 ========
+                {
+                    panel12.setLayout(new MigLayout(
+                        "hidemode 3,alignx center",
+                        // columns
+                        "[23,fill]" +
+                        "[57,fill]" +
+                        "[28,fill]" +
+                        "[65,fill]",
+                        // rows
+                        "[]"));
+
+                    //---- label17 ----
+                    label17.setText("Plot");
+                    panel12.add(label17, "cell 0 0");
+                    panel12.add(textField7, "cell 1 0");
+
+                    //---- label18 ----
+                    label18.setText("mins");
+                    panel12.add(label18, "cell 2 0");
+
+                    //---- button7 ----
+                    button7.setText("update");
+                    panel12.add(button7, "cell 3 0");
+                }
+                panel11.add(panel12, "cell 0 1");
+            }
+            value_display.add(panel11, "cell 0 2");
 
             //======== hr_panel ========
             {
@@ -229,8 +407,35 @@ public class GUI_test extends JFrame {
                     hr_display.add(hr_unit, "cell 1 0");
                 }
                 hr_panel.add(hr_display, "cell 0 1");
+
+                //======== panel3 ========
+                {
+                    panel3.setLayout(new MigLayout(
+                        "hidemode 3,alignx center",
+                        // columns
+                        "[23,fill]" +
+                        "[57,fill]" +
+                        "[28,fill]" +
+                        "[65,fill]",
+                        // rows
+                        "[]"));
+
+                    //---- label2 ----
+                    label2.setText("Plot");
+                    panel3.add(label2, "cell 0 0");
+                    panel3.add(textField1, "cell 1 0");
+
+                    //---- label3 ----
+                    label3.setText("mins");
+                    panel3.add(label3, "cell 2 0");
+
+                    //---- button1 ----
+                    button1.setText("update");
+                    panel3.add(button1, "cell 3 0");
+                }
+                hr_panel.add(panel3, "cell 0 2");
             }
-            value_display.add(hr_panel, "cell 0 0");
+            value_display.add(hr_panel, "cell 0 3");
 
             //======== resp_panel ========
             {
@@ -273,8 +478,47 @@ public class GUI_test extends JFrame {
                     resp_display.add(resp_unit, "cell 1 0");
                 }
                 resp_panel.add(resp_display, "cell 0 1");
+
+                //======== panel4 ========
+                {
+                    panel4.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[298,fill]",
+                        // rows
+                        "[]" +
+                        "[]"));
+
+                    //======== panel13 ========
+                    {
+                        panel13.setLayout(new MigLayout(
+                            "hidemode 3,alignx center",
+                            // columns
+                            "[23,fill]" +
+                            "[57,fill]" +
+                            "[28,fill]" +
+                            "[65,fill]",
+                            // rows
+                            "[]"));
+
+                        //---- label19 ----
+                        label19.setText("Plot");
+                        panel13.add(label19, "cell 0 0");
+                        panel13.add(textField8, "cell 1 0");
+
+                        //---- label20 ----
+                        label20.setText("mins");
+                        panel13.add(label20, "cell 2 0");
+
+                        //---- button8 ----
+                        button8.setText("update");
+                        panel13.add(button8, "cell 3 0");
+                    }
+                    panel4.add(panel13, "cell 0 1");
+                }
+                resp_panel.add(panel4, "cell 0 2");
             }
-            value_display.add(resp_panel, "cell 0 1");
+            value_display.add(resp_panel, "cell 0 4");
 
             //======== bp_panel ========
             {
@@ -323,8 +567,46 @@ public class GUI_test extends JFrame {
                     bp_display.add(bp_unit, "cell 1 0");
                 }
                 bp_panel.add(bp_display, "cell 0 1");
+
+                //======== panel5 ========
+                {
+                    panel5.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[325,fill]",
+                        // rows
+                        "[]"));
+
+                    //======== panel14 ========
+                    {
+                        panel14.setLayout(new MigLayout(
+                            "hidemode 3,alignx center",
+                            // columns
+                            "[23,fill]" +
+                            "[57,fill]" +
+                            "[28,fill]" +
+                            "[65,fill]",
+                            // rows
+                            "[]"));
+
+                        //---- label4 ----
+                        label4.setText("Plot");
+                        panel14.add(label4, "cell 0 0");
+                        panel14.add(textField2, "cell 1 0");
+
+                        //---- label5 ----
+                        label5.setText("mins");
+                        panel14.add(label5, "cell 2 0");
+
+                        //---- button2 ----
+                        button2.setText("update");
+                        panel14.add(button2, "cell 3 0");
+                    }
+                    panel5.add(panel14, "cell 0 0");
+                }
+                bp_panel.add(panel5, "cell 0 2");
             }
-            value_display.add(bp_panel, "cell 0 2");
+            value_display.add(bp_panel, "cell 0 5");
 
             //======== temp_panel ========
             {
@@ -367,13 +649,51 @@ public class GUI_test extends JFrame {
                     temp_display.add(temp_unit, "cell 1 0");
                 }
                 temp_panel.add(temp_display, "cell 0 1");
+
+                //======== panel6 ========
+                {
+                    panel6.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[288,fill]",
+                        // rows
+                        "[]"));
+
+                    //======== panel15 ========
+                    {
+                        panel15.setLayout(new MigLayout(
+                            "hidemode 3,alignx center",
+                            // columns
+                            "[23,fill]" +
+                            "[57,fill]" +
+                            "[28,fill]" +
+                            "[65,fill]",
+                            // rows
+                            "[]"));
+
+                        //---- label6 ----
+                        label6.setText("Plot");
+                        panel15.add(label6, "cell 0 0");
+                        panel15.add(textField3, "cell 1 0");
+
+                        //---- label7 ----
+                        label7.setText("mins");
+                        panel15.add(label7, "cell 2 0");
+
+                        //---- button3 ----
+                        button3.setText("update");
+                        panel15.add(button3, "cell 3 0");
+                    }
+                    panel6.add(panel15, "cell 0 0");
+                }
+                temp_panel.add(panel6, "cell 0 2");
             }
-            value_display.add(temp_panel, "cell 0 3");
+            value_display.add(temp_panel, "cell 0 6");
 
             //---- report_button ----
             report_button.setText("Reports");
             report_button.addActionListener(e -> report_button(e));
-            value_display.add(report_button, "cell 0 4");
+            value_display.add(report_button, "cell 0 7");
         }
         contentPane.add(value_display, BorderLayout.EAST);
 
@@ -402,7 +722,7 @@ public class GUI_test extends JFrame {
                     ecg1.setLayout(new MigLayout(
                         "hidemode 3",
                         // columns
-                        "[1363,fill]",
+                        "[1392,fill]",
                         // rows
                         "[176]"));
                 }
@@ -440,27 +760,71 @@ public class GUI_test extends JFrame {
     private JPanel panel2;
     public JButton recordings;
     public JPanel value_display;
+    private JPanel panel7;
+    private JLabel label12;
+    private JPanel panel8;
+    private JLabel label10;
+    private JTextField textField5;
+    private JLabel label11;
+    private JButton button5;
+    private JPanel panel9;
+    private JLabel label13;
+    private JPanel panel10;
+    private JLabel label14;
+    private JTextField textField6;
+    private JLabel label15;
+    private JButton button6;
+    private JPanel panel11;
+    private JLabel label16;
+    private JPanel panel12;
+    private JLabel label17;
+    private JTextField textField7;
+    private JLabel label18;
+    private JButton button7;
     private JPanel hr_panel;
     private JLabel hr_title;
     public JPanel hr_display;
     public JPanel hr_display_value;
     private JLabel hr_unit;
+    private JPanel panel3;
+    private JLabel label2;
+    private JTextField textField1;
+    private JLabel label3;
+    private JButton button1;
     private JPanel resp_panel;
     private JLabel resp_title;
     public JPanel resp_display;
     public JPanel resp_display_value;
     private JLabel resp_unit;
+    private JPanel panel4;
+    private JPanel panel13;
+    private JLabel label19;
+    private JTextField textField8;
+    private JLabel label20;
+    private JButton button8;
     private JPanel bp_panel;
     private JLabel bp_title;
     public JPanel bp_display;
     public JPanel bp_values;
     private JLabel slash;
     private JLabel bp_unit;
+    private JPanel panel5;
+    private JPanel panel14;
+    private JLabel label4;
+    private JTextField textField2;
+    private JLabel label5;
+    private JButton button2;
     private JPanel temp_panel;
     private JLabel temp_title;
     public JPanel temp_display;
     public JPanel temp_display_value;
     private JLabel temp_unit;
+    private JPanel panel6;
+    private JPanel panel15;
+    private JLabel label6;
+    private JTextField textField3;
+    private JLabel label7;
+    private JButton button3;
     private JButton report_button;
     public JPanel plotPanel;
     public JPanel ecg_table;
