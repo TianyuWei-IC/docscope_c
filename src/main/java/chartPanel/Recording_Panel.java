@@ -10,14 +10,14 @@ import java.util.List;
 
 public class Recording_Panel extends JPanel {
     public inputData dataInput;
-    protected XYChart chart;
+    public XYChart chart;
 
     public long time;
     public UpdateWorker worker;
-    public Recording_Panel(inputData dataInput,long time,String data_type) {
+    public Recording_Panel(inputData dataInput,long time,String data_type, String title) {
         this.dataInput = dataInput;
         this.time=time;
-        chart = new XYChartBuilder().width(1000).height(120).title("master.Monitor").build();
+        chart = new XYChartBuilder().width(1380).height(210).title(title).build();
 
         chart.addSeries("ecg_former", dataInput.partData[0], dataInput.partData[1]);
         chart.addSeries("ecg_latter", dataInput.partData[0], dataInput.partData[1]);

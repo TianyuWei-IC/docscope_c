@@ -54,7 +54,8 @@ public class GUI_test extends JFrame {
         Patient current_patient = current_temp_cl_display.patient;
         current_patient.temperature_interval = Double.valueOf(this.Temp_display_interval.getText());
         current_temp_cl_display.updater.cancel(true);
-        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel((long) floor(current_patient.temperature_interval*1000*60),"body temperature");
+        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel((long)
+                floor(current_patient.temperature_interval*1000*60),"body temperature", "Body Temperature");
         this.ecg2.removeAll();
         this.ecg2.add(updated_temp_cl_display.display_chart);
         this.temp_display_value.removeAll();
@@ -71,7 +72,7 @@ public class GUI_test extends JFrame {
         Patient current_patient = current_ECG_I.find_patient();
         current_patient.ecg_interval = Double.valueOf(this.ECG_display_interval.getText());
         current_ECG_I.worker.cancel(true);
-        SeriesChartPane updated_ECG_I =  current_patient.load_chart((long) floor(current_patient.ecg_interval*1000),"ecg1");
+        SeriesChartPane updated_ECG_I =  current_patient.load_chart((long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I");
         this.ecg1.removeAll();
         this.ecg1.add(updated_ECG_I);
 
@@ -93,6 +94,8 @@ public class GUI_test extends JFrame {
         real_time_plots = new JButton();
         panel2 = new JPanel();
         recordings = new JButton();
+        recordings.setOpaque(true);
+        recordings.setBorderPainted(false);
         value_display = new JPanel();
         panel7 = new JPanel();
         label12 = new JLabel();
@@ -153,10 +156,19 @@ public class GUI_test extends JFrame {
         label7 = new JLabel();
         Temp_update_button = new JButton();
         report_button = new JButton();
+        report_button.setOpaque(true);
+        report_button.setBorderPainted(false);
         plotPanel = new JPanel();
         ecg_table = new JPanel();
         ecg1 = new JPanel();
         ecg2 = new JPanel();
+        char_label_panel = new JPanel();
+        resp_pattern_table = new JPanel();
+        resp_rate_table = new JPanel();
+        sys_table = new JPanel();
+        dia_table = new JPanel();
+        body_temp_table = new JPanel();
+        heartrate_table = new JPanel();
 
         //======== this ========
         setBackground(new Color(0x54a0ad));
@@ -217,6 +229,7 @@ public class GUI_test extends JFrame {
 
             //======== panel1 ========
             {
+                panel1.setBackground(new Color(0x54a0ad));
                 panel1.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
@@ -233,6 +246,7 @@ public class GUI_test extends JFrame {
 
             //======== panel2 ========
             {
+                panel2.setBackground(new Color(0x54a0ad));
                 panel2.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
@@ -242,6 +256,7 @@ public class GUI_test extends JFrame {
 
                 //---- recordings ----
                 recordings.setText("Recordings");
+                recordings.setBackground(Color.yellow);
                 recordings.addActionListener(e -> recordings(e));
                 panel2.add(recordings, "cell 0 0,dock center");
             }
@@ -251,6 +266,7 @@ public class GUI_test extends JFrame {
 
         //======== value_display ========
         {
+            value_display.setBackground(new Color(0x54a0ad));
             value_display.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
@@ -682,6 +698,7 @@ public class GUI_test extends JFrame {
 
             //---- report_button ----
             report_button.setText("Reports");
+            report_button.setBackground(Color.yellow);
             report_button.addActionListener(e -> report_button(e));
             value_display.add(report_button, "cell 0 6");
         }
@@ -689,47 +706,138 @@ public class GUI_test extends JFrame {
 
         //======== plotPanel ========
         {
+            plotPanel.setBackground(new Color(0x54a0ad));
             plotPanel.setLayout(new MigLayout(
-                "hidemode 3",
+                "fill,hidemode 3",
                 // columns
                 "[1362,fill]",
                 // rows
-                "[530]" +
-                "[742]"));
+                "[536]" +
+                "[578]"));
 
             //======== ecg_table ========
             {
+                ecg_table.setBackground(new Color(0x54a0ad));
                 ecg_table.setLayout(new MigLayout(
-                    "hidemode 3",
+                    "fill,hidemode 3",
                     // columns
                     "[1411,fill]",
                     // rows
-                    "[230]" +
-                    "[241]"));
+                    "[242]" +
+                    "[237]"));
 
                 //======== ecg1 ========
                 {
+                    ecg1.setBackground(Color.white);
                     ecg1.setLayout(new MigLayout(
-                        "hidemode 3",
+                        "fill,hidemode 3",
                         // columns
-                        "[1392,fill]",
+                        "[1500,fill]",
                         // rows
-                        "[176]"));
+                        "[305]"));
                 }
                 ecg_table.add(ecg1, "cell 0 0");
 
                 //======== ecg2 ========
                 {
+                    ecg2.setBackground(Color.white);
                     ecg2.setLayout(new MigLayout(
-                        "hidemode 3",
+                        "fill,hidemode 3",
                         // columns
-                        "[1443,fill]",
+                        "[1500,fill]",
                         // rows
-                        "[247]"));
+                        "[339]"));
                 }
                 ecg_table.add(ecg2, "cell 0 1");
             }
             plotPanel.add(ecg_table, "cell 0 0");
+
+            //======== char_label_panel ========
+            {
+                char_label_panel.setBackground(new Color(0x54a0ad));
+                char_label_panel.setLayout(new MigLayout(
+                    "fill,hidemode 3",
+                    // columns
+                    "[900,fill]" +
+                    "[900,fill]",
+                    // rows
+                    "[185]" +
+                    "[185]" +
+                    "[185]"));
+
+                //======== resp_pattern_table ========
+                {
+                    resp_pattern_table.setBackground(Color.white);
+                    resp_pattern_table.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[719,fill]",
+                        // rows
+                        "[252]"));
+                }
+                char_label_panel.add(resp_pattern_table, "cell 0 0");
+
+                //======== resp_rate_table ========
+                {
+                    resp_rate_table.setBackground(Color.white);
+                    resp_rate_table.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[944,fill]",
+                        // rows
+                        "[827]"));
+                }
+                char_label_panel.add(resp_rate_table, "cell 1 0");
+
+                //======== sys_table ========
+                {
+                    sys_table.setBackground(Color.white);
+                    sys_table.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[719,fill]",
+                        // rows
+                        "[252]"));
+                }
+                char_label_panel.add(sys_table, "cell 0 1");
+
+                //======== dia_table ========
+                {
+                    dia_table.setBackground(Color.white);
+                    dia_table.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[956,fill]",
+                        // rows
+                        "[218]"));
+                }
+                char_label_panel.add(dia_table, "cell 1 1");
+
+                //======== body_temp_table ========
+                {
+                    body_temp_table.setBackground(Color.white);
+                    body_temp_table.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[719,fill]",
+                        // rows
+                        "[252]"));
+                }
+                char_label_panel.add(body_temp_table, "cell 0 2");
+
+                //======== heartrate_table ========
+                {
+                    heartrate_table.setBackground(Color.white);
+                    heartrate_table.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "[963,fill]",
+                        // rows
+                        "[217]"));
+                }
+                char_label_panel.add(heartrate_table, "cell 1 2");
+            }
+            plotPanel.add(char_label_panel, "cell 0 1");
         }
         contentPane.add(plotPanel, BorderLayout.CENTER);
         pack();
@@ -813,5 +921,12 @@ public class GUI_test extends JFrame {
     public JPanel ecg_table;
     public JPanel ecg1;
     public JPanel ecg2;
+    public JPanel char_label_panel;
+    public JPanel resp_pattern_table;
+    public JPanel resp_rate_table;
+    public JPanel sys_table;
+    public JPanel dia_table;
+    public JPanel body_temp_table;
+    public JPanel heartrate_table;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

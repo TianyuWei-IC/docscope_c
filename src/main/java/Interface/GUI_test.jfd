@@ -72,6 +72,7 @@ new FormModel {
 					"$rowConstraints": "[121]"
 				} ) {
 					name: "panel1"
+					"background": new java.awt.Color( 84, 160, 173, 255 )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "real_time_plots"
 						"text": "Real-time Plots"
@@ -91,11 +92,14 @@ new FormModel {
 					"$rowConstraints": "[257]"
 				} ) {
 					name: "panel2"
+					"background": new java.awt.Color( 84, 160, 173, 255 )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "recordings"
 						"text": "Recordings"
+						"background": new java.awt.Color( 255, 255, 0, 255 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
+							"JavaCodeGenerator.postCreateCode": "recordings.setOpaque(true);\nrecordings.setBorderPainted(false);"
 						}
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "recordings", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -113,6 +117,7 @@ new FormModel {
 				"$rowConstraints": "[61][56][212][228][195][189][65][]"
 			} ) {
 				name: "value_display"
+				"background": new java.awt.Color( 84, 160, 173, 255 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
@@ -563,6 +568,10 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "report_button"
 					"text": "Reports"
+					"background": sfield java.awt.Color yellow
+					auxiliary() {
+						"JavaCodeGenerator.postCreateCode": "report_button.setOpaque(true);\nreport_button.setBorderPainted(false);"
+					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "report_button", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 6"
@@ -571,29 +580,32 @@ new FormModel {
 				"value": "East"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-				"$layoutConstraints": "hidemode 3"
+				"$layoutConstraints": "fill,hidemode 3"
 				"$columnConstraints": "[1362,fill]"
-				"$rowConstraints": "[530][742]"
+				"$rowConstraints": "[536][578]"
 			} ) {
 				name: "plotPanel"
+				"background": new java.awt.Color( 84, 160, 173, 255 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-					"$layoutConstraints": "hidemode 3"
+					"$layoutConstraints": "fill,hidemode 3"
 					"$columnConstraints": "[1411,fill]"
-					"$rowConstraints": "[230][241]"
+					"$rowConstraints": "[242][237]"
 				} ) {
 					name: "ecg_table"
+					"background": new java.awt.Color( 84, 160, 173, 255 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-						"$layoutConstraints": "hidemode 3"
-						"$columnConstraints": "[1392,fill]"
-						"$rowConstraints": "[176]"
+						"$layoutConstraints": "fill,hidemode 3"
+						"$columnConstraints": "[1500,fill]"
+						"$rowConstraints": "[305]"
 					} ) {
 						name: "ecg1"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -601,11 +613,12 @@ new FormModel {
 						"value": "cell 0 0"
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-						"$layoutConstraints": "hidemode 3"
-						"$columnConstraints": "[1443,fill]"
-						"$rowConstraints": "[247]"
+						"$layoutConstraints": "fill,hidemode 3"
+						"$columnConstraints": "[1500,fill]"
+						"$rowConstraints": "[339]"
 					} ) {
 						name: "ecg2"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -614,6 +627,97 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "fill,hidemode 3"
+					"$columnConstraints": "[900,fill][900,fill]"
+					"$rowConstraints": "[185][185][185]"
+				} ) {
+					name: "char_label_panel"
+					"background": new java.awt.Color( 84, 160, 173, 255 )
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3"
+						"$columnConstraints": "[719,fill]"
+						"$rowConstraints": "[252]"
+					} ) {
+						name: "resp_pattern_table"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 0"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3"
+						"$columnConstraints": "[944,fill]"
+						"$rowConstraints": "[827]"
+					} ) {
+						name: "resp_rate_table"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 0"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3"
+						"$columnConstraints": "[719,fill]"
+						"$rowConstraints": "[252]"
+					} ) {
+						name: "sys_table"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 1"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3"
+						"$columnConstraints": "[956,fill]"
+						"$rowConstraints": "[218]"
+					} ) {
+						name: "dia_table"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 1"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3"
+						"$columnConstraints": "[719,fill]"
+						"$rowConstraints": "[252]"
+					} ) {
+						name: "body_temp_table"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 2"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3"
+						"$columnConstraints": "[963,fill]"
+						"$rowConstraints": "[217]"
+					} ) {
+						name: "heartrate_table"
+						"background": new java.awt.Color( 255, 255, 255, 255 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 2"
+					} )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 1"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"

@@ -118,6 +118,12 @@ public class Patient_Editor extends JFrame {
         }
         this.new_patient.panelEcg1.worker.cancel(true);
         this.new_patient.panelTemperature.updater.cancel(true);
+        this.new_patient.panelEcg2.worker.cancel(true);
+        this.new_patient.panelDiaBloodPressure.updater.cancel(true);
+        this.new_patient.panelRespiratoryPattern.updater.cancel(true);
+        this.new_patient.panelSysBloodPressure.updater.cancel(true);
+        this.new_patient.panelHeartRate.updater.cancel(true);
+        this.new_patient.panelRespiratoryRate.updater.cancel(true);
         this.new_patient = null;
     }
 
@@ -128,7 +134,7 @@ public class Patient_Editor extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         panel1 = new JPanel();
         title = new JLabel();
@@ -185,7 +191,9 @@ public class Patient_Editor extends JFrame {
         save_button = new JButton();
         save_button.setOpaque(true);
         save_button.setBorderPainted(false);
-        button1 = new JButton();
+        delete_button = new JButton();
+        delete_button.setOpaque(true);
+        delete_button.setBorderPainted(false);
 
         //======== this ========
         addWindowListener(new WindowAdapter() {
@@ -458,14 +466,14 @@ public class Patient_Editor extends JFrame {
                 save_button.addActionListener(e -> save_button(e));
                 panel2.add(save_button, "cell 0 0,align right center,grow 0 0");
 
-                //---- button1 ----
-                button1.setText("Delete This Patient");
-                button1.setMaximumSize(new Dimension(130, 50));
-                button1.setMinimumSize(new Dimension(130, 50));
-                button1.setPreferredSize(new Dimension(130, 50));
-                button1.setFont(button1.getFont().deriveFont(button1.getFont().getSize() + 2f));
-                button1.addActionListener(e -> delete_button(e));
-                panel2.add(button1, "cell 1 0");
+                //---- delete_button ----
+                delete_button.setText("Delete This Patient");
+                delete_button.setMaximumSize(new Dimension(130, 50));
+                delete_button.setMinimumSize(new Dimension(130, 50));
+                delete_button.setPreferredSize(new Dimension(130, 50));
+                delete_button.setFont(delete_button.getFont().deriveFont(delete_button.getFont().getSize() + 2f));
+                delete_button.addActionListener(e -> delete_button(e));
+                panel2.add(delete_button, "cell 1 0");
             }
             patient_editor_main_panel.add(panel2, "cell 0 4");
         }
@@ -481,7 +489,7 @@ public class Patient_Editor extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel panel1;
     private JLabel title;
@@ -527,6 +535,6 @@ public class Patient_Editor extends JFrame {
     private JLabel per_min;
     private JPanel panel2;
     public JButton save_button;
-    private JButton button1;
+    private JButton delete_button;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

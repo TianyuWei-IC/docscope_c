@@ -31,7 +31,7 @@ public class Chart_Label_Display {
     public  Chart_Label_Update updater;
 
     public int WhiteSpace;
-    public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type) {
+    public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type,String title) {
         this.patient = patient;
         this.dataInput = dataInput;
         this.time=time;
@@ -40,7 +40,7 @@ public class Chart_Label_Display {
         this.WhiteSpace = 10;
         getThreshold();
 
-        chart = new XYChartBuilder().width(1000).height(120).title("master.Monitor").build();
+        chart = new XYChartBuilder().width(670).height(160).title(title).build();
         setChartStyle(data_type);
         XChartPanel<XYChart> chartPane = new XChartPanel<>(chart);
         display_chart = new Display_Chart(this);

@@ -42,6 +42,7 @@ public class Patient extends JButton {
     private inputData dataEcg1;
     private inputData dataTemperature;
     public SeriesChartPane panelEcg1;
+    public SeriesChartPane panelEcg2;
     public Chart_Label_Display panelTemperature;
 
     public Chart_Label_Display panelHeartRate;
@@ -51,6 +52,8 @@ public class Patient extends JButton {
     public Chart_Label_Display panelDiaBloodPressure;
 
     public Chart_Label_Display panelRespiratoryRate;
+
+    public Chart_Label_Display panelRespiratoryPattern;
 
     private Timestamp time = new Timestamp(System.currentTimeMillis());
     private long time_milli;
@@ -110,8 +113,16 @@ public class Patient extends JButton {
                 patient_mouseClicked(e);
             }
         });
-        panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1");
-        panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature");
+        panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I");
+        panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg1", "ECG_Lead_II");
+
+        panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
+        panelHeartRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Heart Rate");
+        panelRespiratoryRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Respiratory Rate");
+        panelDiaBloodPressure = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Diastolic Blood Pressure");
+        panelSysBloodPressure = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Systolic Blood Pressure");
+        panelRespiratoryPattern = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Respiratory Pattern");
+
 
         display(this.reference_value);
         this.addActionListener(e -> switch_patient(e));
@@ -131,41 +142,74 @@ public class Patient extends JButton {
         this.time_milli = time_now.getTime();
     }
 
-    public SeriesChartPane load_chart(long chart_capacity, String type){
+    public SeriesChartPane load_chart(long chart_capacity, String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
-        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,this);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,this,title);
     }
 
-    public Chart_Label_Display load_chartLabel(long chart_capacity,String type){
+    public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
         responsePack respPack =netAction.recordDataTemp(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
-        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
+        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,title);
     }
 
     private void display(String reference_value) {
-
+        // ecg1
         this.mainGUI.ecg1.setVisible(false);
         this.mainGUI.ecg1.removeAll();
         this.mainGUI.ecg1.add(this.panelEcg1);
         this.mainGUI.ecg1.setVisible(true);
-
+        // ecg2
         this.mainGUI.ecg2.setVisible(false);
         this.mainGUI.ecg2.removeAll();
-        this.mainGUI.ecg2.add(this.panelTemperature.display_chart);
+        this.mainGUI.ecg2.add(this.panelEcg2);
         this.mainGUI.ecg2.setVisible(true);
+        // body temp
+        this.mainGUI.body_temp_table.setVisible(false);
+        this.mainGUI.body_temp_table.removeAll();
+        this.mainGUI.body_temp_table.add(this.panelTemperature.display_chart);
+        this.mainGUI.body_temp_table.setVisible(true);
 
         this.mainGUI.temp_display_value.setVisible(false);
         this.mainGUI.temp_display_value.removeAll();
         this.mainGUI.temp_display_value.add(this.panelTemperature.value_label);
         this.mainGUI.temp_display_value.setVisible(true);
+        // heart rate
+        this.mainGUI.heartrate_table.setVisible(false);
+        this.mainGUI.heartrate_table.removeAll();
+        this.mainGUI.heartrate_table.add(this.panelHeartRate.display_chart);
+        this.mainGUI.heartrate_table.setVisible(true);
 
+        // resp pattern
+        this.mainGUI.resp_pattern_table.setVisible(false);
+        this.mainGUI.resp_pattern_table.removeAll();
+        this.mainGUI.resp_pattern_table.add(this.panelRespiratoryPattern.display_chart);
+        this.mainGUI.resp_pattern_table.setVisible(true);
+
+        // resp rate
+        this.mainGUI.resp_rate_table.setVisible(false);
+        this.mainGUI.resp_rate_table.removeAll();
+        this.mainGUI.resp_rate_table.add(this.panelRespiratoryRate.display_chart);
+        this.mainGUI.resp_rate_table.setVisible(true);
+
+        // bp_sys
+        this.mainGUI.sys_table.setVisible(false);
+        this.mainGUI.sys_table.removeAll();
+        this.mainGUI.sys_table.add(this.panelSysBloodPressure.display_chart);
+        this.mainGUI.sys_table.setVisible(true);
+        // bp_dia
+        this.mainGUI.dia_table.setVisible(false);
+        this.mainGUI.dia_table.removeAll();
+        this.mainGUI.dia_table.add(this.panelDiaBloodPressure.display_chart);
+        this.mainGUI.dia_table.setVisible(true);
+        // set the default length
         this.mainGUI.ECG_display_interval.setText(String.valueOf(this.ecg_interval));
         this.mainGUI.Temp_display_interval.setText(String.valueOf(this.temperature_interval));
     }

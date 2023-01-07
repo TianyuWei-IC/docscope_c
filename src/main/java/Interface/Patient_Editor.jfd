@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.4.1" encoding: "UTF-8"
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.5" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -373,12 +373,15 @@ new FormModel {
 						"value": "cell 0 0,align right center,grow 0 0"
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button1"
+						name: "delete_button"
 						"text": "Delete This Patient"
 						"maximumSize": new java.awt.Dimension( 130, 50 )
 						"minimumSize": new java.awt.Dimension( 130, 50 )
 						"preferredSize": new java.awt.Dimension( 130, 50 )
 						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						auxiliary() {
+							"JavaCodeGenerator.postCreateCode": "delete_button.setOpaque(true);\ndelete_button.setBorderPainted(false);"
+						}
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "delete_button", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"
