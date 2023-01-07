@@ -37,26 +37,6 @@ public class Monitor {
                 mainPanel.real_time_plots.setEnabled(false);
                 mainPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainPanel.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-//                Urgent newwar = new Urgent();
-//                newwar.setVisible(true);
-//                newwar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//                inputData model = new inputData(tempData);
-//
-//                JFrame frame = new JFrame("Testing");
-//                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//                JPanel newpan = new JPanel();
-//                newpan.setLayout(new GridLayout(1, 1));
-//                newpan.add(new SeriesChartPane(model,timestamp));
-//
-//                frame.add(newpan);
-//                frame.setSize(500,600);
-//                frame.pack();
-//                frame.setLocationRelativeTo(null);
-//                frame.setVisible(true);
-
-
             }
         });
     }

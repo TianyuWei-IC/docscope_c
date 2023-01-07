@@ -3,10 +3,12 @@ package Interface;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import com.toedter.calendar.*;
-
+import chartPanel.Chart_Label_Display;
+import chartPanel.Display_Chart;
+import chartPanel.SeriesChartPane;
 import net.miginfocom.swing.*;
-
+import master.*;
+import static java.lang.Math.floor;
 
 /*
  * Created by JFormDesigner on Mon Dec 26 17:36:59 GMT 2022
@@ -43,6 +45,41 @@ public class GUI_test extends JFrame {
         // TODO add your code here
     }
 
+    private void Temp_update_button(ActionEvent e) {
+
+//        SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
+//        SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg1.getComponent(0);
+        Display_Chart current_Temp = (Display_Chart) this.ecg2.getComponent(0);
+        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+        Patient current_patient = current_temp_cl_display.patient;
+        current_patient.temperature_interval = Double.valueOf(this.Temp_display_interval.getText());
+        current_temp_cl_display.updater.cancel(true);
+        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel((long) floor(current_patient.temperature_interval*1000*60),"body temperature");
+        this.ecg2.removeAll();
+        this.ecg2.add(updated_temp_cl_display.display_chart);
+        this.temp_display_value.removeAll();
+        this.temp_display_value.add(updated_temp_cl_display.value_label);
+
+        current_patient.panelTemperature = updated_temp_cl_display;
+        current_temp_cl_display = null;
+    }
+
+    private void ECG_update_button(ActionEvent e) {
+//        SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
+//        SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg1.getComponent(0);
+        SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
+        Patient current_patient = current_ECG_I.find_patient();
+        current_patient.ecg_interval = Double.valueOf(this.ECG_display_interval.getText());
+        current_ECG_I.worker.cancel(true);
+        SeriesChartPane updated_ECG_I =  current_patient.load_chart((long) floor(current_patient.ecg_interval*1000),"ecg1");
+        this.ecg1.removeAll();
+        this.ecg1.add(updated_ECG_I);
+
+        current_patient.panelEcg1 = updated_ECG_I;
+        current_ECG_I = null;
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
@@ -61,16 +98,9 @@ public class GUI_test extends JFrame {
         label12 = new JLabel();
         panel8 = new JPanel();
         label10 = new JLabel();
-        textField5 = new JTextField();
+        ECG_display_interval = new JTextField();
         label11 = new JLabel();
-        button5 = new JButton();
-        panel9 = new JPanel();
-        label13 = new JLabel();
-        panel10 = new JPanel();
-        label14 = new JLabel();
-        textField6 = new JTextField();
-        label15 = new JLabel();
-        button6 = new JButton();
+        ECG_update_button = new JButton();
         panel11 = new JPanel();
         label16 = new JLabel();
         panel12 = new JPanel();
@@ -119,9 +149,9 @@ public class GUI_test extends JFrame {
         panel6 = new JPanel();
         panel15 = new JPanel();
         label6 = new JLabel();
-        textField3 = new JTextField();
+        Temp_display_interval = new JTextField();
         label7 = new JLabel();
-        button3 = new JButton();
+        Temp_update_button = new JButton();
         report_button = new JButton();
         plotPanel = new JPanel();
         ecg_table = new JPanel();
@@ -227,7 +257,6 @@ public class GUI_test extends JFrame {
                 "[284,fill]",
                 // rows
                 "[61]" +
-                "[55]" +
                 "[56]" +
                 "[212]" +
                 "[228]" +
@@ -247,7 +276,7 @@ public class GUI_test extends JFrame {
                     "[]"));
 
                 //---- label12 ----
-                label12.setText("ECG Lead I");
+                label12.setText("ECG Lead I and II");
                 panel7.add(label12, "cell 0 0");
 
                 //======== panel8 ========
@@ -265,63 +294,23 @@ public class GUI_test extends JFrame {
                     //---- label10 ----
                     label10.setText("Plot");
                     panel8.add(label10, "cell 0 0");
-                    panel8.add(textField5, "cell 1 0");
+
+                    //---- ECG_display_interval ----
+                    ECG_display_interval.setText("5");
+                    panel8.add(ECG_display_interval, "cell 1 0");
 
                     //---- label11 ----
-                    label11.setText("mins");
+                    label11.setText("seconds");
                     panel8.add(label11, "cell 2 0");
 
-                    //---- button5 ----
-                    button5.setText("update");
-                    panel8.add(button5, "cell 3 0");
+                    //---- ECG_update_button ----
+                    ECG_update_button.setText("update");
+                    ECG_update_button.addActionListener(e -> ECG_update_button(e));
+                    panel8.add(ECG_update_button, "cell 3 0");
                 }
                 panel7.add(panel8, "cell 0 1");
             }
             value_display.add(panel7, "cell 0 0");
-
-            //======== panel9 ========
-            {
-                panel9.setLayout(new MigLayout(
-                    "hidemode 3",
-                    // columns
-                    "[297,fill]",
-                    // rows
-                    "[]" +
-                    "[]" +
-                    "[]"));
-
-                //---- label13 ----
-                label13.setText("ECG Lead II");
-                panel9.add(label13, "cell 0 0");
-
-                //======== panel10 ========
-                {
-                    panel10.setLayout(new MigLayout(
-                        "hidemode 3,alignx center",
-                        // columns
-                        "[23,fill]" +
-                        "[57,fill]" +
-                        "[28,fill]" +
-                        "[65,fill]",
-                        // rows
-                        "[]"));
-
-                    //---- label14 ----
-                    label14.setText("Plot");
-                    panel10.add(label14, "cell 0 0");
-                    panel10.add(textField6, "cell 1 0");
-
-                    //---- label15 ----
-                    label15.setText("mins");
-                    panel10.add(label15, "cell 2 0");
-
-                    //---- button6 ----
-                    button6.setText("update");
-                    panel10.add(button6, "cell 3 0");
-                }
-                panel9.add(panel10, "cell 0 1");
-            }
-            value_display.add(panel9, "cell 0 1");
 
             //======== panel11 ========
             {
@@ -355,7 +344,7 @@ public class GUI_test extends JFrame {
                     panel12.add(textField7, "cell 1 0");
 
                     //---- label18 ----
-                    label18.setText("mins");
+                    label18.setText("seconds");
                     panel12.add(label18, "cell 2 0");
 
                     //---- button7 ----
@@ -364,7 +353,7 @@ public class GUI_test extends JFrame {
                 }
                 panel11.add(panel12, "cell 0 1");
             }
-            value_display.add(panel11, "cell 0 2");
+            value_display.add(panel11, "cell 0 1");
 
             //======== hr_panel ========
             {
@@ -435,7 +424,7 @@ public class GUI_test extends JFrame {
                 }
                 hr_panel.add(panel3, "cell 0 2");
             }
-            value_display.add(hr_panel, "cell 0 3");
+            value_display.add(hr_panel, "cell 0 2");
 
             //======== resp_panel ========
             {
@@ -518,7 +507,7 @@ public class GUI_test extends JFrame {
                 }
                 resp_panel.add(panel4, "cell 0 2");
             }
-            value_display.add(resp_panel, "cell 0 4");
+            value_display.add(resp_panel, "cell 0 3");
 
             //======== bp_panel ========
             {
@@ -606,7 +595,7 @@ public class GUI_test extends JFrame {
                 }
                 bp_panel.add(panel5, "cell 0 2");
             }
-            value_display.add(bp_panel, "cell 0 5");
+            value_display.add(bp_panel, "cell 0 4");
 
             //======== temp_panel ========
             {
@@ -674,26 +663,27 @@ public class GUI_test extends JFrame {
                         //---- label6 ----
                         label6.setText("Plot");
                         panel15.add(label6, "cell 0 0");
-                        panel15.add(textField3, "cell 1 0");
+                        panel15.add(Temp_display_interval, "cell 1 0");
 
                         //---- label7 ----
                         label7.setText("mins");
                         panel15.add(label7, "cell 2 0");
 
-                        //---- button3 ----
-                        button3.setText("update");
-                        panel15.add(button3, "cell 3 0");
+                        //---- Temp_update_button ----
+                        Temp_update_button.setText("update");
+                        Temp_update_button.addActionListener(e -> Temp_update_button(e));
+                        panel15.add(Temp_update_button, "cell 3 0");
                     }
                     panel6.add(panel15, "cell 0 0");
                 }
                 temp_panel.add(panel6, "cell 0 2");
             }
-            value_display.add(temp_panel, "cell 0 6");
+            value_display.add(temp_panel, "cell 0 5");
 
             //---- report_button ----
             report_button.setText("Reports");
             report_button.addActionListener(e -> report_button(e));
-            value_display.add(report_button, "cell 0 7");
+            value_display.add(report_button, "cell 0 6");
         }
         contentPane.add(value_display, BorderLayout.EAST);
 
@@ -764,16 +754,9 @@ public class GUI_test extends JFrame {
     private JLabel label12;
     private JPanel panel8;
     private JLabel label10;
-    private JTextField textField5;
+    public JTextField ECG_display_interval;
     private JLabel label11;
-    private JButton button5;
-    private JPanel panel9;
-    private JLabel label13;
-    private JPanel panel10;
-    private JLabel label14;
-    private JTextField textField6;
-    private JLabel label15;
-    private JButton button6;
+    private JButton ECG_update_button;
     private JPanel panel11;
     private JLabel label16;
     private JPanel panel12;
@@ -822,9 +805,9 @@ public class GUI_test extends JFrame {
     private JPanel panel6;
     private JPanel panel15;
     private JLabel label6;
-    private JTextField textField3;
+    public JTextField Temp_display_interval;
     private JLabel label7;
-    private JButton button3;
+    private JButton Temp_update_button;
     private JButton report_button;
     public JPanel plotPanel;
     public JPanel ecg_table;

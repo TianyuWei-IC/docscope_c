@@ -110,7 +110,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[284,fill]"
-				"$rowConstraints": "[61][55][56][212][228][195][189][65][]"
+				"$rowConstraints": "[61][56][212][228][195][189][65][]"
 			} ) {
 				name: "value_display"
 				auxiliary() {
@@ -124,7 +124,7 @@ new FormModel {
 					name: "panel7"
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label12"
-						"text": "ECG Lead I"
+						"text": "ECG Lead I and II"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -141,19 +141,24 @@ new FormModel {
 							"value": "cell 0 0"
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField5"
+							name: "ECG_display_interval"
+							"text": "5"
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label11"
-							"text": "mins"
+							"text": "seconds"
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 2 0"
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button5"
+							name: "ECG_update_button"
 							"text": "update"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ECG_update_button", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
 						} )
@@ -162,53 +167,6 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-					"$layoutConstraints": "hidemode 3"
-					"$columnConstraints": "[297,fill]"
-					"$rowConstraints": "[][][]"
-				} ) {
-					name: "panel9"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label13"
-						"text": "ECG Lead II"
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 0 0"
-					} )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-						"$layoutConstraints": "hidemode 3,alignx center"
-						"$columnConstraints": "[23,fill][57,fill][28,fill][65,fill]"
-						"$rowConstraints": "[]"
-					} ) {
-						name: "panel10"
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label14"
-							"text": "Plot"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 0 0"
-						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField6"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 1 0"
-						} )
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label15"
-							"text": "mins"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 2 0"
-						} )
-						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button6"
-							"text": "update"
-						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-							"value": "cell 3 0"
-						} )
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 0 1"
-					} )
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 1"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -241,7 +199,7 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label18"
-							"text": "mins"
+							"text": "seconds"
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 2 0"
 						} )
@@ -255,7 +213,7 @@ new FormModel {
 						"value": "cell 0 1"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 2"
+					"value": "cell 0 1"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -332,7 +290,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 3"
+					"value": "cell 0 2"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -418,7 +376,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 4"
+					"value": "cell 0 3"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -510,7 +468,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 5"
+					"value": "cell 0 4"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -573,7 +531,10 @@ new FormModel {
 								"value": "cell 0 0"
 							} )
 							add( new FormComponent( "javax.swing.JTextField" ) {
-								name: "textField3"
+								name: "Temp_display_interval"
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
 							} )
@@ -584,8 +545,9 @@ new FormModel {
 								"value": "cell 2 0"
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "button3"
+								name: "Temp_update_button"
 								"text": "update"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "Temp_update_button", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 3 0"
 							} )
@@ -596,14 +558,14 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 6"
+					"value": "cell 0 5"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "report_button"
 					"text": "Reports"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "report_button", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 7"
+					"value": "cell 0 6"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "East"

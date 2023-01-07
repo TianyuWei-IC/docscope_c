@@ -1,5 +1,6 @@
 package chartPanel;
 
+import master.Patient;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
@@ -10,9 +11,10 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class SeriesChartPane extends Recording_Panel  {
-    public SeriesChartPane(inputData dataInput,long time,String data_type){
+    Patient patient;
+    public SeriesChartPane(inputData dataInput,long time,String data_type, Patient patient){
         super(dataInput,time,data_type);
-
+        this.patient = patient;
         this.worker = new UpdateWorker(this);
         worker.execute();
     }
@@ -24,7 +26,10 @@ public class SeriesChartPane extends Recording_Panel  {
     public void updateData(List[] data) {
         chart.updateXYSeries("ecg_former", data[0], data[1], null);
         chart.updateXYSeries("ecg_latter", data[2], data[3], null);
-        System.out.println("still running");
         repaint();
+    }
+
+    public Patient find_patient(){
+        return this.patient;
     }
 }

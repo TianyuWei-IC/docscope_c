@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import static java.lang.Math.floor;
+
 
 public class Patient extends JButton {
     public String first_name;
@@ -36,7 +38,7 @@ public class Patient extends JButton {
     public Integer resp_max;
     public GUI_test mainGUI;
 
-
+    // data and charts for display
     private inputData dataEcg1;
     private inputData dataTemperature;
     public SeriesChartPane panelEcg1;
@@ -52,6 +54,11 @@ public class Patient extends JButton {
 
     private Timestamp time = new Timestamp(System.currentTimeMillis());
     private long time_milli;
+
+    // fields for time interval
+
+    public Double ecg_interval = 5.0;
+    public Double temperature_interval = 6.0;
 
     public Patient(String first_name,
                    String last_name,
@@ -103,8 +110,8 @@ public class Patient extends JButton {
                 patient_mouseClicked(e);
             }
         });
-        panelEcg1 = load_chart(5000,"ecg1");
-        panelTemperature=load_chartLabel(15000,"body temperature");
+        panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1");
+        panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature");
 
         display(this.reference_value);
         this.addActionListener(e -> switch_patient(e));
@@ -124,16 +131,16 @@ public class Patient extends JButton {
         this.time_milli = time_now.getTime();
     }
 
-    private SeriesChartPane load_chart(long chart_capacity, String type){
+    public SeriesChartPane load_chart(long chart_capacity, String type){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
-        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,this);
     }
 
-    private Chart_Label_Display load_chartLabel(long chart_capacity,String type){
+    public Chart_Label_Display load_chartLabel(long chart_capacity,String type){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
         responsePack respPack =netAction.recordDataTemp(timestamp.getTime()-chart_capacity,
@@ -158,6 +165,9 @@ public class Patient extends JButton {
         this.mainGUI.temp_display_value.removeAll();
         this.mainGUI.temp_display_value.add(this.panelTemperature.value_label);
         this.mainGUI.temp_display_value.setVisible(true);
+
+        this.mainGUI.ECG_display_interval.setText(String.valueOf(this.ecg_interval));
+        this.mainGUI.Temp_display_interval.setText(String.valueOf(this.temperature_interval));
     }
 
     public void patient_mouseClicked(MouseEvent e) {

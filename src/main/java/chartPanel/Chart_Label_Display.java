@@ -12,12 +12,12 @@ import java.util.List;
 
 
 public class Chart_Label_Display {
-    private Patient patient;
+    public Patient patient;
     public inputData dataInput;
     private XYChart chart;
 
     public long time;
-    public JPanel display_chart;
+    public Display_Chart display_chart;
     public JLabel value_label;
     private DecimalFormat df;
     private Color color;
@@ -29,17 +29,21 @@ public class Chart_Label_Display {
     private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
     private long time_milli;
     public  Chart_Label_Update updater;
+
+    public int WhiteSpace;
     public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type) {
         this.patient = patient;
         this.dataInput = dataInput;
         this.time=time;
         this.data_type = data_type;
+        // default whitespace value;
+        this.WhiteSpace = 10;
         getThreshold();
 
         chart = new XYChartBuilder().width(1000).height(120).title("master.Monitor").build();
         setChartStyle(data_type);
         XChartPanel<XYChart> chartPane = new XChartPanel<>(chart);
-        display_chart = new JPanel();
+        display_chart = new Display_Chart(this);
         display_chart.add(chartPane);
 
 
@@ -52,7 +56,7 @@ public class Chart_Label_Display {
         this.time_milli = time_urgent.getTime();
         this.pop_or_not = true;
 
-        this.updater = new Chart_Label_Update(this);
+        this.updater = new Chart_Label_Update(this, WhiteSpace);
         updater.execute();
     }
 
