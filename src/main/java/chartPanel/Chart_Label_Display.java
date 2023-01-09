@@ -29,7 +29,6 @@ public class Chart_Label_Display {
     private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
     private long time_milli;
     public  Chart_Label_Update updater;
-
     public int WhiteSpace;
     public Chart_Label_Display(Patient patient,inputData dataInput, long time, String data_type,String title) {
         this.patient = patient;
@@ -40,7 +39,7 @@ public class Chart_Label_Display {
         this.WhiteSpace = 10;
         getThreshold();
 
-        chart = new XYChartBuilder().width(670).height(160).title(title).build();
+        chart = new XYChartBuilder().width(670).height(140).title(title).build();
         setChartStyle(data_type);
         XChartPanel<XYChart> chartPane = new XChartPanel<>(chart);
         display_chart = new Display_Chart(this);
@@ -87,23 +86,28 @@ public class Chart_Label_Display {
         chart.getStyler().setChartBackgroundColor(new Color(0xFFFFFF));
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setMarkerSize(0);
-        chart.getStyler().setXAxisTicksVisible(false);
+        chart.getStyler().setXAxisTicksVisible(true);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 
         if (data_type=="body temperature"){
             chart.getStyler().setYAxisMax(42.0);
+            chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(35.0);
         }else if(data_type=="heart rate"){
             chart.getStyler().setYAxisMax(200.0);
+            chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(0.0);
         }else if(data_type=="systolic blood pressure"){
             chart.getStyler().setYAxisMax(150.0);
+            chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(70.0);
         }else if(data_type=="diastolic blood pressure"){
             chart.getStyler().setYAxisMax(100.0);
+            chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(40.0);
         }else if(data_type=="respiratory rate"){
             chart.getStyler().setYAxisMax(30.0);
+            chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(0.0);
         }
 

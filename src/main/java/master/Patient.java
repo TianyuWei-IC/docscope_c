@@ -2,9 +2,7 @@ package master;
 
 import Interface.GUI_test;
 import Interface.Patient_Editor;
-import chartPanel.Chart_Label_Display;
-import chartPanel.SeriesChartPane;
-import chartPanel.inputData;
+import chartPanel.*;
 import netRelated.netAction;
 import netRelated.requestPack;
 import netRelated.responsePack;
@@ -130,11 +128,28 @@ public class Patient extends JButton {
     }
 
     private void switch_patient(ActionEvent e) {
+        // find the previous patients
+        Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
+        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+
+        Patient previous_patient = current_temp_cl_display.patient;
+        System.out.println(previous_patient.first_name);
+        //previous_patient.stop_display();
+        if (this.equals(previous_patient)==false) {
+            previous_patient.panelEcg1.worker.cancel(true);
+            previous_patient.panelEcg2.worker.cancel(true);
+            previous_patient.panelTemperature.updater.cancel(true);
+            previous_patient.panelRespiratoryRate.updater.cancel(true);
+            previous_patient.panelDiaBloodPressure.updater.cancel(true);
+            previous_patient.panelSysBloodPressure.updater.cancel(true);
+            previous_patient.panelRespiratoryPattern.updater.cancel(true);
+            previous_patient.panelHeartRate.updater.cancel(true);
+            System.out.println(previous_patient.panelEcg1.worker.isCancelled());
+        }
 
         display(this.reference_value);
         Timestamp time_now = new Timestamp(System.currentTimeMillis());
         if ((time_now.getTime()-time_milli)<=300){
-
             this.setEnabled(false);
             Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
             editor.setVisible(true);
@@ -148,7 +163,7 @@ public class Patient extends JButton {
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
-        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,this,title);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title);
     }
 
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
@@ -157,10 +172,38 @@ public class Patient extends JButton {
         responsePack respPack =netAction.recordDataTemp(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
-        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,title);
+        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime,0.0166667),respPack.lastTime,type,title);
     }
 
     private void display(String reference_value) {
+
+        if (this.panelEcg1.worker.isCancelled()) {
+            this.panelEcg1.worker = new UpdateWorker(this.panelEcg1);
+            this.panelEcg1.worker.execute();
+            System.out.println(this.panelEcg1.worker.isCancelled());
+
+            this.panelEcg2.worker = new UpdateWorker(this.panelEcg2);
+            this.panelEcg2.worker.execute();
+
+            this.panelTemperature.updater = new Chart_Label_Update(this.panelTemperature,10);
+            this.panelTemperature.updater.execute();
+
+            this.panelHeartRate.updater = new Chart_Label_Update(this.panelHeartRate,10);
+            this.panelHeartRate.updater.execute();
+
+            this.panelRespiratoryPattern.updater = new Chart_Label_Update(this.panelRespiratoryPattern,10);
+            this.panelRespiratoryPattern.updater.execute();
+
+            this.panelRespiratoryRate.updater = new Chart_Label_Update(this.panelRespiratoryRate,10);
+            this.panelRespiratoryRate.updater.execute();
+
+            this.panelSysBloodPressure.updater = new Chart_Label_Update(this.panelSysBloodPressure,10);
+            this.panelSysBloodPressure.updater.execute();
+
+            this.panelDiaBloodPressure.updater = new Chart_Label_Update(this.panelDiaBloodPressure,10);
+            this.panelDiaBloodPressure.updater.execute();
+        }
+
         // ecg1
         this.mainGUI.ecg1.setVisible(false);
         this.mainGUI.ecg1.removeAll();
@@ -213,6 +256,7 @@ public class Patient extends JButton {
         this.mainGUI.ECG_display_interval.setText(String.valueOf(this.ecg_interval));
         this.mainGUI.Temp_display_interval.setText(String.valueOf(this.temperature_interval));
     }
+
 
     public void patient_mouseClicked(MouseEvent e) {
 //        if(e.getClickCount()==2){

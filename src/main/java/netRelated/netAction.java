@@ -111,10 +111,10 @@ public class netAction {
                 values.add(resultSet.getDouble("temperature"));
             }
             respPack.setLastTime(startTime+1000*(values.size()));
-            System.out.println("returned size is "+values.size());
-            System.out.println("last time is " + respPack.lastTime);
-            System.out.println("start time is " + startTime);
-            System.out.println("end time is " + endTime);
+//            System.out.println("returned size is "+values.size());
+//            System.out.println("last time is " + respPack.lastTime);
+//            System.out.println("start time is " + startTime);
+//            System.out.println("end time is " + endTime);
         } catch (Exception e) {
             System.out.println("resultSet fail in value");
         }

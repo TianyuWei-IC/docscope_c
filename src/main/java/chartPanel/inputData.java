@@ -9,15 +9,15 @@ public class inputData {
     private int position = 0;
     int size;
     public long dataBaseInitialTime;
-    public inputData(List<Double> initialValue,long dataBaseInitialTime){
+    public inputData(List<Double> initialValue,long dataBaseInitialTime, double period){
         this.dataBaseInitialTime=dataBaseInitialTime;
         size=initialValue.size();
         List<Double> initialTime = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            initialTime.add(0.002*i);
+            initialTime.add((double)i*period);
         }
         partData= new List[]{initialTime, initialValue};
-        System.out.println("initial size "+size);
+        //System.out.println("initial size "+size);
     }
 
 

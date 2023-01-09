@@ -11,7 +11,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[810,fill]"
-				"$rowConstraints": "[60][127][54][261][64]"
+				"$rowConstraints": "[60][127][10][261][64]"
 			} ) {
 				name: "patient_editor_main_panel"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
@@ -54,7 +54,7 @@ new FormModel {
 					name: "patient_profile"
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 						"$layoutConstraints": "hidemode 3"
-						"$columnConstraints": "[63,fill][205,fill][63,fill][211,fill]"
+						"$columnConstraints": "[63,fill][205,fill][63,fill][211,fill][fill]"
 						"$rowConstraints": "[]"
 					} ) {
 						name: "name"
@@ -72,6 +72,7 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "first_name_fieldKeyReleased", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -86,8 +87,16 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "last_name_fieldKeyReleased", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "* First Name and Last name must be filled"
+							"foreground": new java.awt.Color( 255, 0, 51, 255 )
+						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+							"value": "cell 4 0"
 						} )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
@@ -160,8 +169,22 @@ new FormModel {
 					"value": "cell 0 1"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "reminder2"
+					"text": "The thresholds are set to be:"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+					"horizontalAlignment": 2
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 2"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "* Max must be greater than Min"
+					"foreground": new java.awt.Color( 255, 0, 51, 255 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 2"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "reminder"
-					"text": "Based on the age of the patient, the thresholds are set to be:"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
 					"horizontalAlignment": 2
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -201,6 +224,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "temp_minKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "temp_minKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1"
 					} )
@@ -210,6 +235,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "temp_maxKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "temp_maxKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 1"
 					} )
@@ -231,6 +258,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "hr_minKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "hr_minKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 2"
 					} )
@@ -240,6 +269,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "hr_maxKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "hr_maxKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 2"
 					} )
@@ -267,6 +298,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "sys_minKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "sys_minKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 3"
 					} )
@@ -276,6 +309,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "sys_maxKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "sys_maxKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 3"
 					} )
@@ -297,6 +332,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "dia_minKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "dia_minKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 4"
 					} )
@@ -306,6 +343,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "dia_maxKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "dia_maxKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 4"
 					} )
@@ -327,6 +366,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "resp_minKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "resp_minKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 5"
 					} )
@@ -336,6 +377,8 @@ new FormModel {
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "resp_maxKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "resp_maxKeyReleased", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 3 5"
 					} )
@@ -375,10 +418,11 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "delete_button"
 						"text": "Delete This Patient"
-						"maximumSize": new java.awt.Dimension( 130, 50 )
-						"minimumSize": new java.awt.Dimension( 130, 50 )
-						"preferredSize": new java.awt.Dimension( 130, 50 )
+						"maximumSize": new java.awt.Dimension( 180, 50 )
+						"minimumSize": new java.awt.Dimension( 180, 50 )
+						"preferredSize": new java.awt.Dimension( 180, 50 )
 						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"background": new java.awt.Color( 255, 0, 51, 255 )
 						auxiliary() {
 							"JavaCodeGenerator.postCreateCode": "delete_button.setOpaque(true);\ndelete_button.setBorderPainted(false);"
 						}
@@ -392,7 +436,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 825, 660 )
+			"size": new java.awt.Dimension( 825, 645 )
 		} )
 		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
 			name: "buttonGroup1"

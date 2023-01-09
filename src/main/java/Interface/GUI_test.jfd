@@ -10,7 +10,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3,gap 100 10"
 				"$columnConstraints": "[207,fill]"
-				"$rowConstraints": "[412][][972][309][300]"
+				"$rowConstraints": "[412][][972][300]"
 			} ) {
 				name: "patientList_recordings"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
@@ -68,28 +68,8 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
-					"$columnConstraints": "[349,fill]"
-					"$rowConstraints": "[121]"
-				} ) {
-					name: "panel1"
-					"background": new java.awt.Color( 84, 160, 173, 255 )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "real_time_plots"
-						"text": "Real-time Plots"
-						auxiliary() {
-							"JavaCodeGenerator.variableModifiers": 1
-						}
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "real_time_plots", true ) )
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "dock center"
-					} )
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 3"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-					"$layoutConstraints": "hidemode 3"
 					"$columnConstraints": "[301,fill]"
-					"$rowConstraints": "[257]"
+					"$rowConstraints": "[63]"
 				} ) {
 					name: "panel2"
 					"background": new java.awt.Color( 84, 160, 173, 255 )
@@ -97,6 +77,7 @@ new FormModel {
 						name: "recordings"
 						"text": "Recordings"
 						"background": new java.awt.Color( 255, 255, 0, 255 )
+						"enabled": false
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 							"JavaCodeGenerator.postCreateCode": "recordings.setOpaque(true);\nrecordings.setBorderPainted(false);"
@@ -106,7 +87,7 @@ new FormModel {
 						"value": "cell 0 0,dock center"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 4"
+					"value": "cell 0 3"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "West"
@@ -126,7 +107,10 @@ new FormModel {
 					"$columnConstraints": "[345,fill]"
 					"$rowConstraints": "[][]"
 				} ) {
-					name: "panel7"
+					name: "ecg_interval_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label12"
 						"text": "ECG Lead I and II"
@@ -147,7 +131,7 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "ECG_display_interval"
-							"text": "5"
+							"editable": false
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -163,6 +147,10 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "ECG_update_button"
 							"text": "update"
+							"enabled": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ECG_update_button", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
@@ -178,7 +166,10 @@ new FormModel {
 					"$columnConstraints": "[287,fill]"
 					"$rowConstraints": "[][]"
 				} ) {
-					name: "panel11"
+					name: "resp_interval_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label16"
 						"text": "Respiratory Pattern"
@@ -198,7 +189,11 @@ new FormModel {
 							"value": "cell 0 0"
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField7"
+							name: "RESP_pattern_display_interval"
+							"editable": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -209,8 +204,12 @@ new FormModel {
 							"value": "cell 2 0"
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button7"
+							name: "RESP_pattern_update_button"
 							"text": "update"
+							"enabled": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
 						} )
@@ -226,6 +225,9 @@ new FormModel {
 					"$rowConstraints": "[61][125][38]"
 				} ) {
 					name: "hr_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "hr_title"
 						"text": "Heart Rate"
@@ -275,7 +277,11 @@ new FormModel {
 							"value": "cell 0 0"
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField1"
+							name: "HR_display_interval"
+							"editable": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -286,8 +292,12 @@ new FormModel {
 							"value": "cell 2 0"
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button1"
+							name: "HR_update_button"
 							"text": "update"
+							"enabled": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
 						} )
@@ -303,6 +313,9 @@ new FormModel {
 					"$rowConstraints": "[64][126][]"
 				} ) {
 					name: "resp_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "resp_title"
 						"text": "Respiratory Rate"
@@ -358,7 +371,11 @@ new FormModel {
 								"value": "cell 0 0"
 							} )
 							add( new FormComponent( "javax.swing.JTextField" ) {
-								name: "textField8"
+								name: "RESP_rate_display_interval"
+								"editable": false
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
 							} )
@@ -369,8 +386,12 @@ new FormModel {
 								"value": "cell 2 0"
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "button8"
+								name: "RESP_rate_update_button"
 								"text": "update"
+								"enabled": false
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 3 0"
 							} )
@@ -389,6 +410,9 @@ new FormModel {
 					"$rowConstraints": "[50][123][29]"
 				} ) {
 					name: "bp_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "bp_title"
 						"text": "Blood Pressure"
@@ -413,11 +437,35 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+								"$layoutConstraints": "hidemode 3"
+								"$columnConstraints": "[54,fill]"
+								"$rowConstraints": "[]"
+							} ) {
+								name: "sys_display_value"
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
+							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+								"value": "cell 0 0"
+							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "slash"
 								"text": "/"
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+								"$layoutConstraints": "hidemode 3"
+								"$columnConstraints": "[68,fill]"
+								"$rowConstraints": "[]"
+							} ) {
+								name: "dia_display_value"
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
+							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+								"value": "cell 2 0"
 							} )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 0 0"
@@ -450,7 +498,11 @@ new FormModel {
 								"value": "cell 0 0"
 							} )
 							add( new FormComponent( "javax.swing.JTextField" ) {
-								name: "textField2"
+								name: "BP_display_interval"
+								"editable": false
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
 							} )
@@ -461,8 +513,12 @@ new FormModel {
 								"value": "cell 2 0"
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "button2"
+								name: "BP_update_button"
 								"text": "update"
+								"enabled": false
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 3 0"
 							} )
@@ -481,6 +537,9 @@ new FormModel {
 					"$rowConstraints": "[49][95][23]"
 				} ) {
 					name: "temp_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "temp_title"
 						"text": "Body Temperature"
@@ -537,6 +596,7 @@ new FormModel {
 							} )
 							add( new FormComponent( "javax.swing.JTextField" ) {
 								name: "Temp_display_interval"
+								"editable": false
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
@@ -552,6 +612,10 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "Temp_update_button"
 								"text": "update"
+								"enabled": false
+								auxiliary() {
+									"JavaCodeGenerator.variableModifiers": 1
+								}
 								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "Temp_update_button", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 3 0"
@@ -569,8 +633,10 @@ new FormModel {
 					name: "report_button"
 					"text": "Reports"
 					"background": sfield java.awt.Color yellow
+					"enabled": false
 					auxiliary() {
 						"JavaCodeGenerator.postCreateCode": "report_button.setOpaque(true);\nreport_button.setBorderPainted(false);"
+						"JavaCodeGenerator.variableModifiers": 1
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "report_button", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
