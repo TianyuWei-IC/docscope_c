@@ -25,7 +25,7 @@ public class Recording_Panel extends JPanel {
         chart.getStyler().setChartBackgroundColor(new Color(0xFFFFFF));
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setMarkerSize(0);
-        chart.getStyler().setXAxisTicksVisible(false);
+        chart.getStyler().setXAxisTicksVisible(true);
         chart.getStyler().setXAxisMin(0.0);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 

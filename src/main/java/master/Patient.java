@@ -6,16 +6,12 @@ import chartPanel.Chart_Label_Display;
 import chartPanel.SeriesChartPane;
 import chartPanel.inputData;
 import netRelated.netAction;
-import netRelated.requestPack;
 import netRelated.responsePack;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.List;
 
 import static java.lang.Math.floor;
 
@@ -114,14 +110,15 @@ public class Patient extends JButton {
             }
         });
         panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I");
-        panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg1", "ECG_Lead_II");
+        panelEcg2 = load_chart((long) floor(ecg_interval*1000), "ecg2", "ECG_Lead_II");
+        panelRespiratoryPattern = load_chart((long) floor(resp_interval*1000*60),"resp","Respiratory Pattern");
 
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
         panelHeartRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Heart Rate");
         panelRespiratoryRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Respiratory Rate");
         panelDiaBloodPressure = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Diastolic Blood Pressure");
         panelSysBloodPressure = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Systolic Blood Pressure");
-        panelRespiratoryPattern = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Respiratory Pattern");
+
 
 
         display(this.reference_value);
@@ -145,16 +142,17 @@ public class Patient extends JButton {
     public SeriesChartPane load_chart(long chart_capacity, String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
-        responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
+        responsePack respPack =netAction.recordFastData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
-                dataBaseInitialTime);
+                dataBaseInitialTime,
+                type);
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,this,title);
     }
 
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
-        responsePack respPack =netAction.recordDataTemp(timestamp.getTime()-chart_capacity,
+        responsePack respPack =netAction.recordSlowData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
         return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,title);
