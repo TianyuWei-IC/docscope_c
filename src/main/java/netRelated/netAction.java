@@ -45,12 +45,8 @@ public class netAction {
         responsePack respPack = new responsePack();
         Connection conn = null;
         PreparedStatement s = null;
-        String table="ecgresp";
-        String orderEcg1 = "select "+
-                type+
-                " from "+
-                table+
-                " where id>? and id<=?";
+        String table="alphafast";
+        String orderEcg1 = "select "+ type+ " from "+ table+ " where id>? and id<=?";
         int index1 = (int) floor((startTime - initialTime) / interval);
         int index2 = (int) floor((endTime - initialTime) / interval);
         if (index1 <= 0) {
@@ -93,7 +89,7 @@ public class netAction {
         Connection conn = null;
         PreparedStatement s = null;
 
-        String order = "select temperature from other where id>? and id<=?";
+        String order = "select temperature from alphaslow where id>? and id<=?";
         int index1 = (int) floor((startTime - initialTime) / 1000);
         int index2 = (int) floor((endTime - initialTime) / 1000);
         if (index1 <= 0) {
@@ -138,7 +134,7 @@ public class netAction {
         PreparedStatement s = null;
         long initialTime=0;
 
-        String orderTime = "select initialtime from patientlist where reference='chuqiaoShen_30'";
+        String orderTime = "select initialtime from patientlist where reference='alpha'";
         try {
             conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             s = conn.prepareStatement(orderTime);

@@ -11,7 +11,7 @@ class netActionTest {
     void recordData() {
         netAction net = new netAction();
         long currentTime=new Timestamp(System.currentTimeMillis()).getTime();
-        responsePack pack=net.recordFastData(currentTime-100,currentTime,net.getInitialTime(),"ecg1");
+        responsePack pack=net.recordData(currentTime-50,currentTime,net.getInitialTime(),"resp",2);
         System.out.println(pack.valueList);
     }
 }
