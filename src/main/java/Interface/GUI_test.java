@@ -104,7 +104,7 @@ public class GUI_test extends JFrame {
 
         Patient current_patient = current_resp_pattern_cl_display.patient;
 
-        current_patient.panelRespiratoryPattern.updater.cancel(true);
+        current_patient.panelRespiratoryPattern.worker.cancel(true);
         current_resp_pattern_cl_display.updater.cancel(true);
 
         current_patient.resp_pattern_interval = Double.valueOf(this.RESP_pattern_display_interval.getText());

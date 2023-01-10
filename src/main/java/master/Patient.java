@@ -47,7 +47,7 @@ public class Patient extends JButton {
 
     public Chart_Label_Display panelRespiratoryRate;
 
-    public Chart_Label_Display panelRespiratoryPattern;
+    public SeriesChartPane panelRespiratoryPattern;
 
     private Timestamp time = new Timestamp(System.currentTimeMillis());
     private long time_milli;
@@ -114,7 +114,7 @@ public class Patient extends JButton {
         });
         panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I");
         panelEcg2 = load_chart((long) floor(ecg_interval*1000), "ecg2", "ECG_Lead_II");
-        panelRespiratoryPattern = load_chart((long) floor(resp_interval*1000*60),"resp","Respiratory Pattern");
+        panelRespiratoryPattern = load_chart((long) floor(resp_rate_interval*1000*60),"resp","Respiratory Pattern");
 
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
         panelHeartRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Heart Rate");
@@ -144,7 +144,7 @@ public class Patient extends JButton {
             previous_patient.panelRespiratoryRate.updater.cancel(true);
             previous_patient.panelDiaBloodPressure.updater.cancel(true);
             previous_patient.panelSysBloodPressure.updater.cancel(true);
-            previous_patient.panelRespiratoryPattern.updater.cancel(true);
+            previous_patient.panelRespiratoryPattern.worker.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
         }
@@ -167,7 +167,7 @@ public class Patient extends JButton {
                 timestamp.getTime(),
                 dataBaseInitialTime,
                 type);
-        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,this,title);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title);
     }
 
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
@@ -209,7 +209,7 @@ public class Patient extends JButton {
         // resp pattern
         this.mainGUI.resp_pattern_table.setVisible(false);
         this.mainGUI.resp_pattern_table.removeAll();
-        this.mainGUI.resp_pattern_table.add(this.panelRespiratoryPattern.display_chart);
+        this.mainGUI.resp_pattern_table.add(this.panelRespiratoryPattern);
         this.mainGUI.resp_pattern_table.setVisible(true);
 
         // resp rate
