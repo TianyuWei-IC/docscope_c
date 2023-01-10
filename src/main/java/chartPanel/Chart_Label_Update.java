@@ -13,12 +13,9 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
     private Chart_Label_Display chartLabel;
     long previousTime;
 
-    public int WhiteSpace;
-
-    public Chart_Label_Update(Chart_Label_Display chartLabel, int whiteSpace) {
+    public Chart_Label_Update(Chart_Label_Display chartLabel) {
         this.chartLabel = chartLabel;
         this.previousTime=this.chartLabel.time;
-        this.WhiteSpace = whiteSpace;
     }
 
     @Override
@@ -33,7 +30,7 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
             List<Double> newData= respPack.valueList;
             //System.out.println(newData.size());
             if (newData.size()!=0){
-                chartLabel.updateData(chartLabel.dataInput.getData(newData,WhiteSpace));
+                chartLabel.updateData(chartLabel.dataInput.getData(newData,10));
             }
             previousTime=respPack.lastTime;
         }

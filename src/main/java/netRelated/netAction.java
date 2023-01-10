@@ -39,16 +39,20 @@ public class netAction {
             System.out.println("end connection fail");
         }
     }
-    public static responsePack recordData(long startTime, long endTime,long initialTime){
+    public static responsePack recordData(long startTime, long endTime,long initialTime,String type,int interval){
 
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
         Connection conn = null;
         PreparedStatement s = null;
-
-        String orderEcg1 = "select ecg1 from ecgresp where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / 2);
-        int index2 = (int) floor((endTime - initialTime) / 2);
+        String table="ecgresp";
+        String orderEcg1 = "select "+
+                type+
+                " from "+
+                table+
+                " where id>? and id<=?";
+        int index1 = (int) floor((startTime - initialTime) / interval);
+        int index2 = (int) floor((endTime - initialTime) / interval);
         if (index1 <= 0) {
             System.out.println("empty");
         }
@@ -63,9 +67,9 @@ public class netAction {
         try {
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
-                values.add(resultSet.getDouble("ecg1"));
+                values.add(resultSet.getDouble(type));
             }
-            respPack.setLastTime(startTime+2*(values.size()));
+            respPack.setLastTime(startTime+interval*(values.size()));
 //            System.out.println("returned size is "+values.size());
 //            System.out.println("last time is " + respPack.lastTime);
 //            System.out.println("start time is " + startTime);
