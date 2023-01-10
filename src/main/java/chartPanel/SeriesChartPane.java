@@ -15,7 +15,7 @@ public class SeriesChartPane extends Recording_Panel  {
     public SeriesChartPane(inputData dataInput,long time,String data_type, Patient patient, String title){
         super(dataInput,time,data_type,title);
         this.patient = patient;
-        this.worker = new UpdateWorker(this,data_type);
+        this.worker = new UpdateWorker(this);
         worker.execute();
     }
     public inputData getDataInput() {

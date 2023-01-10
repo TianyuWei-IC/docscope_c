@@ -118,7 +118,7 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelTemperature.updater.cancel(true);
         this.new_patient.panelEcg2.worker.cancel(true);
         this.new_patient.panelDiaBloodPressure.updater.cancel(true);
-        this.new_patient.panelRespiratoryPattern.worker.cancel(true);
+        this.new_patient.panelRespiratoryPattern.updater.cancel(true);
         this.new_patient.panelSysBloodPressure.updater.cancel(true);
         this.new_patient.panelHeartRate.updater.cancel(true);
         this.new_patient.panelRespiratoryRate.updater.cancel(true);
@@ -380,7 +380,7 @@ public class Patient_Editor extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         panel1 = new JPanel();
         title = new JLabel();
@@ -871,7 +871,7 @@ public class Patient_Editor extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel panel1;
     private JLabel title;

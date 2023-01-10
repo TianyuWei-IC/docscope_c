@@ -55,7 +55,7 @@ public class Patient_Adder extends JFrame {
             previous_patient.panelRespiratoryRate.updater.cancel(true);
             previous_patient.panelDiaBloodPressure.updater.cancel(true);
             previous_patient.panelSysBloodPressure.updater.cancel(true);
-            previous_patient.panelRespiratoryPattern.worker.cancel(true);
+            previous_patient.panelRespiratoryPattern.updater.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
         }else{
@@ -328,7 +328,7 @@ public class Patient_Adder extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         title_and_reference = new JPanel();
         title = new JLabel();
@@ -791,7 +791,7 @@ public class Patient_Adder extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel title_and_reference;
     private JLabel title;
