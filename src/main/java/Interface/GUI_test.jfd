@@ -210,6 +210,7 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "RESP_pattern_update_button", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
 						} )
@@ -298,6 +299,7 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "HR_update_button", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 3 0"
 						} )
@@ -392,6 +394,7 @@ new FormModel {
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "RESP_rate_update_button", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 3 0"
 							} )
@@ -519,6 +522,7 @@ new FormModel {
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "BP_update_button", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 3 0"
 							} )

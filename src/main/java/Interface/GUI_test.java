@@ -63,8 +63,8 @@ public class GUI_test extends JFrame {
         current_temp_cl_display.updater.cancel(true);
 
         current_patient.temperature_interval = Double.valueOf(this.Temp_display_interval.getText());
-        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel((long)
-                floor(current_patient.temperature_interval*1000*60),"body temperature", "Body Temperature");
+        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.temperature_interval*1000*60),"body temperature", "Body Temperature");
         this.body_temp_table.removeAll();
         this.body_temp_table.add(updated_temp_cl_display.display_chart);
         this.temp_display_value.removeAll();
@@ -76,17 +76,116 @@ public class GUI_test extends JFrame {
     private void ECG_update_button(ActionEvent e) {
         // get the chart in the ecg panel
         SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
+        SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg2.getComponent(0);
         Patient current_patient = current_ECG_I.find_patient();
         current_patient.ecg_interval = Double.valueOf(this.ECG_display_interval.getText());
 
         current_patient.panelEcg1.worker.cancel(true);
+        current_patient.panelEcg2.worker.cancel(true);
         current_ECG_I.worker.cancel(true);
-        SeriesChartPane updated_ECG_I =  current_patient.load_chart((long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I");
+        current_ECG_II.worker.cancel(true);
+        SeriesChartPane updated_ECG_I =  current_patient.load_chart(
+                (long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I");
+        SeriesChartPane updated_ECG_II =  current_patient.load_chart(
+                (long) floor(current_patient.ecg_interval*1000),"ecg2","ECG_Lead_II");
         this.ecg1.removeAll();
+        this.ecg2.removeAll();
         this.ecg1.add(updated_ECG_I);
+        this.ecg2.add(updated_ECG_II);
 
         current_patient.panelEcg1 = updated_ECG_I;
+        current_patient.panelEcg2 = updated_ECG_II;
 
+    }
+
+    private void RESP_pattern_update_button(ActionEvent e) {
+        Display_Chart current_RESP_pattern = (Display_Chart) this.resp_pattern_table.getComponent(0);
+        Chart_Label_Display current_resp_pattern_cl_display = current_RESP_pattern.find_cl_display();
+
+        Patient current_patient = current_resp_pattern_cl_display.patient;
+
+        current_patient.panelRespiratoryPattern.updater.cancel(true);
+        current_resp_pattern_cl_display.updater.cancel(true);
+
+        current_patient.resp_pattern_interval = Double.valueOf(this.RESP_pattern_display_interval.getText());
+        Chart_Label_Display updated_resp_pattern_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.resp_pattern_interval*1000*60),"body temperature", "Respiratory Pattern");
+        this.resp_pattern_table.removeAll();
+        this.resp_pattern_table.add(updated_resp_pattern_cl_display.display_chart);
+
+        current_patient.panelRespiratoryPattern = updated_resp_pattern_cl_display;
+    }
+
+    private void HR_update_button(ActionEvent e) {
+        Display_Chart current_HR = (Display_Chart) this.heartrate_table.getComponent(0);
+        Chart_Label_Display current_hr_cl_display = current_HR.find_cl_display();
+
+        Patient current_patient = current_hr_cl_display.patient;
+
+        current_patient.panelHeartRate.updater.cancel(true);
+        current_hr_cl_display.updater.cancel(true);
+
+        current_patient.hr_interval = Double.valueOf(this.HR_display_interval.getText());
+        Chart_Label_Display updated_hr_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.hr_interval*1000*60),"body temperature", "Heart Rate");
+        this.heartrate_table.removeAll();
+        this.heartrate_table.add(updated_hr_cl_display.display_chart);
+        this.hr_display_value.removeAll();
+        this.hr_display_value.add(updated_hr_cl_display.value_label);
+
+        current_patient.panelHeartRate = updated_hr_cl_display;
+
+    }
+
+    private void RESP_rate_update_button(ActionEvent e) {
+        Display_Chart current_RESP_rate = (Display_Chart) this.resp_rate_table.getComponent(0);
+        Chart_Label_Display current_resp_rate_cl_display = current_RESP_rate.find_cl_display();
+
+        Patient current_patient = current_resp_rate_cl_display.patient;
+
+        current_patient.panelRespiratoryRate.updater.cancel(true);
+        current_resp_rate_cl_display.updater.cancel(true);
+
+        current_patient.resp_rate_interval = Double.valueOf(this.RESP_rate_display_interval.getText());
+        Chart_Label_Display updated_resp_rate_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.resp_rate_interval*1000*60),"body temperature", "Respiratory Rate");
+        this.resp_rate_table.removeAll();
+        this.resp_rate_table.add(updated_resp_rate_cl_display.display_chart);
+
+        current_patient.panelRespiratoryRate = updated_resp_rate_cl_display;
+    }
+
+    private void BP_update_button(ActionEvent e) {
+        Display_Chart current_BP_dia = (Display_Chart) this.dia_table.getComponent(0);
+        Display_Chart current_BP_sys = (Display_Chart) this.sys_table.getComponent(0);
+        Chart_Label_Display current_bp_dia_cl_display = current_BP_dia.find_cl_display();
+        Chart_Label_Display current_bp_sys_cl_display = current_BP_sys.find_cl_display();
+
+        Patient current_patient = current_bp_dia_cl_display.patient;
+
+        current_patient.panelDiaBloodPressure.updater.cancel(true);
+        current_patient.panelSysBloodPressure.updater.cancel(true);
+        current_bp_dia_cl_display.updater.cancel(true);
+        current_bp_sys_cl_display.updater.cancel(true);
+
+        current_patient.bp_interval = Double.valueOf(this.BP_display_interval.getText());
+        Chart_Label_Display updated_bp_dia_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Diastolic Blood Pressure");
+        Chart_Label_Display updated_bp_sys_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Systolic Blood Pressure");
+
+        this.dia_table.removeAll();
+        this.dia_table.add(updated_bp_dia_cl_display.display_chart);
+        this.dia_display_value.removeAll();
+        this.dia_display_value.add(updated_bp_dia_cl_display.value_label);
+
+        this.sys_table.removeAll();
+        this.sys_table.add(updated_bp_sys_cl_display.display_chart);
+        this.sys_display_value.removeAll();
+        this.sys_display_value.add(updated_bp_sys_cl_display.value_label);
+
+        current_patient.panelDiaBloodPressure = updated_bp_dia_cl_display;
+        current_patient.panelSysBloodPressure = updated_bp_sys_cl_display;
     }
 
     private void initComponents() {
@@ -361,6 +460,7 @@ public class GUI_test extends JFrame {
                     //---- RESP_pattern_update_button ----
                     RESP_pattern_update_button.setText("update");
                     RESP_pattern_update_button.setEnabled(false);
+                    RESP_pattern_update_button.addActionListener(e -> RESP_pattern_update_button(e));
                     panel12.add(RESP_pattern_update_button, "cell 3 0");
                 }
                 resp_interval_panel.add(panel12, "cell 0 1");
@@ -436,6 +536,7 @@ public class GUI_test extends JFrame {
                     //---- HR_update_button ----
                     HR_update_button.setText("update");
                     HR_update_button.setEnabled(false);
+                    HR_update_button.addActionListener(e -> HR_update_button(e));
                     panel3.add(HR_update_button, "cell 3 0");
                 }
                 hr_panel.add(panel3, "cell 0 2");
@@ -521,6 +622,7 @@ public class GUI_test extends JFrame {
                         //---- RESP_rate_update_button ----
                         RESP_rate_update_button.setText("update");
                         RESP_rate_update_button.setEnabled(false);
+                        RESP_rate_update_button.addActionListener(e -> RESP_rate_update_button(e));
                         panel13.add(RESP_rate_update_button, "cell 3 0");
                     }
                     panel4.add(panel13, "cell 0 1");
@@ -635,6 +737,7 @@ public class GUI_test extends JFrame {
                         //---- BP_update_button ----
                         BP_update_button.setText("update");
                         BP_update_button.setEnabled(false);
+                        BP_update_button.addActionListener(e -> BP_update_button(e));
                         panel14.add(BP_update_button, "cell 3 0");
                     }
                     panel5.add(panel14, "cell 0 0");

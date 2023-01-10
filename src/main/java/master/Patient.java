@@ -60,6 +60,11 @@ public class Patient extends JButton {
 
     public Double ecg_interval = 5.0;
     public Double temperature_interval = 6.0;
+    public Double resp_pattern_interval = 6.0;
+    public Double resp_rate_interval = 6.0;
+    public Double hr_interval = 6.0;
+    public Double bp_interval = 6.0;
+
 
     public Patient(String first_name,
                    String last_name,
@@ -112,14 +117,14 @@ public class Patient extends JButton {
             }
         });
         panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I");
-        panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg1", "ECG_Lead_II");
+        panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg2", "ECG_Lead_II");
 
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
-        panelHeartRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Heart Rate");
-        panelRespiratoryRate=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Respiratory Rate");
-        panelDiaBloodPressure = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Diastolic Blood Pressure");
-        panelSysBloodPressure = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Systolic Blood Pressure");
-        panelRespiratoryPattern = load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Respiratory Pattern");
+        panelHeartRate=load_chartLabel((long) floor(hr_interval*1000*60),"body temperature","Heart Rate");
+        panelRespiratoryRate=load_chartLabel((long) floor(resp_rate_interval*1000*60),"body temperature","Respiratory Rate");
+        panelDiaBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Diastolic Blood Pressure");
+        panelSysBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Systolic Blood Pressure");
+        panelRespiratoryPattern = load_chartLabel((long) floor(resp_pattern_interval*1000*60),"body temperature","Respiratory Pattern");
 
 
         display(this.reference_value);
@@ -180,7 +185,6 @@ public class Patient extends JButton {
         if (this.panelEcg1.worker.isCancelled()) {
             this.panelEcg1.worker = new UpdateWorker(this.panelEcg1);
             this.panelEcg1.worker.execute();
-            System.out.println(this.panelEcg1.worker.isCancelled());
 
             this.panelEcg2.worker = new UpdateWorker(this.panelEcg2);
             this.panelEcg2.worker.execute();
@@ -230,6 +234,10 @@ public class Patient extends JButton {
         this.mainGUI.heartrate_table.add(this.panelHeartRate.display_chart);
         this.mainGUI.heartrate_table.setVisible(true);
 
+        this.mainGUI.hr_display_value.setVisible(false);
+        this.mainGUI.hr_display_value.removeAll();
+        this.mainGUI.hr_display_value.add(this.panelHeartRate.value_label);
+        this.mainGUI.hr_display_value.setVisible(true);
         // resp pattern
         this.mainGUI.resp_pattern_table.setVisible(false);
         this.mainGUI.resp_pattern_table.removeAll();
@@ -242,19 +250,40 @@ public class Patient extends JButton {
         this.mainGUI.resp_rate_table.add(this.panelRespiratoryRate.display_chart);
         this.mainGUI.resp_rate_table.setVisible(true);
 
+        this.mainGUI.resp_display_value.setVisible(false);
+        this.mainGUI.resp_display_value.removeAll();
+        this.mainGUI.resp_display_value.add(this.panelRespiratoryRate.value_label);
+        this.mainGUI.resp_display_value.setVisible(true);
+
         // bp_sys
         this.mainGUI.sys_table.setVisible(false);
         this.mainGUI.sys_table.removeAll();
         this.mainGUI.sys_table.add(this.panelSysBloodPressure.display_chart);
         this.mainGUI.sys_table.setVisible(true);
+
+        this.mainGUI.sys_display_value.setVisible(false);
+        this.mainGUI.sys_display_value.removeAll();
+        this.mainGUI.sys_display_value.add(this.panelSysBloodPressure.value_label);
+        this.mainGUI.sys_display_value.setVisible(true);
+
         // bp_dia
         this.mainGUI.dia_table.setVisible(false);
         this.mainGUI.dia_table.removeAll();
         this.mainGUI.dia_table.add(this.panelDiaBloodPressure.display_chart);
         this.mainGUI.dia_table.setVisible(true);
+
+        this.mainGUI.dia_display_value.setVisible(false);
+        this.mainGUI.dia_display_value.removeAll();
+        this.mainGUI.dia_display_value.add(this.panelDiaBloodPressure.value_label);
+        this.mainGUI.dia_display_value.setVisible(true);
+
         // set the default length
         this.mainGUI.ECG_display_interval.setText(String.valueOf(this.ecg_interval));
         this.mainGUI.Temp_display_interval.setText(String.valueOf(this.temperature_interval));
+        this.mainGUI.RESP_rate_display_interval.setText(String.valueOf(this.resp_rate_interval));
+        this.mainGUI.RESP_pattern_display_interval.setText(String.valueOf(this.resp_pattern_interval));
+        this.mainGUI.BP_display_interval.setText(String.valueOf(this.bp_interval));
+        this.mainGUI.HR_display_interval.setText(String.valueOf(this.hr_interval));
     }
 
 

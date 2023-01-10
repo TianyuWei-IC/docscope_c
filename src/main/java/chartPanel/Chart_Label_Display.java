@@ -70,11 +70,10 @@ public class Chart_Label_Display {
 
         double value_instant = (double) data[3].get(data[3].size()-1);
         this.value_label.setText(df.format(value_instant));
+        this.value_label.setFont(new Font("Calibri", Font.BOLD, 30));
+        this.value_label.setHorizontalTextPosition((int) Component.CENTER_ALIGNMENT);
 
         urgent_or_warning(value_instant);
-        //urgent_window_pop(value_instant);
-
-
 
         display_chart.repaint();
         value_label.repaint();
