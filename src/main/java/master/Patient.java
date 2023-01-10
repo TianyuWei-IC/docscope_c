@@ -118,13 +118,13 @@ public class Patient extends JButton {
         });
         panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I");
         panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg2", "ECG_Lead_II");
+        panelRespiratoryPattern = load_chart((long) floor(resp_pattern_interval*1000),"resp","Respiratory Pattern");
 
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
-        panelHeartRate=load_chartLabel((long) floor(hr_interval*1000*60),"body temperature","Heart Rate");
+        panelHeartRate=load_chartLabel((long) floor(hr_interval*1000*60),"heart rate","Heart Rate");
         panelRespiratoryRate=load_chartLabel((long) floor(resp_rate_interval*1000*60),"body temperature","Respiratory Rate");
         panelDiaBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Diastolic Blood Pressure");
         panelSysBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Systolic Blood Pressure");
-        panelRespiratoryPattern = load_chart((long) floor(resp_pattern_interval*1000),"resp pattern","Respiratory Pattern");
 
 
         display(this.reference_value);
@@ -167,7 +167,8 @@ public class Patient extends JButton {
         long dataBaseInitialTime=netAction.getInitialTime();
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
-                dataBaseInitialTime);
+                dataBaseInitialTime,
+                type,2);
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title);
     }
 
@@ -189,22 +190,22 @@ public class Patient extends JButton {
             this.panelEcg2.worker = new UpdateWorker(this.panelEcg2);
             this.panelEcg2.worker.execute();
 
-            this.panelTemperature.updater = new Chart_Label_Update(this.panelTemperature,10);
+            this.panelTemperature.updater = new Chart_Label_Update(this.panelTemperature);
             this.panelTemperature.updater.execute();
 
-            this.panelHeartRate.updater = new Chart_Label_Update(this.panelHeartRate,10);
+            this.panelHeartRate.updater = new Chart_Label_Update(this.panelHeartRate);
             this.panelHeartRate.updater.execute();
 
             this.panelRespiratoryPattern.worker = new UpdateWorker(this.panelRespiratoryPattern);
             this.panelRespiratoryPattern.worker.execute();
 
-            this.panelRespiratoryRate.updater = new Chart_Label_Update(this.panelRespiratoryRate,10);
+            this.panelRespiratoryRate.updater = new Chart_Label_Update(this.panelRespiratoryRate);
             this.panelRespiratoryRate.updater.execute();
 
-            this.panelSysBloodPressure.updater = new Chart_Label_Update(this.panelSysBloodPressure,10);
+            this.panelSysBloodPressure.updater = new Chart_Label_Update(this.panelSysBloodPressure);
             this.panelSysBloodPressure.updater.execute();
 
-            this.panelDiaBloodPressure.updater = new Chart_Label_Update(this.panelDiaBloodPressure,10);
+            this.panelDiaBloodPressure.updater = new Chart_Label_Update(this.panelDiaBloodPressure);
             this.panelDiaBloodPressure.updater.execute();
         }
 

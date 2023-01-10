@@ -14,11 +14,13 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
 
     private SeriesChartPane chart;
     long previousTime;
+    String type;
 
 
     public UpdateWorker(SeriesChartPane chart) {
         this.chart = chart;
         this.previousTime=this.chart.time;
+        this.type=this.chart.type;
     }
 
     @Override
@@ -29,7 +31,8 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
 
             responsePack respPack=netAction.recordData(previousTime,
                     currentTime,
-                    this.chart.dataInput.dataBaseInitialTime);
+                    this.chart.dataInput.dataBaseInitialTime,
+                    type, 2);
             List<Double> newData= respPack.valueList;
             if (newData.size()!=0){
                 chart.updateData(chart.getDataInput().getData(newData,100));

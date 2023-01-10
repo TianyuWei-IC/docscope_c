@@ -55,7 +55,7 @@ public class Chart_Label_Display {
         this.time_milli = time_urgent.getTime();
         this.pop_or_not = true;
 
-        this.updater = new Chart_Label_Update(this, WhiteSpace);
+        this.updater = new Chart_Label_Update(this);
         updater.execute();
     }
 
