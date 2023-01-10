@@ -41,6 +41,7 @@ public class Recording_Panel extends JPanel {
             chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(-0.5);
         } else if (data_type=="resp pattern"){
+            // values for resp pattern need to be changed
             chart.getStyler().setYAxisMax(40.0);
             chart.getStyler().setXAxisMin(0.2);
             chart.getStyler().setYAxisMin(34.0);
