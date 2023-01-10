@@ -118,7 +118,7 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelTemperature.updater.cancel(true);
         this.new_patient.panelEcg2.worker.cancel(true);
         this.new_patient.panelDiaBloodPressure.updater.cancel(true);
-        this.new_patient.panelRespiratoryPattern.updater.cancel(true);
+        this.new_patient.panelRespiratoryPattern.worker.cancel(true);
         this.new_patient.panelSysBloodPressure.updater.cancel(true);
         this.new_patient.panelHeartRate.updater.cancel(true);
         this.new_patient.panelRespiratoryRate.updater.cancel(true);
