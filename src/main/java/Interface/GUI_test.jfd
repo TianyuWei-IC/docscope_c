@@ -7,6 +7,8 @@ new FormModel {
 			name: "this"
 			"background": new java.awt.Color( 84, 160, 173, 255 )
 			"foreground": new java.awt.Color( 84, 160, 173, 255 )
+			"maximumSize": new java.awt.Dimension( 1920, 1080 )
+			"preferredSize": new java.awt.Dimension( 1920, 1080 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3,gap 100 10"
 				"$columnConstraints": "[207,fill]"
@@ -15,6 +17,9 @@ new FormModel {
 				name: "patientList_recordings"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
 				"foreground": sfield java.awt.Color white
+				"maximumSize": new java.awt.Dimension( 225, 1080 )
+				"minimumSize": new java.awt.Dimension( 225, 1080 )
+				"preferredSize": new java.awt.Dimension( 225, 1080 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
@@ -99,6 +104,9 @@ new FormModel {
 			} ) {
 				name: "value_display"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
+				"preferredSize": new java.awt.Dimension( 300, 1080 )
+				"maximumSize": new java.awt.Dimension( 300, 1080 )
+				"minimumSize": new java.awt.Dimension( 300, 1080 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
@@ -135,6 +143,8 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "ECG_display_intervalKeyReleased", true ) )
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "ECG_display_intervalKeyPressed", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -194,6 +204,8 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "RESP_pattern_display_intervalKeyPressed", true ) )
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "RESP_pattern_display_intervalKeyReleased", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -283,6 +295,8 @@ new FormModel {
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "HR_display_intervalKeyPressed", true ) )
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "HR_display_intervalKeyReleased", true ) )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -378,6 +392,8 @@ new FormModel {
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
+								addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "RESP_rate_display_intervalKeyPressed", true ) )
+								addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "RESP_rate_display_intervalKeyReleased", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
 							} )
@@ -506,6 +522,8 @@ new FormModel {
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
+								addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "BP_display_intervalKeyPressed", true ) )
+								addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "BP_display_intervalKeyReleased", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
 							} )
@@ -604,6 +622,8 @@ new FormModel {
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
+								addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "Temp_display_intervalKeyPressed", true ) )
+								addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "Temp_display_intervalKeyReleased", true ) )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 1 0"
 							} )
@@ -656,6 +676,9 @@ new FormModel {
 			} ) {
 				name: "plotPanel"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
+				"preferredSize": new java.awt.Dimension( 1300, 1080 )
+				"maximumSize": new java.awt.Dimension( 1300, 1080 )
+				"minimumSize": new java.awt.Dimension( 1300, 1080 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}

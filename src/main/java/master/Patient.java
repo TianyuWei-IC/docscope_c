@@ -58,12 +58,12 @@ public class Patient extends JButton {
 
     // fields for time interval
 
-    public Double ecg_interval = 5.0;
-    public Double temperature_interval = 6.0;
-    public Double resp_pattern_interval = 6.0;
-    public Double resp_rate_interval = 6.0;
-    public Double hr_interval = 6.0;
-    public Double bp_interval = 6.0;
+    public Integer ecg_interval = 5;
+    public Integer temperature_interval = 6;
+    public Integer resp_pattern_interval = 6;
+    public Integer resp_rate_interval = 6;
+    public Integer hr_interval = 6;
+    public Integer bp_interval = 6;
 
 
     public Patient(String first_name,
