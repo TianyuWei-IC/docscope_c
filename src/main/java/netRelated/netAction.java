@@ -39,14 +39,15 @@ public class netAction {
             System.out.println("end connection fail");
         }
     }
-    public static responsePack recordData(long startTime, long endTime,long initialTime){
+    public static responsePack recordFastData(long startTime, long endTime, long initialTime, String type){
 
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
         Connection conn = null;
         PreparedStatement s = null;
-
-        String orderEcg1 = "select ecg1 from ecgresp where id>? and id<=?";
+        String orderEcg1 = "select "+
+                type+
+                " from ecgresp where id>? and id<=?";
         int index1 = (int) floor((startTime - initialTime) / 2);
         int index2 = (int) floor((endTime - initialTime) / 2);
         if (index1 <= 0) {
@@ -63,7 +64,7 @@ public class netAction {
         try {
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
-                values.add(resultSet.getDouble("ecg1"));
+                values.add(resultSet.getDouble(type));
             }
             respPack.setLastTime(startTime+2*(values.size()));
 //            System.out.println("returned size is "+values.size());
@@ -82,24 +83,25 @@ public class netAction {
         respPack.setValueList(values);
         return respPack;
         }
-    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
+    public static responsePack recordSlowData(long startTime, long endTime, long initialTime){
 
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
         Connection conn = null;
         PreparedStatement s = null;
-
-        String order = "select temperature from other where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / 1000);
-        int index2 = (int) floor((endTime - initialTime) / 1000);
+        String type="temperature";
+        int interval=1000;
+        String order = "select "+
+                type+
+                " from other where id>? and id<=?";
+        int index1 = (int) floor((startTime - initialTime) / interval);
+        int index2 = (int) floor((endTime - initialTime) / interval);
         if (index1 <= 0) {
             System.out.println("empty");
         }
         try {
             conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             s = conn.prepareStatement(order);
-//                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-//                    ResultSet.CONCUR_READ_ONLY);
             s.setInt(1, index1);
             s.setInt(2, index2);
         } catch (SQLException e) {
@@ -110,7 +112,7 @@ public class netAction {
             while (resultSet.next()) {
                 values.add(resultSet.getDouble("temperature"));
             }
-            respPack.setLastTime(startTime+1000*(values.size()));
+            respPack.setLastTime(startTime+interval*(values.size()));
 //            System.out.println("returned size is "+values.size());
 //            System.out.println("last time is " + respPack.lastTime);
 //            System.out.println("start time is " + startTime);
@@ -118,7 +120,6 @@ public class netAction {
         } catch (Exception e) {
             System.out.println("resultSet fail in value");
         }
-//        System.out.println(values);
         try {
             s.close();
             conn.close();
@@ -134,7 +135,7 @@ public class netAction {
         PreparedStatement s = null;
         long initialTime=0;
 
-        String orderTime = "select initialtime from patientlist where reference='chuqiaoShen_30'";
+        String orderTime = "select initialtime from patientlist where reference='patient1'";
         try {
             conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             s = conn.prepareStatement(orderTime);

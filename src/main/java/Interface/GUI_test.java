@@ -102,6 +102,7 @@ public class GUI_test extends JFrame {
         SeriesChartPane current_RESP_pattern = (SeriesChartPane) this.resp_pattern_table.getComponent(0);
         Patient current_patient = current_RESP_pattern.find_patient();
 
+        Patient current_patient = current_resp_pattern_cl_display.patient;
 
         current_patient.panelRespiratoryPattern.worker.cancel(true);
         current_RESP_pattern.worker.cancel(true);
