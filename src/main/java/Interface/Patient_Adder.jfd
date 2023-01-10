@@ -37,8 +37,7 @@ new FormModel {
 						name: "ref_selector"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
-							"JavaCodeGenerator.preCreateCode": "String[] patient_ref_pack = new String[3];\npatient_ref_pack[0] = \"shuyu_yao_28/12/22\";\npatient_ref_pack[1] = \"jj_lin_08/10/22\";\npatient_ref_pack[2] = \"kyrie_sun_03/02/22\";"
-							"JavaCodeGenerator.customCreateCode": "new JComboBox(patient_ref_pack);"
+							"JavaCodeGenerator.customCreateCode": "new JComboBox(referenceList);"
 						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"

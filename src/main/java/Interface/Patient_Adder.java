@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
+import master.Monitor;
 import master.Patient;
 import net.miginfocom.swing.*;
 
@@ -13,6 +14,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.floor;
 import static java.lang.Math.round;
+import static master.Monitor.referenceList;
 
 
 /*
@@ -333,11 +335,7 @@ public class Patient_Adder extends JFrame {
         title_and_reference = new JPanel();
         title = new JLabel();
         patient_ref = new JLabel();
-        String[] patient_ref_pack = new String[3];
-        patient_ref_pack[0] = "shuyu_yao_28/12/22";
-        patient_ref_pack[1] = "jj_lin_08/10/22";
-        patient_ref_pack[2] = "kyrie_sun_03/02/22";
-        ref_selector = new JComboBox(patient_ref_pack);
+        ref_selector = new JComboBox(referenceList);
         patient_profile = new JPanel();
         name = new JPanel();
         first_name = new JLabel();

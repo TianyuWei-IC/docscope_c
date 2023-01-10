@@ -12,13 +12,13 @@ import javax.swing.AbstractButton;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import static master.Monitor.referenceList;
 
 
 /*
 
  * Created by JFormDesigner on Tue Dec 27 20:41:28 GMT 2022
  */
-
 
 /**
  * @author Tianyu
@@ -385,11 +385,7 @@ public class Patient_Editor extends JFrame {
         panel1 = new JPanel();
         title = new JLabel();
         patient_ref = new JLabel();
-        String[] patient_ref_pack = new String[3];
-        patient_ref_pack[0] = "shuyu_yao_28/12/22";
-        patient_ref_pack[1] = "jj_lin_08/10/22";
-        patient_ref_pack[2] = "kyrie_sun_03/02/22";
-        ref_selector = new JComboBox(patient_ref_pack);
+        ref_selector = new JComboBox(referenceList);
         patient_profile = new JPanel();
         name = new JPanel();
         first_name = new JLabel();
