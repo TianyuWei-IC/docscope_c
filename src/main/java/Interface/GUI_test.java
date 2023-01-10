@@ -99,21 +99,20 @@ public class GUI_test extends JFrame {
     }
 
     private void RESP_pattern_update_button(ActionEvent e) {
-        Display_Chart current_RESP_pattern = (Display_Chart) this.resp_pattern_table.getComponent(0);
-        Chart_Label_Display current_resp_pattern_cl_display = current_RESP_pattern.find_cl_display();
+        SeriesChartPane current_RESP_pattern = (SeriesChartPane) this.resp_pattern_table.getComponent(0);
+        Patient current_patient = current_RESP_pattern.find_patient();
 
-        Patient current_patient = current_resp_pattern_cl_display.patient;
 
-        current_patient.panelRespiratoryPattern.updater.cancel(true);
-        current_resp_pattern_cl_display.updater.cancel(true);
+        current_patient.panelRespiratoryPattern.worker.cancel(true);
+        current_RESP_pattern.worker.cancel(true);
 
         current_patient.resp_pattern_interval = Double.valueOf(this.RESP_pattern_display_interval.getText());
-        Chart_Label_Display updated_resp_pattern_cl_display =  current_patient.load_chartLabel(
-                (long) floor(current_patient.resp_pattern_interval*1000*60),"body temperature", "Respiratory Pattern");
+        SeriesChartPane updated_resp_pattern =  current_patient.load_chart(
+                (long) floor(current_patient.ecg_interval*1000),"resp pattern","Respiratory Pattern");
         this.resp_pattern_table.removeAll();
-        this.resp_pattern_table.add(updated_resp_pattern_cl_display.display_chart);
+        this.resp_pattern_table.add(updated_resp_pattern);
 
-        current_patient.panelRespiratoryPattern = updated_resp_pattern_cl_display;
+        current_patient.panelRespiratoryPattern = updated_resp_pattern;
     }
 
     private void HR_update_button(ActionEvent e) {

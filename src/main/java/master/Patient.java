@@ -51,7 +51,7 @@ public class Patient extends JButton {
 
     public Chart_Label_Display panelRespiratoryRate;
 
-    public Chart_Label_Display panelRespiratoryPattern;
+    public SeriesChartPane panelRespiratoryPattern;
 
     private Timestamp time = new Timestamp(System.currentTimeMillis());
     private long time_milli;
@@ -124,7 +124,7 @@ public class Patient extends JButton {
         panelRespiratoryRate=load_chartLabel((long) floor(resp_rate_interval*1000*60),"body temperature","Respiratory Rate");
         panelDiaBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Diastolic Blood Pressure");
         panelSysBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Systolic Blood Pressure");
-        panelRespiratoryPattern = load_chartLabel((long) floor(resp_pattern_interval*1000*60),"body temperature","Respiratory Pattern");
+        panelRespiratoryPattern = load_chart((long) floor(resp_pattern_interval*1000),"resp pattern","Respiratory Pattern");
 
 
         display(this.reference_value);
@@ -147,7 +147,7 @@ public class Patient extends JButton {
             previous_patient.panelRespiratoryRate.updater.cancel(true);
             previous_patient.panelDiaBloodPressure.updater.cancel(true);
             previous_patient.panelSysBloodPressure.updater.cancel(true);
-            previous_patient.panelRespiratoryPattern.updater.cancel(true);
+            previous_patient.panelRespiratoryPattern.worker.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
         }
@@ -195,8 +195,8 @@ public class Patient extends JButton {
             this.panelHeartRate.updater = new Chart_Label_Update(this.panelHeartRate,10);
             this.panelHeartRate.updater.execute();
 
-            this.panelRespiratoryPattern.updater = new Chart_Label_Update(this.panelRespiratoryPattern,10);
-            this.panelRespiratoryPattern.updater.execute();
+            this.panelRespiratoryPattern.worker = new UpdateWorker(this.panelRespiratoryPattern);
+            this.panelRespiratoryPattern.worker.execute();
 
             this.panelRespiratoryRate.updater = new Chart_Label_Update(this.panelRespiratoryRate,10);
             this.panelRespiratoryRate.updater.execute();
@@ -241,7 +241,7 @@ public class Patient extends JButton {
         // resp pattern
         this.mainGUI.resp_pattern_table.setVisible(false);
         this.mainGUI.resp_pattern_table.removeAll();
-        this.mainGUI.resp_pattern_table.add(this.panelRespiratoryPattern.display_chart);
+        this.mainGUI.resp_pattern_table.add(this.panelRespiratoryPattern);
         this.mainGUI.resp_pattern_table.setVisible(true);
 
         // resp rate

@@ -55,7 +55,7 @@ public class Patient_Adder extends JFrame {
             previous_patient.panelRespiratoryRate.updater.cancel(true);
             previous_patient.panelDiaBloodPressure.updater.cancel(true);
             previous_patient.panelSysBloodPressure.updater.cancel(true);
-            previous_patient.panelRespiratoryPattern.updater.cancel(true);
+            previous_patient.panelRespiratoryPattern.worker.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
         }else{
