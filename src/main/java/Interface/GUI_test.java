@@ -29,7 +29,12 @@ public class GUI_test extends JFrame {
     }
 
     private void recordings(ActionEvent e) {
-        Patient_Recording recorder = new Patient_Recording(this);
+        Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
+        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+        Patient current_patient = current_temp_cl_display.patient;
+        System.out.println(current_patient.first_name);
+
+        Patient_Recording recorder = new Patient_Recording(this,current_patient);
         recorder.setVisible(true);
         this.recordings.setEnabled(false);
     }
@@ -39,6 +44,8 @@ public class GUI_test extends JFrame {
         Patient_Adder editor = new Patient_Adder(this);
         this.add_new_patient.setEnabled(false);
         editor.setVisible(true);
+
+
     }
 
     private void report_button(ActionEvent e) {
@@ -46,39 +53,139 @@ public class GUI_test extends JFrame {
     }
 
     private void Temp_update_button(ActionEvent e) {
-
-//        SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
-//        SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg1.getComponent(0);
-        Display_Chart current_Temp = (Display_Chart) this.ecg2.getComponent(0);
+        // get the chart in the temp display panel
+        Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+
         Patient current_patient = current_temp_cl_display.patient;
-        current_patient.temperature_interval = Double.valueOf(this.Temp_display_interval.getText());
+
+        current_patient.panelTemperature.updater.cancel(true);
         current_temp_cl_display.updater.cancel(true);
-        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel((long)
-                floor(current_patient.temperature_interval*1000*60),"body temperature", "Body Temperature");
-        this.ecg2.removeAll();
-        this.ecg2.add(updated_temp_cl_display.display_chart);
+
+        current_patient.temperature_interval = Double.valueOf(this.Temp_display_interval.getText());
+        Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.temperature_interval*1000*60),"body temperature", "Body Temperature");
+        this.body_temp_table.removeAll();
+        this.body_temp_table.add(updated_temp_cl_display.display_chart);
         this.temp_display_value.removeAll();
         this.temp_display_value.add(updated_temp_cl_display.value_label);
 
         current_patient.panelTemperature = updated_temp_cl_display;
-        current_temp_cl_display = null;
     }
 
     private void ECG_update_button(ActionEvent e) {
-//        SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
-//        SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg1.getComponent(0);
+        // get the chart in the ecg panel
         SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
+        SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg2.getComponent(0);
         Patient current_patient = current_ECG_I.find_patient();
         current_patient.ecg_interval = Double.valueOf(this.ECG_display_interval.getText());
+
+        current_patient.panelEcg1.worker.cancel(true);
+        current_patient.panelEcg2.worker.cancel(true);
         current_ECG_I.worker.cancel(true);
-        SeriesChartPane updated_ECG_I =  current_patient.load_chart((long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I");
+        current_ECG_II.worker.cancel(true);
+        SeriesChartPane updated_ECG_I =  current_patient.load_chart(
+                (long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I");
+        SeriesChartPane updated_ECG_II =  current_patient.load_chart(
+                (long) floor(current_patient.ecg_interval*1000),"ecg2","ECG_Lead_II");
         this.ecg1.removeAll();
+        this.ecg2.removeAll();
         this.ecg1.add(updated_ECG_I);
+        this.ecg2.add(updated_ECG_II);
 
         current_patient.panelEcg1 = updated_ECG_I;
-        current_ECG_I = null;
+        current_patient.panelEcg2 = updated_ECG_II;
 
+    }
+
+    private void RESP_pattern_update_button(ActionEvent e) {
+        Display_Chart current_RESP_pattern = (Display_Chart) this.resp_pattern_table.getComponent(0);
+        Chart_Label_Display current_resp_pattern_cl_display = current_RESP_pattern.find_cl_display();
+
+        Patient current_patient = current_resp_pattern_cl_display.patient;
+
+        current_patient.panelRespiratoryPattern.updater.cancel(true);
+        current_resp_pattern_cl_display.updater.cancel(true);
+
+        current_patient.resp_pattern_interval = Double.valueOf(this.RESP_pattern_display_interval.getText());
+        Chart_Label_Display updated_resp_pattern_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.resp_pattern_interval*1000*60),"body temperature", "Respiratory Pattern");
+        this.resp_pattern_table.removeAll();
+        this.resp_pattern_table.add(updated_resp_pattern_cl_display.display_chart);
+
+        current_patient.panelRespiratoryPattern = updated_resp_pattern_cl_display;
+    }
+
+    private void HR_update_button(ActionEvent e) {
+        Display_Chart current_HR = (Display_Chart) this.heartrate_table.getComponent(0);
+        Chart_Label_Display current_hr_cl_display = current_HR.find_cl_display();
+
+        Patient current_patient = current_hr_cl_display.patient;
+
+        current_patient.panelHeartRate.updater.cancel(true);
+        current_hr_cl_display.updater.cancel(true);
+
+        current_patient.hr_interval = Double.valueOf(this.HR_display_interval.getText());
+        Chart_Label_Display updated_hr_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.hr_interval*1000*60),"body temperature", "Heart Rate");
+        this.heartrate_table.removeAll();
+        this.heartrate_table.add(updated_hr_cl_display.display_chart);
+        this.hr_display_value.removeAll();
+        this.hr_display_value.add(updated_hr_cl_display.value_label);
+
+        current_patient.panelHeartRate = updated_hr_cl_display;
+
+    }
+
+    private void RESP_rate_update_button(ActionEvent e) {
+        Display_Chart current_RESP_rate = (Display_Chart) this.resp_rate_table.getComponent(0);
+        Chart_Label_Display current_resp_rate_cl_display = current_RESP_rate.find_cl_display();
+
+        Patient current_patient = current_resp_rate_cl_display.patient;
+
+        current_patient.panelRespiratoryRate.updater.cancel(true);
+        current_resp_rate_cl_display.updater.cancel(true);
+
+        current_patient.resp_rate_interval = Double.valueOf(this.RESP_rate_display_interval.getText());
+        Chart_Label_Display updated_resp_rate_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.resp_rate_interval*1000*60),"body temperature", "Respiratory Rate");
+        this.resp_rate_table.removeAll();
+        this.resp_rate_table.add(updated_resp_rate_cl_display.display_chart);
+
+        current_patient.panelRespiratoryRate = updated_resp_rate_cl_display;
+    }
+
+    private void BP_update_button(ActionEvent e) {
+        Display_Chart current_BP_dia = (Display_Chart) this.dia_table.getComponent(0);
+        Display_Chart current_BP_sys = (Display_Chart) this.sys_table.getComponent(0);
+        Chart_Label_Display current_bp_dia_cl_display = current_BP_dia.find_cl_display();
+        Chart_Label_Display current_bp_sys_cl_display = current_BP_sys.find_cl_display();
+
+        Patient current_patient = current_bp_dia_cl_display.patient;
+
+        current_patient.panelDiaBloodPressure.updater.cancel(true);
+        current_patient.panelSysBloodPressure.updater.cancel(true);
+        current_bp_dia_cl_display.updater.cancel(true);
+        current_bp_sys_cl_display.updater.cancel(true);
+
+        current_patient.bp_interval = Double.valueOf(this.BP_display_interval.getText());
+        Chart_Label_Display updated_bp_dia_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Diastolic Blood Pressure");
+        Chart_Label_Display updated_bp_sys_cl_display =  current_patient.load_chartLabel(
+                (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Systolic Blood Pressure");
+
+        this.dia_table.removeAll();
+        this.dia_table.add(updated_bp_dia_cl_display.display_chart);
+        this.dia_display_value.removeAll();
+        this.dia_display_value.add(updated_bp_dia_cl_display.value_label);
+
+        this.sys_table.removeAll();
+        this.sys_table.add(updated_bp_sys_cl_display.display_chart);
+        this.sys_display_value.removeAll();
+        this.sys_display_value.add(updated_bp_sys_cl_display.value_label);
+
+        current_patient.panelDiaBloodPressure = updated_bp_dia_cl_display;
+        current_patient.panelSysBloodPressure = updated_bp_sys_cl_display;
     }
 
     private void initComponents() {
@@ -90,27 +197,25 @@ public class GUI_test extends JFrame {
         add_new_patient = new JButton();
         patient = new JScrollPane();
         patient_list = new JPanel();
-        panel1 = new JPanel();
-        real_time_plots = new JButton();
         panel2 = new JPanel();
         recordings = new JButton();
         recordings.setOpaque(true);
         recordings.setBorderPainted(false);
         value_display = new JPanel();
-        panel7 = new JPanel();
+        ecg_interval_panel = new JPanel();
         label12 = new JLabel();
         panel8 = new JPanel();
         label10 = new JLabel();
         ECG_display_interval = new JTextField();
         label11 = new JLabel();
         ECG_update_button = new JButton();
-        panel11 = new JPanel();
+        resp_interval_panel = new JPanel();
         label16 = new JLabel();
         panel12 = new JPanel();
         label17 = new JLabel();
-        textField7 = new JTextField();
+        RESP_pattern_display_interval = new JTextField();
         label18 = new JLabel();
-        button7 = new JButton();
+        RESP_pattern_update_button = new JButton();
         hr_panel = new JPanel();
         hr_title = new JLabel();
         hr_display = new JPanel();
@@ -118,9 +223,9 @@ public class GUI_test extends JFrame {
         hr_unit = new JLabel();
         panel3 = new JPanel();
         label2 = new JLabel();
-        textField1 = new JTextField();
+        HR_display_interval = new JTextField();
         label3 = new JLabel();
-        button1 = new JButton();
+        HR_update_button = new JButton();
         resp_panel = new JPanel();
         resp_title = new JLabel();
         resp_display = new JPanel();
@@ -129,21 +234,23 @@ public class GUI_test extends JFrame {
         panel4 = new JPanel();
         panel13 = new JPanel();
         label19 = new JLabel();
-        textField8 = new JTextField();
+        RESP_rate_display_interval = new JTextField();
         label20 = new JLabel();
-        button8 = new JButton();
+        RESP_rate_update_button = new JButton();
         bp_panel = new JPanel();
         bp_title = new JLabel();
         bp_display = new JPanel();
         bp_values = new JPanel();
+        sys_display_value = new JPanel();
         slash = new JLabel();
+        dia_display_value = new JPanel();
         bp_unit = new JLabel();
         panel5 = new JPanel();
         panel14 = new JPanel();
         label4 = new JLabel();
-        textField2 = new JTextField();
+        BP_display_interval = new JTextField();
         label5 = new JLabel();
-        button2 = new JButton();
+        BP_update_button = new JButton();
         temp_panel = new JPanel();
         temp_title = new JLabel();
         temp_display = new JPanel();
@@ -188,7 +295,6 @@ public class GUI_test extends JFrame {
                 "[412]" +
                 "[]" +
                 "[972]" +
-                "[309]" +
                 "[300]"));
 
             //======== NewPatient ========
@@ -227,23 +333,6 @@ public class GUI_test extends JFrame {
             }
             patientList_recordings.add(patient, "cell 0 2,dock center,wmax 3000,gapx 20 20,gapy 20 20");
 
-            //======== panel1 ========
-            {
-                panel1.setBackground(new Color(0x54a0ad));
-                panel1.setLayout(new MigLayout(
-                    "hidemode 3",
-                    // columns
-                    "[349,fill]",
-                    // rows
-                    "[121]"));
-
-                //---- real_time_plots ----
-                real_time_plots.setText("Real-time Plots");
-                real_time_plots.addActionListener(e -> real_time_plots(e));
-                panel1.add(real_time_plots, "dock center");
-            }
-            patientList_recordings.add(panel1, "cell 0 3");
-
             //======== panel2 ========
             {
                 panel2.setBackground(new Color(0x54a0ad));
@@ -252,15 +341,16 @@ public class GUI_test extends JFrame {
                     // columns
                     "[301,fill]",
                     // rows
-                    "[257]"));
+                    "[63]"));
 
                 //---- recordings ----
                 recordings.setText("Recordings");
                 recordings.setBackground(Color.yellow);
+                recordings.setEnabled(false);
                 recordings.addActionListener(e -> recordings(e));
                 panel2.add(recordings, "cell 0 0,dock center");
             }
-            patientList_recordings.add(panel2, "cell 0 4");
+            patientList_recordings.add(panel2, "cell 0 3");
         }
         contentPane.add(patientList_recordings, BorderLayout.WEST);
 
@@ -281,9 +371,9 @@ public class GUI_test extends JFrame {
                 "[65]" +
                 "[]"));
 
-            //======== panel7 ========
+            //======== ecg_interval_panel ========
             {
-                panel7.setLayout(new MigLayout(
+                ecg_interval_panel.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
                     "[345,fill]",
@@ -293,7 +383,7 @@ public class GUI_test extends JFrame {
 
                 //---- label12 ----
                 label12.setText("ECG Lead I and II");
-                panel7.add(label12, "cell 0 0");
+                ecg_interval_panel.add(label12, "cell 0 0");
 
                 //======== panel8 ========
                 {
@@ -312,7 +402,7 @@ public class GUI_test extends JFrame {
                     panel8.add(label10, "cell 0 0");
 
                     //---- ECG_display_interval ----
-                    ECG_display_interval.setText("5");
+                    ECG_display_interval.setEditable(false);
                     panel8.add(ECG_display_interval, "cell 1 0");
 
                     //---- label11 ----
@@ -321,16 +411,17 @@ public class GUI_test extends JFrame {
 
                     //---- ECG_update_button ----
                     ECG_update_button.setText("update");
+                    ECG_update_button.setEnabled(false);
                     ECG_update_button.addActionListener(e -> ECG_update_button(e));
                     panel8.add(ECG_update_button, "cell 3 0");
                 }
-                panel7.add(panel8, "cell 0 1");
+                ecg_interval_panel.add(panel8, "cell 0 1");
             }
-            value_display.add(panel7, "cell 0 0");
+            value_display.add(ecg_interval_panel, "cell 0 0");
 
-            //======== panel11 ========
+            //======== resp_interval_panel ========
             {
-                panel11.setLayout(new MigLayout(
+                resp_interval_panel.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
                     "[287,fill]",
@@ -340,7 +431,7 @@ public class GUI_test extends JFrame {
 
                 //---- label16 ----
                 label16.setText("Respiratory Pattern");
-                panel11.add(label16, "cell 0 0");
+                resp_interval_panel.add(label16, "cell 0 0");
 
                 //======== panel12 ========
                 {
@@ -357,19 +448,24 @@ public class GUI_test extends JFrame {
                     //---- label17 ----
                     label17.setText("Plot");
                     panel12.add(label17, "cell 0 0");
-                    panel12.add(textField7, "cell 1 0");
+
+                    //---- RESP_pattern_display_interval ----
+                    RESP_pattern_display_interval.setEditable(false);
+                    panel12.add(RESP_pattern_display_interval, "cell 1 0");
 
                     //---- label18 ----
                     label18.setText("seconds");
                     panel12.add(label18, "cell 2 0");
 
-                    //---- button7 ----
-                    button7.setText("update");
-                    panel12.add(button7, "cell 3 0");
+                    //---- RESP_pattern_update_button ----
+                    RESP_pattern_update_button.setText("update");
+                    RESP_pattern_update_button.setEnabled(false);
+                    RESP_pattern_update_button.addActionListener(e -> RESP_pattern_update_button(e));
+                    panel12.add(RESP_pattern_update_button, "cell 3 0");
                 }
-                panel11.add(panel12, "cell 0 1");
+                resp_interval_panel.add(panel12, "cell 0 1");
             }
-            value_display.add(panel11, "cell 0 1");
+            value_display.add(resp_interval_panel, "cell 0 1");
 
             //======== hr_panel ========
             {
@@ -428,15 +524,20 @@ public class GUI_test extends JFrame {
                     //---- label2 ----
                     label2.setText("Plot");
                     panel3.add(label2, "cell 0 0");
-                    panel3.add(textField1, "cell 1 0");
+
+                    //---- HR_display_interval ----
+                    HR_display_interval.setEditable(false);
+                    panel3.add(HR_display_interval, "cell 1 0");
 
                     //---- label3 ----
                     label3.setText("mins");
                     panel3.add(label3, "cell 2 0");
 
-                    //---- button1 ----
-                    button1.setText("update");
-                    panel3.add(button1, "cell 3 0");
+                    //---- HR_update_button ----
+                    HR_update_button.setText("update");
+                    HR_update_button.setEnabled(false);
+                    HR_update_button.addActionListener(e -> HR_update_button(e));
+                    panel3.add(HR_update_button, "cell 3 0");
                 }
                 hr_panel.add(panel3, "cell 0 2");
             }
@@ -509,15 +610,20 @@ public class GUI_test extends JFrame {
                         //---- label19 ----
                         label19.setText("Plot");
                         panel13.add(label19, "cell 0 0");
-                        panel13.add(textField8, "cell 1 0");
+
+                        //---- RESP_rate_display_interval ----
+                        RESP_rate_display_interval.setEditable(false);
+                        panel13.add(RESP_rate_display_interval, "cell 1 0");
 
                         //---- label20 ----
                         label20.setText("mins");
                         panel13.add(label20, "cell 2 0");
 
-                        //---- button8 ----
-                        button8.setText("update");
-                        panel13.add(button8, "cell 3 0");
+                        //---- RESP_rate_update_button ----
+                        RESP_rate_update_button.setText("update");
+                        RESP_rate_update_button.setEnabled(false);
+                        RESP_rate_update_button.addActionListener(e -> RESP_rate_update_button(e));
+                        panel13.add(RESP_rate_update_button, "cell 3 0");
                     }
                     panel4.add(panel13, "cell 0 1");
                 }
@@ -561,9 +667,31 @@ public class GUI_test extends JFrame {
                             // rows
                             "[]"));
 
+                        //======== sys_display_value ========
+                        {
+                            sys_display_value.setLayout(new MigLayout(
+                                "hidemode 3",
+                                // columns
+                                "[54,fill]",
+                                // rows
+                                "[]"));
+                        }
+                        bp_values.add(sys_display_value, "cell 0 0");
+
                         //---- slash ----
                         slash.setText("/");
                         bp_values.add(slash, "cell 1 0");
+
+                        //======== dia_display_value ========
+                        {
+                            dia_display_value.setLayout(new MigLayout(
+                                "hidemode 3",
+                                // columns
+                                "[68,fill]",
+                                // rows
+                                "[]"));
+                        }
+                        bp_values.add(dia_display_value, "cell 2 0");
                     }
                     bp_display.add(bp_values, "cell 0 0");
 
@@ -597,15 +725,20 @@ public class GUI_test extends JFrame {
                         //---- label4 ----
                         label4.setText("Plot");
                         panel14.add(label4, "cell 0 0");
-                        panel14.add(textField2, "cell 1 0");
+
+                        //---- BP_display_interval ----
+                        BP_display_interval.setEditable(false);
+                        panel14.add(BP_display_interval, "cell 1 0");
 
                         //---- label5 ----
                         label5.setText("mins");
                         panel14.add(label5, "cell 2 0");
 
-                        //---- button2 ----
-                        button2.setText("update");
-                        panel14.add(button2, "cell 3 0");
+                        //---- BP_update_button ----
+                        BP_update_button.setText("update");
+                        BP_update_button.setEnabled(false);
+                        BP_update_button.addActionListener(e -> BP_update_button(e));
+                        panel14.add(BP_update_button, "cell 3 0");
                     }
                     panel5.add(panel14, "cell 0 0");
                 }
@@ -679,6 +812,9 @@ public class GUI_test extends JFrame {
                         //---- label6 ----
                         label6.setText("Plot");
                         panel15.add(label6, "cell 0 0");
+
+                        //---- Temp_display_interval ----
+                        Temp_display_interval.setEditable(false);
                         panel15.add(Temp_display_interval, "cell 1 0");
 
                         //---- label7 ----
@@ -687,6 +823,7 @@ public class GUI_test extends JFrame {
 
                         //---- Temp_update_button ----
                         Temp_update_button.setText("update");
+                        Temp_update_button.setEnabled(false);
                         Temp_update_button.addActionListener(e -> Temp_update_button(e));
                         panel15.add(Temp_update_button, "cell 3 0");
                     }
@@ -699,6 +836,7 @@ public class GUI_test extends JFrame {
             //---- report_button ----
             report_button.setText("Reports");
             report_button.setBackground(Color.yellow);
+            report_button.setEnabled(false);
             report_button.addActionListener(e -> report_button(e));
             value_display.add(report_button, "cell 0 6");
         }
@@ -853,36 +991,34 @@ public class GUI_test extends JFrame {
     public JButton add_new_patient;
     public JScrollPane patient;
     public JPanel patient_list;
-    private JPanel panel1;
-    public JButton real_time_plots;
     private JPanel panel2;
     public JButton recordings;
     public JPanel value_display;
-    private JPanel panel7;
+    public JPanel ecg_interval_panel;
     private JLabel label12;
     private JPanel panel8;
     private JLabel label10;
     public JTextField ECG_display_interval;
     private JLabel label11;
-    private JButton ECG_update_button;
-    private JPanel panel11;
+    public JButton ECG_update_button;
+    public JPanel resp_interval_panel;
     private JLabel label16;
     private JPanel panel12;
     private JLabel label17;
-    private JTextField textField7;
+    public JTextField RESP_pattern_display_interval;
     private JLabel label18;
-    private JButton button7;
-    private JPanel hr_panel;
+    public JButton RESP_pattern_update_button;
+    public JPanel hr_panel;
     private JLabel hr_title;
     public JPanel hr_display;
     public JPanel hr_display_value;
     private JLabel hr_unit;
     private JPanel panel3;
     private JLabel label2;
-    private JTextField textField1;
+    public JTextField HR_display_interval;
     private JLabel label3;
-    private JButton button1;
-    private JPanel resp_panel;
+    public JButton HR_update_button;
+    public JPanel resp_panel;
     private JLabel resp_title;
     public JPanel resp_display;
     public JPanel resp_display_value;
@@ -890,22 +1026,24 @@ public class GUI_test extends JFrame {
     private JPanel panel4;
     private JPanel panel13;
     private JLabel label19;
-    private JTextField textField8;
+    public JTextField RESP_rate_display_interval;
     private JLabel label20;
-    private JButton button8;
-    private JPanel bp_panel;
+    public JButton RESP_rate_update_button;
+    public JPanel bp_panel;
     private JLabel bp_title;
     public JPanel bp_display;
     public JPanel bp_values;
+    public JPanel sys_display_value;
     private JLabel slash;
+    public JPanel dia_display_value;
     private JLabel bp_unit;
     private JPanel panel5;
     private JPanel panel14;
     private JLabel label4;
-    private JTextField textField2;
+    public JTextField BP_display_interval;
     private JLabel label5;
-    private JButton button2;
-    private JPanel temp_panel;
+    public JButton BP_update_button;
+    public JPanel temp_panel;
     private JLabel temp_title;
     public JPanel temp_display;
     public JPanel temp_display_value;
@@ -915,8 +1053,8 @@ public class GUI_test extends JFrame {
     private JLabel label6;
     public JTextField Temp_display_interval;
     private JLabel label7;
-    private JButton Temp_update_button;
-    private JButton report_button;
+    public JButton Temp_update_button;
+    public JButton report_button;
     public JPanel plotPanel;
     public JPanel ecg_table;
     public JPanel ecg1;

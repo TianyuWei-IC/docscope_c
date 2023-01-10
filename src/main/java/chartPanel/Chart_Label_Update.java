@@ -30,7 +30,7 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
                     currentTime,
                     this.chartLabel.dataInput.dataBaseInitialTime);
             List<Double> newData= respPack.valueList;
-            System.out.println(newData.size());
+            //System.out.println(newData.size());
             if (newData.size()!=0){
                 chartLabel.updateData(chartLabel.dataInput.getData(newData,WhiteSpace));
             }

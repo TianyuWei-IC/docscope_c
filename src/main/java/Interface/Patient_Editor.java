@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractButton;
+
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 
@@ -66,14 +68,14 @@ public class Patient_Editor extends JFrame {
         this.new_patient.year_of_birth = (Integer) this.year_selector.getSelectedItem();
         this.new_patient.temp_max= Double.valueOf(this.temp_max.getText());
         this.new_patient.temp_min= Double.valueOf(this.temp_min.getText());
-        this.new_patient.hr_max= Integer.valueOf(this.hr_max.getText());
-        this.new_patient.hr_min= Integer.valueOf(this.hr_min.getText());
-        this.new_patient.sys_max= Integer.valueOf(this.sys_max.getText());
-        this.new_patient.sys_min= Integer.valueOf(this.sys_min.getText());
-        this.new_patient.dia_max= Integer.valueOf(this.dia_max.getText());
-        this.new_patient.dia_min= Integer.valueOf(this.dia_min.getText());
-        this.new_patient.resp_max= Integer.valueOf(this.resp_max.getText());
-        this.new_patient.resp_min= Integer.valueOf(this.resp_min.getText());
+        this.new_patient.hr_max= (int) parseDouble(this.hr_max.getText());
+        this.new_patient.hr_min= (int) parseDouble(hr_min.getText());
+        this.new_patient.sys_max= (int) parseDouble(this.sys_max.getText());
+        this.new_patient.sys_min= (int) parseDouble(this.sys_min.getText());
+        this.new_patient.dia_max= (int) parseDouble(this.dia_max.getText());
+        this.new_patient.dia_min= (int) parseDouble(this.dia_min.getText());
+        this.new_patient.resp_max= (int) parseDouble(this.resp_max.getText());
+        this.new_patient.resp_min= (int) parseDouble(this.resp_min.getText());
 
 
         String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
@@ -102,10 +104,6 @@ public class Patient_Editor extends JFrame {
     private void delete_button(ActionEvent e) {
         mainGUI.patient_list.remove(this.new_patient);
         mainGUI.patient_list.updateUI();
-
-        mainGUI.ecg1.removeAll();
-        mainGUI.ecg2.removeAll();
-        mainGUI.temp_display_value.removeAll();
         mainGUI.repaint();
         this.dispose();
 
@@ -124,11 +122,259 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelSysBloodPressure.updater.cancel(true);
         this.new_patient.panelHeartRate.updater.cancel(true);
         this.new_patient.panelRespiratoryRate.updater.cancel(true);
-        this.new_patient = null;
+        //this.new_patient = null;
+        if (mainGUI.patient_list.getComponentCount()==0){
+            mainGUI.ECG_display_interval.setText("");
+            mainGUI.Temp_display_interval.setText("");
+
+            //ecg
+            mainGUI.ecg1.removeAll();
+            mainGUI.ecg2.removeAll();
+            //body temp
+            mainGUI.body_temp_table.removeAll();
+            mainGUI.temp_display_value.removeAll();
+            //blood pressure
+            mainGUI.dia_table.removeAll();
+            mainGUI.sys_table.removeAll();
+            mainGUI.sys_display_value.removeAll();
+            mainGUI.dia_display_value.removeAll();
+            //resp
+            mainGUI.resp_rate_table.removeAll();
+            mainGUI.resp_pattern_table.removeAll();
+            mainGUI.resp_display_value.removeAll();
+            //hr
+            mainGUI.heartrate_table.removeAll();
+            mainGUI.hr_display_value.removeAll();
+
+            disableDisplaySettings();
+
+        }
+
+    }
+
+    private  void disableDisplaySettings(){
+        this.mainGUI.ECG_display_interval.setEditable(false);
+        this.mainGUI.Temp_display_interval.setEditable(false);
+        this.mainGUI.HR_display_interval.setEditable(false);
+        this.mainGUI.BP_display_interval.setEditable(false);
+        this.mainGUI.RESP_pattern_display_interval.setEditable(false);
+        this.mainGUI.RESP_rate_display_interval.setEditable(false);
+
+        this.mainGUI.ECG_update_button.setEnabled(false);
+        this.mainGUI.HR_update_button.setEnabled(false);
+        this.mainGUI.Temp_update_button.setEnabled(false);
+        this.mainGUI.BP_update_button.setEnabled(false);
+        this.mainGUI.RESP_pattern_update_button.setEnabled(false);
+        this.mainGUI.RESP_rate_update_button.setEnabled(false);
+
+        this.mainGUI.recordings.setEnabled(false);
+        this.mainGUI.report_button.setEnabled(false);
     }
 
     private void PatientEditorWindowClosing(WindowEvent e) {
         this.new_patient.setEnabled(true);
+    }
+
+    private void temp_minKeyPressed(KeyEvent e) {
+        String temp_min_value = temp_min.getText();
+        int l = temp_min_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==46))& !temp_min_value.contains(".")& l<=4) {
+            temp_min.setEditable(true);
+        }else if(temp_min_value.contains(".")&((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& l<=4){
+            temp_min.setEditable(true);
+        }else if((e.getKeyCode()==8)& l==5){
+            temp_min.setEditable(true);
+        }else{
+            temp_min.setEditable(false);
+        }
+    }
+
+    private void temp_maxKeyPressed(KeyEvent e) {
+        String temp_max_value = temp_max.getText();
+        int l = temp_max_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==46))& !temp_max_value.contains(".")& l<=4) {
+            temp_max.setEditable(true);
+        }else if(temp_max_value.contains(".")&((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& l<=4){
+            temp_max.setEditable(true);
+        }else if((e.getKeyCode()==8)& l==5){
+            temp_max.setEditable(true);
+        }else{
+            temp_max.setEditable(false);
+        }
+    }
+
+    private void hr_minKeyPressed(KeyEvent e) {
+        String hr_min_value = hr_min.getText();
+        int l = hr_min_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            hr_min.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            hr_min.setEditable(true);
+        }else{
+            hr_min.setEditable(false);
+        }
+    }
+
+    private void hr_maxKeyPressed(KeyEvent e) {
+        String hr_max_value = hr_max.getText();
+        int l = hr_max_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            hr_max.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            hr_max.setEditable(true);
+        }else{
+            hr_max.setEditable(false);
+        }
+    }
+
+    private void sys_minKeyPressed(KeyEvent e) {
+        String sys_min_value = sys_min.getText();
+        int l = sys_min_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            sys_min.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            sys_min.setEditable(true);
+        }else{
+            sys_min.setEditable(false);
+        }
+    }
+
+    private void sys_maxKeyPressed(KeyEvent e) {
+        String sys_max_value = sys_max.getText();
+        int l = sys_max_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            sys_max.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            sys_max.setEditable(true);
+        }else{
+            sys_max.setEditable(false);
+        }
+    }
+
+    private void dia_minKeyPressed(KeyEvent e) {
+        String dia_min_value = dia_min.getText();
+        int l = dia_min_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            dia_min.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            dia_min.setEditable(true);
+        }else{
+            dia_min.setEditable(false);
+        }
+    }
+
+    private void dia_maxKeyPressed(KeyEvent e) {
+        String dia_max_value = dia_max.getText();
+        int l = dia_max_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            dia_max.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            dia_max.setEditable(true);
+        }else{
+            dia_max.setEditable(false);
+        }
+    }
+
+    private void resp_minKeyPressed(KeyEvent e) {
+        String resp_min_value = resp_min.getText();
+        int l = resp_min_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            resp_min.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            resp_min.setEditable(true);
+        }else{
+            resp_min.setEditable(false);
+        }
+    }
+
+    private void resp_maxKeyPressed(KeyEvent e) {
+        String resp_max_value = resp_max.getText();
+        int l = resp_max_value.length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8))& (l<=2)) {
+            resp_max.setEditable(true);
+        }else if((e.getKeyCode()==8)& (l==3)){
+            resp_max.setEditable(true);
+        }else{
+            resp_max.setEditable(false);
+        }
+    }
+
+    private void value_check(){
+        try {
+            Double temp_min_value_double = parseDouble(temp_min.getText());
+            Double temp_max_value_double = parseDouble(temp_max.getText());
+            Double hr_min_value_double = parseDouble(hr_min.getText());
+            Double hr_max_value_double = parseDouble(hr_max.getText());
+            Double sys_min_value_double = parseDouble(sys_min.getText());
+            Double sys_max_value_double = parseDouble(sys_max.getText());
+            Double dia_min_value_double = parseDouble(dia_min.getText());
+            Double dia_max_value_double = parseDouble(dia_max.getText());
+            Double resp_min_value_double = parseDouble(resp_min.getText());
+            Double resp_max_value_double = parseDouble(resp_max.getText());
+
+            if((temp_min_value_double>temp_max_value_double)|
+                    (hr_min_value_double>hr_max_value_double)|
+                    (sys_min_value_double>sys_max_value_double)|
+                    (dia_min_value_double>dia_max_value_double)|
+                    (resp_min_value_double>resp_max_value_double)|
+                    first_name_field.getText().isEmpty()|
+                    last_name_field.getText().isEmpty())
+            {
+                save_button.setEnabled(false);
+            }else{
+                save_button.setEnabled(true);
+            }
+
+        }catch(Exception error) {
+            save_button.setEnabled(false);
+        }
+    }
+    private void first_name_fieldKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void last_name_fieldKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void temp_minKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void temp_maxKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void hr_minKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void hr_maxKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void sys_minKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void sys_maxKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void dia_minKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void dia_maxKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void resp_minKeyReleased(KeyEvent e) {
+        value_check();
+    }
+
+    private void resp_maxKeyReleased(KeyEvent e) {
+        value_check();
     }
 
 
@@ -150,6 +396,7 @@ public class Patient_Editor extends JFrame {
         first_name_field = new JTextField();
         last_name = new JLabel();
         last_name_field = new JTextField();
+        label1 = new JLabel();
         gender = new JPanel();
         gender_label = new JLabel();
         male_button = new JRadioButton();
@@ -162,6 +409,8 @@ public class Patient_Editor extends JFrame {
                 years[i]=the_year;
         }
         year_selector = new JComboBox(years);
+        reminder2 = new JLabel();
+        label2 = new JLabel();
         reminder = new JLabel();
         threshold = new JPanel();
         min_value = new JLabel();
@@ -214,7 +463,7 @@ public class Patient_Editor extends JFrame {
                 // rows
                 "[60]" +
                 "[127]" +
-                "[54]" +
+                "[10]" +
                 "[261]" +
                 "[64]"));
 
@@ -260,19 +509,41 @@ public class Patient_Editor extends JFrame {
                         "[63,fill]" +
                         "[205,fill]" +
                         "[63,fill]" +
-                        "[211,fill]",
+                        "[211,fill]" +
+                        "[fill]",
                         // rows
                         "[]"));
 
                     //---- first_name ----
                     first_name.setText("First Name:");
                     name.add(first_name, "cell 0 0");
+
+                    //---- first_name_field ----
+                    first_name_field.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            first_name_fieldKeyReleased(e);
+                        }
+                    });
                     name.add(first_name_field, "cell 1 0");
 
                     //---- last_name ----
                     last_name.setText("Last Name:");
                     name.add(last_name, "cell 2 0");
+
+                    //---- last_name_field ----
+                    last_name_field.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            last_name_fieldKeyReleased(e);
+                        }
+                    });
                     name.add(last_name_field, "cell 3 0");
+
+                    //---- label1 ----
+                    label1.setText("* First Name and Last name must be filled");
+                    label1.setForeground(new Color(0xff0033));
+                    name.add(label1, "cell 4 0");
                 }
                 patient_profile.add(name, "cell 0 0");
 
@@ -322,8 +593,18 @@ public class Patient_Editor extends JFrame {
             }
             patient_editor_main_panel.add(patient_profile, "cell 0 1");
 
+            //---- reminder2 ----
+            reminder2.setText("The thresholds are set to be:");
+            reminder2.setFont(reminder2.getFont().deriveFont(reminder2.getFont().getSize() + 2f));
+            reminder2.setHorizontalAlignment(SwingConstants.LEFT);
+            patient_editor_main_panel.add(reminder2, "cell 0 2");
+
+            //---- label2 ----
+            label2.setText("* Max must be greater than Min");
+            label2.setForeground(new Color(0xff0033));
+            patient_editor_main_panel.add(label2, "cell 0 2");
+
             //---- reminder ----
-            reminder.setText("Based on the age of the patient, the thresholds are set to be:");
             reminder.setFont(reminder.getFont().deriveFont(reminder.getFont().getSize() + 2f));
             reminder.setHorizontalAlignment(SwingConstants.LEFT);
             patient_editor_main_panel.add(reminder, "cell 0 2");
@@ -364,10 +645,30 @@ public class Patient_Editor extends JFrame {
 
                 //---- temp_min ----
                 temp_min.setText("36.4");
+                temp_min.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        temp_minKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        temp_minKeyReleased(e);
+                    }
+                });
                 threshold.add(temp_min, "cell 2 1");
 
                 //---- temp_max ----
                 temp_max.setText("38.0");
+                temp_max.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        temp_maxKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        temp_maxKeyReleased(e);
+                    }
+                });
                 threshold.add(temp_max, "cell 3 1");
 
                 //---- degree ----
@@ -380,10 +681,30 @@ public class Patient_Editor extends JFrame {
 
                 //---- hr_min ----
                 hr_min.setText("60");
+                hr_min.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        hr_minKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        hr_minKeyReleased(e);
+                    }
+                });
                 threshold.add(hr_min, "cell 2 2");
 
                 //---- hr_max ----
                 hr_max.setText("100");
+                hr_max.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        hr_maxKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        hr_maxKeyReleased(e);
+                    }
+                });
                 threshold.add(hr_max, "cell 3 2");
 
                 //---- BPM ----
@@ -400,10 +721,30 @@ public class Patient_Editor extends JFrame {
 
                 //---- sys_min ----
                 sys_min.setText("90");
+                sys_min.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        sys_minKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        sys_minKeyReleased(e);
+                    }
+                });
                 threshold.add(sys_min, "cell 2 3");
 
                 //---- sys_max ----
                 sys_max.setText("120");
+                sys_max.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        sys_maxKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        sys_maxKeyReleased(e);
+                    }
+                });
                 threshold.add(sys_max, "cell 3 3");
 
                 //---- mmHg_high ----
@@ -416,10 +757,30 @@ public class Patient_Editor extends JFrame {
 
                 //---- dia_min ----
                 dia_min.setText("60");
+                dia_min.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        dia_minKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        dia_minKeyReleased(e);
+                    }
+                });
                 threshold.add(dia_min, "cell 2 4");
 
                 //---- dia_max ----
                 dia_max.setText("80");
+                dia_max.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        dia_maxKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        dia_maxKeyReleased(e);
+                    }
+                });
                 threshold.add(dia_max, "cell 3 4");
 
                 //---- mmHg_low ----
@@ -432,10 +793,30 @@ public class Patient_Editor extends JFrame {
 
                 //---- resp_min ----
                 resp_min.setText("12");
+                resp_min.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        resp_minKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        resp_minKeyReleased(e);
+                    }
+                });
                 threshold.add(resp_min, "cell 2 5");
 
                 //---- resp_max ----
                 resp_max.setText("20");
+                resp_max.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        resp_maxKeyPressed(e);
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        resp_maxKeyReleased(e);
+                    }
+                });
                 threshold.add(resp_max, "cell 3 5");
 
                 //---- per_min ----
@@ -468,10 +849,11 @@ public class Patient_Editor extends JFrame {
 
                 //---- delete_button ----
                 delete_button.setText("Delete This Patient");
-                delete_button.setMaximumSize(new Dimension(130, 50));
-                delete_button.setMinimumSize(new Dimension(130, 50));
-                delete_button.setPreferredSize(new Dimension(130, 50));
+                delete_button.setMaximumSize(new Dimension(180, 50));
+                delete_button.setMinimumSize(new Dimension(180, 50));
+                delete_button.setPreferredSize(new Dimension(180, 50));
                 delete_button.setFont(delete_button.getFont().deriveFont(delete_button.getFont().getSize() + 2f));
+                delete_button.setBackground(new Color(0xff0033));
                 delete_button.addActionListener(e -> delete_button(e));
                 panel2.add(delete_button, "cell 1 0");
             }
@@ -501,6 +883,7 @@ public class Patient_Editor extends JFrame {
     public JTextField first_name_field;
     private JLabel last_name;
     public JTextField last_name_field;
+    private JLabel label1;
     private JPanel gender;
     private JLabel gender_label;
     public JRadioButton male_button;
@@ -508,6 +891,8 @@ public class Patient_Editor extends JFrame {
     public JPanel birthday;
     private JLabel YoB;
     public JComboBox year_selector;
+    private JLabel reminder2;
+    private JLabel label2;
     private JLabel reminder;
     private JPanel threshold;
     private JLabel min_value;

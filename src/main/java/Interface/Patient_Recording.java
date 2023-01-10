@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import com.toedter.calendar.*;
+import master.Patient;
 import net.miginfocom.swing.*;
 /*
  * Created by JFormDesigner on Thu Dec 29 18:21:53 GMT 2022
@@ -16,13 +17,33 @@ import net.miginfocom.swing.*;
  */
 public class Patient_Recording extends JFrame {
     private GUI_test mainGUI;
-    public Patient_Recording(GUI_test mainGUI) {
+    private Patient current_patient;
+    public Patient_Recording(GUI_test mainGUI, Patient current_patient) {
         initComponents();
         this.mainGUI = mainGUI;
+        this.current_patient = current_patient;
     }
 
     private void PatientRecordingWindowClosing(WindowEvent e) {
         this.mainGUI.recordings.setEnabled(true);
+    }
+
+    private void generate_button(ActionEvent e) {
+        Recording_Result display_window = new Recording_Result();
+        display_window.Patient_name.setText(this.current_patient.first_name+" "+this.current_patient.last_name);
+        String Date = String.valueOf(dateChooser1.getDate());
+        Date = Date.substring(4,10)+Date.substring(23,28);
+        display_window.Date.setText(Date);
+        display_window.signal_type.setText((String) signal_selector.getSelectedItem());
+        display_window.start_time.setText(start_time_hour.getText()+":"+start_time_min.getText());
+        display_window.end_time.setText(end_time_hour.getText()+":"+end_time_min.getText());
+        System.out.println(display_window.getComponentCount());
+        //display_window.repaint();
+
+        display_window.setVisible(true);
+
+
+
     }
 
     private void initComponents() {
@@ -157,6 +178,7 @@ public class Patient_Recording extends JFrame {
 
         //---- generate_button ----
         generate_button.setText("Generate");
+        generate_button.addActionListener(e -> generate_button(e));
         contentPane.add(generate_button, "cell 0 5");
         pack();
         setLocationRelativeTo(getOwner());

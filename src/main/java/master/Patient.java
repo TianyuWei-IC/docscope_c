@@ -2,9 +2,7 @@ package master;
 
 import Interface.GUI_test;
 import Interface.Patient_Editor;
-import chartPanel.Chart_Label_Display;
-import chartPanel.SeriesChartPane;
-import chartPanel.inputData;
+import chartPanel.*;
 import netRelated.netAction;
 import netRelated.responsePack;
 
@@ -58,6 +56,11 @@ public class Patient extends JButton {
 
     public Double ecg_interval = 5.0;
     public Double temperature_interval = 6.0;
+    public Double resp_pattern_interval = 6.0;
+    public Double resp_rate_interval = 6.0;
+    public Double hr_interval = 6.0;
+    public Double bp_interval = 6.0;
+
 
     public Patient(String first_name,
                    String last_name,
@@ -127,6 +130,24 @@ public class Patient extends JButton {
     }
 
     private void switch_patient(ActionEvent e) {
+        // find the previous patients
+        Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
+        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+
+        Patient previous_patient = current_temp_cl_display.patient;
+        System.out.println(previous_patient.first_name);
+        //previous_patient.stop_display();
+        if (this.equals(previous_patient)==false) {
+            previous_patient.panelEcg1.worker.cancel(true);
+            previous_patient.panelEcg2.worker.cancel(true);
+            previous_patient.panelTemperature.updater.cancel(true);
+            previous_patient.panelRespiratoryRate.updater.cancel(true);
+            previous_patient.panelDiaBloodPressure.updater.cancel(true);
+            previous_patient.panelSysBloodPressure.updater.cancel(true);
+            previous_patient.panelRespiratoryPattern.updater.cancel(true);
+            previous_patient.panelHeartRate.updater.cancel(true);
+            System.out.println(previous_patient.panelEcg1.worker.isCancelled());
+        }
 
         display(this.reference_value);
         Timestamp time_now = new Timestamp(System.currentTimeMillis());
@@ -155,7 +176,7 @@ public class Patient extends JButton {
         responsePack respPack =netAction.recordSlowData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime);
-        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime),respPack.lastTime,type,title);
+        return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime,0.0166667),respPack.lastTime,type,title);
     }
 
     private void display(String reference_value) {
@@ -197,20 +218,42 @@ public class Patient extends JButton {
         this.mainGUI.resp_rate_table.add(this.panelRespiratoryRate.display_chart);
         this.mainGUI.resp_rate_table.setVisible(true);
 
+        this.mainGUI.resp_display_value.setVisible(false);
+        this.mainGUI.resp_display_value.removeAll();
+        this.mainGUI.resp_display_value.add(this.panelRespiratoryRate.value_label);
+        this.mainGUI.resp_display_value.setVisible(true);
+
         // bp_sys
         this.mainGUI.sys_table.setVisible(false);
         this.mainGUI.sys_table.removeAll();
         this.mainGUI.sys_table.add(this.panelSysBloodPressure.display_chart);
         this.mainGUI.sys_table.setVisible(true);
+
+        this.mainGUI.sys_display_value.setVisible(false);
+        this.mainGUI.sys_display_value.removeAll();
+        this.mainGUI.sys_display_value.add(this.panelSysBloodPressure.value_label);
+        this.mainGUI.sys_display_value.setVisible(true);
+
         // bp_dia
         this.mainGUI.dia_table.setVisible(false);
         this.mainGUI.dia_table.removeAll();
         this.mainGUI.dia_table.add(this.panelDiaBloodPressure.display_chart);
         this.mainGUI.dia_table.setVisible(true);
+
+        this.mainGUI.dia_display_value.setVisible(false);
+        this.mainGUI.dia_display_value.removeAll();
+        this.mainGUI.dia_display_value.add(this.panelDiaBloodPressure.value_label);
+        this.mainGUI.dia_display_value.setVisible(true);
+
         // set the default length
         this.mainGUI.ECG_display_interval.setText(String.valueOf(this.ecg_interval));
         this.mainGUI.Temp_display_interval.setText(String.valueOf(this.temperature_interval));
+        this.mainGUI.RESP_rate_display_interval.setText(String.valueOf(this.resp_rate_interval));
+        this.mainGUI.RESP_pattern_display_interval.setText(String.valueOf(this.resp_pattern_interval));
+        this.mainGUI.BP_display_interval.setText(String.valueOf(this.bp_interval));
+        this.mainGUI.HR_display_interval.setText(String.valueOf(this.hr_interval));
     }
+
 
     public void patient_mouseClicked(MouseEvent e) {
 //        if(e.getClickCount()==2){
