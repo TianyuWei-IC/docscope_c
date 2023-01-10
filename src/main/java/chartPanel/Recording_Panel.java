@@ -31,21 +31,21 @@ public class Recording_Panel extends JPanel {
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setMarkerSize(0);
         chart.getStyler().setXAxisTicksVisible(true);
-        chart.getStyler().setXAxisMin(0.2);
+        chart.getStyler().setXAxisMin(0.1);
         chart.getStyler().setSeriesColors(new Color[]{new Color(0x395F40),new Color(0x395F40)});
 
         if(type=="ecg1"){
             chart.getStyler().setYAxisMax(1.5);
-            chart.getStyler().setXAxisMin(0.2);
+            chart.getStyler().setXAxisMin(0.1);
             chart.getStyler().setYAxisMin(-0.5);
         } else if (type=="ecg2") {
             chart.getStyler().setYAxisMax(1.0);
-            chart.getStyler().setXAxisMin(0.2);
+            chart.getStyler().setXAxisMin(0.1);
             chart.getStyler().setYAxisMin(-0.5);
         } else if (type=="resp"){
             // values for resp pattern need to be changed
             chart.getStyler().setYAxisMax(40.0);
-            chart.getStyler().setXAxisMin(0.2);
+            chart.getStyler().setXAxisMin(0.1);
             chart.getStyler().setYAxisMin(34.0);
         }
 

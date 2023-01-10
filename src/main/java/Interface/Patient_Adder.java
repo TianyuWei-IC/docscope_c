@@ -6,13 +6,11 @@ import javax.swing.*;
 
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
-import master.Monitor;
 import master.Patient;
 import net.miginfocom.swing.*;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
-import static java.lang.Math.floor;
 import static java.lang.Math.round;
 import static master.Monitor.referenceList;
 
@@ -61,7 +59,7 @@ public class Patient_Adder extends JFrame {
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
         }else{
-           enbaleDisplaySettings();
+           enableDisplaySettings();
         }
         // creates a master.Patient object contains all patient's parameters
         Patient new_patient = new Patient(
@@ -95,7 +93,7 @@ public class Patient_Adder extends JFrame {
 
     }
 
-    private void enbaleDisplaySettings(){
+    private void enableDisplaySettings(){
         this.mainGUI.ECG_display_interval.setEditable(true);
         this.mainGUI.Temp_display_interval.setEditable(true);
         this.mainGUI.HR_display_interval.setEditable(true);

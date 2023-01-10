@@ -30,7 +30,7 @@ public class Monitor {
                 GUI_test mainPanel=new GUI_test();
                 mainPanel.setVisible(true);
                 mainPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainPanel.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                //mainPanel.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
         });
     }

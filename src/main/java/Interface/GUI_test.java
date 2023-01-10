@@ -8,6 +8,8 @@ import chartPanel.Display_Chart;
 import chartPanel.SeriesChartPane;
 import net.miginfocom.swing.*;
 import master.*;
+
+import static java.lang.Double.parseDouble;
 import static java.lang.Math.floor;
 
 /*
@@ -62,7 +64,7 @@ public class GUI_test extends JFrame {
         current_patient.panelTemperature.updater.cancel(true);
         current_temp_cl_display.updater.cancel(true);
 
-        current_patient.temperature_interval = Double.valueOf(this.Temp_display_interval.getText());
+        current_patient.temperature_interval = Integer.valueOf(this.Temp_display_interval.getText());
         Chart_Label_Display updated_temp_cl_display =  current_patient.load_chartLabel(
                 (long) floor(current_patient.temperature_interval*1000*60),"body temperature", "Body Temperature");
         this.body_temp_table.removeAll();
@@ -78,7 +80,7 @@ public class GUI_test extends JFrame {
         SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
         SeriesChartPane current_ECG_II = (SeriesChartPane) this.ecg2.getComponent(0);
         Patient current_patient = current_ECG_I.find_patient();
-        current_patient.ecg_interval = Double.valueOf(this.ECG_display_interval.getText());
+        current_patient.ecg_interval = Integer.valueOf(this.ECG_display_interval.getText());
 
         current_patient.panelEcg1.worker.cancel(true);
         current_patient.panelEcg2.worker.cancel(true);
@@ -106,7 +108,7 @@ public class GUI_test extends JFrame {
         current_patient.panelRespiratoryPattern.worker.cancel(true);
         current_RESP_pattern.worker.cancel(true);
 
-        current_patient.resp_pattern_interval = Double.valueOf(this.RESP_pattern_display_interval.getText());
+        current_patient.resp_pattern_interval = Integer.valueOf(this.RESP_pattern_display_interval.getText());
         SeriesChartPane updated_resp_pattern =  current_patient.load_chart(
                 (long) floor(current_patient.resp_pattern_interval*1000),"resp pattern", "Respiratory Pattern");
         this.resp_pattern_table.removeAll();
@@ -124,7 +126,7 @@ public class GUI_test extends JFrame {
         current_patient.panelHeartRate.updater.cancel(true);
         current_hr_cl_display.updater.cancel(true);
 
-        current_patient.hr_interval = Double.valueOf(this.HR_display_interval.getText());
+        current_patient.hr_interval = Integer.valueOf(this.HR_display_interval.getText());
         Chart_Label_Display updated_hr_cl_display =  current_patient.load_chartLabel(
                 (long) floor(current_patient.hr_interval*1000*60),"body temperature", "Heart Rate");
         this.heartrate_table.removeAll();
@@ -145,7 +147,7 @@ public class GUI_test extends JFrame {
         current_patient.panelRespiratoryRate.updater.cancel(true);
         current_resp_rate_cl_display.updater.cancel(true);
 
-        current_patient.resp_rate_interval = Double.valueOf(this.RESP_rate_display_interval.getText());
+        current_patient.resp_rate_interval = Integer.valueOf(this.RESP_rate_display_interval.getText());
         Chart_Label_Display updated_resp_rate_cl_display =  current_patient.load_chartLabel(
                 (long) floor(current_patient.resp_rate_interval*1000*60),"body temperature", "Respiratory Rate");
         this.resp_rate_table.removeAll();
@@ -167,7 +169,7 @@ public class GUI_test extends JFrame {
         current_bp_dia_cl_display.updater.cancel(true);
         current_bp_sys_cl_display.updater.cancel(true);
 
-        current_patient.bp_interval = Double.valueOf(this.BP_display_interval.getText());
+        current_patient.bp_interval = Integer.valueOf(this.BP_display_interval.getText());
         Chart_Label_Display updated_bp_dia_cl_display =  current_patient.load_chartLabel(
                 (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Diastolic Blood Pressure");
         Chart_Label_Display updated_bp_sys_cl_display =  current_patient.load_chartLabel(
@@ -185,6 +187,158 @@ public class GUI_test extends JFrame {
 
         current_patient.panelDiaBloodPressure = updated_bp_dia_cl_display;
         current_patient.panelSysBloodPressure = updated_bp_sys_cl_display;
+    }
+
+
+    private void ECG_display_intervalKeyReleased(KeyEvent e) {
+        try {
+                 String ecg_interval = ECG_display_interval.getText();
+                if(ecg_interval.isEmpty()|ecg_interval.equals("0")|ecg_interval.equals("00")) {
+                    ECG_update_button.setEnabled(false);
+                }else{
+                    ECG_update_button.setEnabled(true);
+                }
+
+        }catch(Exception error) {
+            ECG_update_button.setEnabled(false);
+        }
+    }
+
+    private void ECG_display_intervalKeyPressed(KeyEvent e) {
+        System.out.println(e.getKeyChar());
+        int l =  ECG_display_interval.getText().length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
+            ECG_display_interval.setEditable(true);
+        }else if(((e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l==2)){
+            ECG_display_interval.setEditable(true);
+        }else{
+            ECG_display_interval.setEditable(false);
+        }
+    }
+
+    private void RESP_pattern_display_intervalKeyPressed(KeyEvent e) {
+        int l = RESP_pattern_display_interval.getText().length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
+            RESP_pattern_display_interval.setEditable(true);
+        }else if(((e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l==2)){
+            RESP_pattern_display_interval.setEditable(true);
+        }else{
+            RESP_pattern_display_interval.setEditable(false);
+        }
+    }
+
+    private void RESP_pattern_display_intervalKeyReleased(KeyEvent e) {
+        try {
+            String RESP_interval = RESP_pattern_display_interval.getText();
+            if(RESP_interval.isEmpty()|RESP_interval.equals("0")|RESP_interval.equals("00")) {
+                RESP_pattern_update_button.setEnabled(false);
+            }else{
+                RESP_pattern_update_button.setEnabled(true);
+            }
+
+        }catch(Exception error) {
+            RESP_pattern_update_button.setEnabled(false);
+        }
+    }
+
+    private void HR_display_intervalKeyPressed(KeyEvent e) {
+        int l = HR_display_interval.getText().length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
+            HR_display_interval.setEditable(true);
+        }else if(((e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l==2)){
+            HR_display_interval.setEditable(true);
+        }else{
+            HR_display_interval.setEditable(false);
+        }
+    }
+
+    private void HR_display_intervalKeyReleased(KeyEvent e) {
+        try {
+            String HR_interval = HR_display_interval.getText();
+            if(HR_interval.isEmpty()|HR_interval.equals("0")|HR_interval.equals("00")) {
+                HR_update_button.setEnabled(false);
+            }else{
+                HR_update_button.setEnabled(true);
+            }
+
+        }catch(Exception error) {
+            HR_update_button.setEnabled(false);
+        }
+    }
+
+    private void RESP_rate_display_intervalKeyPressed(KeyEvent e) {
+        int l = RESP_rate_display_interval.getText().length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
+            RESP_rate_display_interval.setEditable(true);
+        }else if(((e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l==2)){
+            RESP_rate_display_interval.setEditable(true);
+        }else{
+            RESP_rate_display_interval.setEditable(false);
+        }
+    }
+
+    private void RESP_rate_display_intervalKeyReleased(KeyEvent e) {
+        try {
+            String HR_interval = RESP_rate_display_interval.getText();
+            if(HR_interval.isEmpty()|HR_interval.equals("0")|HR_interval.equals("00")) {
+                RESP_rate_update_button.setEnabled(false);
+            }else{
+                RESP_rate_update_button.setEnabled(true);
+            }
+
+        }catch(Exception error) {
+            RESP_rate_update_button.setEnabled(false);
+        }
+    }
+
+    private void BP_display_intervalKeyPressed(KeyEvent e) {
+        int l = BP_display_interval.getText().length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
+            BP_display_interval.setEditable(true);
+        }else if(((e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l==2)){
+            BP_display_interval.setEditable(true);
+        }else{
+            BP_display_interval.setEditable(false);
+        }
+    }
+
+    private void BP_display_intervalKeyReleased(KeyEvent e) {
+        try {
+            String HR_interval = BP_display_interval.getText();
+            if(HR_interval.isEmpty()|HR_interval.equals("0")|HR_interval.equals("00")) {
+                BP_update_button.setEnabled(false);
+            }else{
+                BP_update_button.setEnabled(true);
+            }
+
+        }catch(Exception error) {
+            BP_update_button.setEnabled(false);
+        }
+    }
+
+    private void Temp_display_intervalKeyPressed(KeyEvent e) {
+        int l = Temp_display_interval.getText().length();
+        if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
+            Temp_display_interval.setEditable(true);
+        }else if(((e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l==2)){
+            Temp_display_interval.setEditable(true);
+        }else{
+            Temp_display_interval.setEditable(false);
+        }
+    }
+
+    private void Temp_display_intervalKeyReleased(KeyEvent e) {
+        try {
+            String Temp_interval = Temp_display_interval.getText();
+            if(Temp_interval.isEmpty()|Temp_interval.equals("0")|Temp_interval.equals("00")) {
+                Temp_update_button.setEnabled(false);
+            }else{
+                Temp_display_interval.setEnabled(true);
+            }
+
+        }catch(Exception error) {
+            Temp_update_button.setEnabled(false);
+        }
     }
 
     private void initComponents() {
@@ -279,6 +433,8 @@ public class GUI_test extends JFrame {
         //======== this ========
         setBackground(new Color(0x54a0ad));
         setForeground(new Color(0x54a0ad));
+        setMaximumSize(new Dimension(1920, 1080));
+        setPreferredSize(new Dimension(1920, 1080));
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -286,6 +442,9 @@ public class GUI_test extends JFrame {
         {
             patientList_recordings.setBackground(new Color(0x54a0ad));
             patientList_recordings.setForeground(Color.white);
+            patientList_recordings.setMaximumSize(new Dimension(225, 1080));
+            patientList_recordings.setMinimumSize(new Dimension(225, 1080));
+            patientList_recordings.setPreferredSize(new Dimension(225, 1080));
             patientList_recordings.setLayout(new MigLayout(
                 "hidemode 3,gap 100 10",
                 // columns
@@ -356,6 +515,9 @@ public class GUI_test extends JFrame {
         //======== value_display ========
         {
             value_display.setBackground(new Color(0x54a0ad));
+            value_display.setPreferredSize(new Dimension(300, 1080));
+            value_display.setMaximumSize(new Dimension(300, 1080));
+            value_display.setMinimumSize(new Dimension(300, 1080));
             value_display.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
@@ -402,6 +564,16 @@ public class GUI_test extends JFrame {
 
                     //---- ECG_display_interval ----
                     ECG_display_interval.setEditable(false);
+                    ECG_display_interval.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            ECG_display_intervalKeyPressed(e);
+                        }
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            ECG_display_intervalKeyReleased(e);
+                        }
+                    });
                     panel8.add(ECG_display_interval, "cell 1 0");
 
                     //---- label11 ----
@@ -450,6 +622,16 @@ public class GUI_test extends JFrame {
 
                     //---- RESP_pattern_display_interval ----
                     RESP_pattern_display_interval.setEditable(false);
+                    RESP_pattern_display_interval.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            RESP_pattern_display_intervalKeyPressed(e);
+                        }
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            RESP_pattern_display_intervalKeyReleased(e);
+                        }
+                    });
                     panel12.add(RESP_pattern_display_interval, "cell 1 0");
 
                     //---- label18 ----
@@ -526,6 +708,16 @@ public class GUI_test extends JFrame {
 
                     //---- HR_display_interval ----
                     HR_display_interval.setEditable(false);
+                    HR_display_interval.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            HR_display_intervalKeyPressed(e);
+                        }
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            HR_display_intervalKeyReleased(e);
+                        }
+                    });
                     panel3.add(HR_display_interval, "cell 1 0");
 
                     //---- label3 ----
@@ -612,6 +804,16 @@ public class GUI_test extends JFrame {
 
                         //---- RESP_rate_display_interval ----
                         RESP_rate_display_interval.setEditable(false);
+                        RESP_rate_display_interval.addKeyListener(new KeyAdapter() {
+                            @Override
+                            public void keyPressed(KeyEvent e) {
+                                RESP_rate_display_intervalKeyPressed(e);
+                            }
+                            @Override
+                            public void keyReleased(KeyEvent e) {
+                                RESP_rate_display_intervalKeyReleased(e);
+                            }
+                        });
                         panel13.add(RESP_rate_display_interval, "cell 1 0");
 
                         //---- label20 ----
@@ -727,6 +929,16 @@ public class GUI_test extends JFrame {
 
                         //---- BP_display_interval ----
                         BP_display_interval.setEditable(false);
+                        BP_display_interval.addKeyListener(new KeyAdapter() {
+                            @Override
+                            public void keyPressed(KeyEvent e) {
+                                BP_display_intervalKeyPressed(e);
+                            }
+                            @Override
+                            public void keyReleased(KeyEvent e) {
+                                BP_display_intervalKeyReleased(e);
+                            }
+                        });
                         panel14.add(BP_display_interval, "cell 1 0");
 
                         //---- label5 ----
@@ -814,6 +1026,16 @@ public class GUI_test extends JFrame {
 
                         //---- Temp_display_interval ----
                         Temp_display_interval.setEditable(false);
+                        Temp_display_interval.addKeyListener(new KeyAdapter() {
+                            @Override
+                            public void keyPressed(KeyEvent e) {
+                                Temp_display_intervalKeyPressed(e);
+                            }
+                            @Override
+                            public void keyReleased(KeyEvent e) {
+                                Temp_display_intervalKeyReleased(e);
+                            }
+                        });
                         panel15.add(Temp_display_interval, "cell 1 0");
 
                         //---- label7 ----
@@ -844,6 +1066,9 @@ public class GUI_test extends JFrame {
         //======== plotPanel ========
         {
             plotPanel.setBackground(new Color(0x54a0ad));
+            plotPanel.setPreferredSize(new Dimension(1300, 1080));
+            plotPanel.setMaximumSize(new Dimension(1300, 1080));
+            plotPanel.setMinimumSize(new Dimension(1300, 1080));
             plotPanel.setLayout(new MigLayout(
                 "fill,hidemode 3",
                 // columns
