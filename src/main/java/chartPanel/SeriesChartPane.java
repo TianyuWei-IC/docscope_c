@@ -24,8 +24,8 @@ public class SeriesChartPane extends Recording_Panel  {
 
 
     public void updateData(List[] data) {
-        chart.updateXYSeries("ecg_former", data[0], data[1], null);
-        chart.updateXYSeries("ecg_latter", data[2], data[3], null);
+        chart.updateXYSeries("former", data[0], data[1], null);
+        chart.updateXYSeries("latter", data[2], data[3], null);
         repaint();
     }
 

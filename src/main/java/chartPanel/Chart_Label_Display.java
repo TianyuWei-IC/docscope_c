@@ -50,7 +50,7 @@ public class Chart_Label_Display {
         value_label = new JLabel();
         value_label.setForeground(this.color);
         this.dataInput = dataInput;
-        this.df=new DecimalFormat("0.00");
+        this.df=new DecimalFormat("0.000000");
 
         this.time_milli = time_urgent.getTime();
         this.pop_or_not = true;
@@ -117,22 +117,27 @@ public class Chart_Label_Display {
             this.threshold_double_low= patient.temp_min ;
             this.threshold_double_high= patient.temp_max;
             this.baseline_value = 36.5;
+            System.out.println("get");
         }else if(data_type=="heart rate"){
             this.threshold_double_low=  (double) patient.hr_min;
             this.threshold_double_high= (double) patient.hr_max;
             this.baseline_value = 75.0;
+            System.out.println("get");
         }else if(data_type=="systolic blood pressure"){
             this.threshold_double_low= (double) patient.sys_min;
             this.threshold_double_high= (double) patient.sys_min;
             this.baseline_value = 105.0;
+            System.out.println("get");
         }else if(data_type=="diastolic blood pressure"){
             this.threshold_double_low= (double) patient.dia_min;
             this.threshold_double_high= (double) patient.dia_max;
             this.baseline_value = 70.0;
+            System.out.println("get");
         }else if(data_type=="respiratory rate"){
             this.threshold_double_low= (double) patient.resp_min;
             this.threshold_double_high= (double) patient.resp_max;
             this.baseline_value = 15.0;
+            System.out.println("get");
         }
     }
 

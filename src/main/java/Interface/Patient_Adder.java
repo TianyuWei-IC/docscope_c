@@ -85,9 +85,6 @@ public class Patient_Adder extends JFrame {
         mainGUI.patient_list.updateUI();
         //new_patient.doClick();
         System.out.println(mainGUI.patient_list.getComponentCount());
-
-
-
         this.mainGUI.add_new_patient.setEnabled(true);
         this.dispose();
 
