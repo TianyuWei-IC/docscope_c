@@ -110,7 +110,7 @@ public class GUI_test extends JFrame {
 
         current_patient.resp_pattern_interval = Integer.valueOf(this.RESP_pattern_display_interval.getText());
         SeriesChartPane updated_resp_pattern =  current_patient.load_chart(
-                (long) floor(current_patient.resp_pattern_interval*1000),"resp pattern", "Respiratory Pattern");
+                (long) floor(current_patient.resp_pattern_interval*1000),"resp", "Respiratory Pattern");
         this.resp_pattern_table.removeAll();
         this.resp_pattern_table.add(updated_resp_pattern);
 
@@ -128,7 +128,7 @@ public class GUI_test extends JFrame {
 
         current_patient.hr_interval = Integer.valueOf(this.HR_display_interval.getText());
         Chart_Label_Display updated_hr_cl_display =  current_patient.load_chartLabel(
-                (long) floor(current_patient.hr_interval*1000*60),"body temperature", "Heart Rate");
+                (long) floor(current_patient.hr_interval*1000*60),"heart rate", "Heart Rate");
         this.heartrate_table.removeAll();
         this.heartrate_table.add(updated_hr_cl_display.display_chart);
         this.hr_display_value.removeAll();
@@ -149,7 +149,7 @@ public class GUI_test extends JFrame {
 
         current_patient.resp_rate_interval = Integer.valueOf(this.RESP_rate_display_interval.getText());
         Chart_Label_Display updated_resp_rate_cl_display =  current_patient.load_chartLabel(
-                (long) floor(current_patient.resp_rate_interval*1000*60),"body temperature", "Respiratory Rate");
+                (long) floor(current_patient.resp_rate_interval*1000*60),"respiratory rate", "Respiratory Rate");
         this.resp_rate_table.removeAll();
         this.resp_rate_table.add(updated_resp_rate_cl_display.display_chart);
 
@@ -171,9 +171,9 @@ public class GUI_test extends JFrame {
 
         current_patient.bp_interval = Integer.valueOf(this.BP_display_interval.getText());
         Chart_Label_Display updated_bp_dia_cl_display =  current_patient.load_chartLabel(
-                (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Diastolic Blood Pressure");
+                (long) floor(current_patient.bp_interval*1000*60),"diastolic blood pressure", "Diastolic Blood Pressure");
         Chart_Label_Display updated_bp_sys_cl_display =  current_patient.load_chartLabel(
-                (long) floor(current_patient.bp_interval*1000*60),"body temperature", "Systolic Blood Pressure");
+                (long) floor(current_patient.bp_interval*1000*60),"systolic blood pressure", "Systolic Blood Pressure");
 
         this.dia_table.removeAll();
         this.dia_table.add(updated_bp_dia_cl_display.display_chart);
@@ -333,7 +333,7 @@ public class GUI_test extends JFrame {
             if(Temp_interval.isEmpty()|Temp_interval.equals("0")|Temp_interval.equals("00")) {
                 Temp_update_button.setEnabled(false);
             }else{
-                Temp_display_interval.setEnabled(true);
+                Temp_update_button.setEnabled(true);
             }
 
         }catch(Exception error) {

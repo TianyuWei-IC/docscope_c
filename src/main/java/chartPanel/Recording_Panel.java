@@ -39,7 +39,7 @@ public class Recording_Panel extends JPanel {
             chart.getStyler().setXAxisMin(0.1);
             chart.getStyler().setYAxisMin(-0.5);
         } else if (type=="ecg2") {
-            chart.getStyler().setYAxisMax(1.0);
+            chart.getStyler().setYAxisMax(1.5);
             chart.getStyler().setXAxisMin(0.1);
             chart.getStyler().setYAxisMin(-0.5);
         } else if (type=="resp"){

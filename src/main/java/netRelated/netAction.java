@@ -40,22 +40,27 @@ public class netAction {
         }
     }
     public static responsePack recordData(long startTime, long endTime,long initialTime,String type,int interval){
+        String table="alphafast";
         if(type=="body temperature"){
             type="temperature";
+            table="alphaslow";
         } else if (type == "heart rate") {
             type="heart";
+            table="alphaslow";
         } else if (type == "systolic blood pressure") {
             type="systolic";
+            table="alphaslow";
         } else if (type == "diastolic blood pressure") {
             type="diastolic";
+            table="alphaslow";
         } else if (type == "respiratory rate") {
             type="respiratory";
+            table="alphaslow";
         }
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
         Connection conn = null;
         PreparedStatement s = null;
-        String table="alphafast";
         String orderEcg1 = "select "+ type+ " from "+ table+ " where id>? and id<=?";
         int index1 = (int) floor((startTime - initialTime) / interval);
         int index2 = (int) floor((endTime - initialTime) / interval);

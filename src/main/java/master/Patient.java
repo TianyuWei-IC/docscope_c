@@ -122,9 +122,9 @@ public class Patient extends JButton {
 
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
         panelHeartRate=load_chartLabel((long) floor(hr_interval*1000*60),"heart rate","Heart Rate");
-        panelRespiratoryRate=load_chartLabel((long) floor(resp_rate_interval*1000*60),"body temperature","Respiratory Rate");
-        panelDiaBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Diastolic Blood Pressure");
-        panelSysBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"body temperature","Systolic Blood Pressure");
+        panelRespiratoryRate=load_chartLabel((long) floor(resp_rate_interval*1000*60),"respiratory rate","Respiratory Rate");
+        panelDiaBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"diastolic blood pressure","Diastolic Blood Pressure");
+        panelSysBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"systolic blood pressure","Systolic Blood Pressure");
 
 
         display(this.reference_value);

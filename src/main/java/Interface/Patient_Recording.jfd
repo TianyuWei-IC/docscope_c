@@ -10,6 +10,9 @@ new FormModel {
 		} ) {
 			name: "this"
 			"font": new java.awt.Font( "Dialog", 0, 8 )
+			"preferredSize": new java.awt.Dimension( 420, 300 )
+			"minimumSize": new java.awt.Dimension( 420, 300 )
+			"maximumSize": new java.awt.Dimension( 420, 300 )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "PatientRecordingWindowClosing", true ) )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "recording_title"
@@ -66,6 +69,7 @@ new FormModel {
 					name: "dateChooser1"
 					auxiliary() {
 						"JavaCodeGenerator.customCreateCode": "new JDateChooser();"
+						"JavaCodeGenerator.postCreateCode": "dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));"
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
@@ -75,8 +79,8 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "[73,fill][51,fill][4,fill][39,fill][60,fill][50,fill][0,fill][48,fill]"
-				"$rowConstraints": "[46]"
+				"$columnConstraints": "[62,fill][80,fill][20,fill]0[26,fill][39,fill][60,fill][50,fill][fill][0,fill][48,fill]"
+				"$rowConstraints": "[46]0[]"
 			} ) {
 				name: "time_intervel_select_panel"
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -85,8 +89,17 @@ new FormModel {
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
 				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
+				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "start_time_hour"
+					"minimumSize": &Dimension0 new java.awt.Dimension( 50, 30 )
+					"preferredSize": &Dimension1 new java.awt.Dimension( 50, 30 )
+					"maximumSize": &Dimension2 new java.awt.Dimension( 50, 30 )
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+						"JavaCodeGenerator.preCreateCode": "String[] hour_pack = new String[24];\nfor (int i = 0; i<24; i++) {\n if (i<10){\n        hour_pack[i] = \"0\"+i;\n    }else{\n        hour_pack[i] = String.valueOf(i);\n    }\n}"
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(hour_pack);"
+					}
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "start_time_hourItemStateChanged", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
 				} )
@@ -94,34 +107,56 @@ new FormModel {
 					name: "colon"
 					"text": ":"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 0"
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "start_time_min"
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "start_time_min"
+					"minimumSize": #Dimension0
+					"preferredSize": #Dimension1
+					"maximumSize": #Dimension2
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+						"JavaCodeGenerator.preCreateCode": "String[] min_pack = new String[60];\nfor (int i = 0; i<60; i++) {\n    if (i<10){\n        min_pack[i] = \"0\"+i;\n    }else{\n        min_pack[i] = String.valueOf(i);\n    }\n  }"
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(min_pack);"
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "end_time_label"
 					"text": "End Time:"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 4 0"
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "end_time_hour"
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 5 0"
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "end_time_hour"
+					"minimumSize": #Dimension0
+					"preferredSize": #Dimension1
+					"maximumSize": #Dimension2
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(hour_pack);"
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "colon2"
 					"text": ":"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 6 0"
+					"value": "cell 8 0"
 				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
+				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "end_time_min"
+					"minimumSize": #Dimension0
+					"preferredSize": #Dimension1
+					"maximumSize": #Dimension2
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+						"JavaCodeGenerator.customCreateCode": "new JComboBox(min_pack);"
+					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 7 0"
+					"value": "cell 9 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3"
@@ -135,13 +170,14 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "generate_button"
 				"text": "Generate"
+				"enabled": false
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "generate_button", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 5"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 385, 315 )
+			"size": new java.awt.Dimension( 470, 320 )
 		} )
 	}
 }

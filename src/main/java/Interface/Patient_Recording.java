@@ -2,10 +2,16 @@ package Interface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.*;
 import com.toedter.calendar.*;
 import master.Patient;
 import net.miginfocom.swing.*;
+import netRelated.netAction;
+
+import static java.lang.Double.parseDouble;
 /*
  * Created by JFormDesigner on Thu Dec 29 18:21:53 GMT 2022
  */
@@ -35,20 +41,42 @@ public class Patient_Recording extends JFrame {
         Date = Date.substring(4,10)+Date.substring(23,28);
         display_window.Date.setText(Date);
         display_window.signal_type.setText((String) signal_selector.getSelectedItem());
-        display_window.start_time.setText(start_time_hour.getText()+":"+start_time_min.getText());
-        display_window.end_time.setText(end_time_hour.getText()+":"+end_time_min.getText());
+        display_window.start_time.setText(start_time_hour.getSelectedItem()+":"+start_time_min.getSelectedItem());
+        display_window.end_time.setText(end_time_hour.getSelectedItem()+":"+end_time_min.getSelectedItem());
         System.out.println(display_window.getComponentCount());
         //display_window.repaint();
 
         display_window.setVisible(true);
 
+        //
 
+    }
+
+    private void start_time_hourItemStateChanged(ItemEvent e) {
+       try {
+            Integer start_hour = (Integer) start_time_hour.getSelectedItem();
+            Integer start_min = (Integer) start_time_min.getSelectedItem();
+            Integer end_hour = (Integer) end_time_hour.getSelectedItem();
+            Integer end_min = (Integer) end_time_min.getSelectedItem();
+            System.out.println("running");
+            //System.out.println(!dateChooser1.getDate().toString().isEmpty());
+
+            if (((start_hour<end_hour) | ((start_hour==end_hour) & (start_min<end_min)))& (!dateChooser1.getDate().toString().isEmpty())){
+                generate_button.setEnabled(true);
+            }else{
+                generate_button.setEnabled(false);
+            }
+
+        }catch(Exception error) {
+            generate_button.setEnabled(false);
+            System.out.println("!dateChooser1.getDate().toString().isEmpty()");
+        }
 
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         recording_title = new JLabel();
         signal_select_label = new JLabel();
         String[] signal_pack = new String[8];
@@ -66,20 +94,40 @@ public class Patient_Recording extends JFrame {
         panel1 = new JPanel();
         label1 = new JLabel();
         dateChooser1 = new JDateChooser();
+        dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));
         time_intervel_select_panel = new JPanel();
         start_time_label = new JLabel();
-        start_time_hour = new JTextField();
+        String[] hour_pack = new String[24];
+        for (int i = 0; i<24; i++) {
+         if (i<10){
+                hour_pack[i] = "0"+i;
+            }else{
+                hour_pack[i] = String.valueOf(i);
+            }
+        }
+        start_time_hour = new JComboBox(hour_pack);
         colon = new JLabel();
-        start_time_min = new JTextField();
+        String[] min_pack = new String[60];
+        for (int i = 0; i<60; i++) {
+            if (i<10){
+                min_pack[i] = "0"+i;
+            }else{
+                min_pack[i] = String.valueOf(i);
+            }
+          }
+        start_time_min = new JComboBox(min_pack);
         end_time_label = new JLabel();
-        end_time_hour = new JTextField();
+        end_time_hour = new JComboBox(hour_pack);
         colon2 = new JLabel();
-        end_time_min = new JTextField();
+        end_time_min = new JComboBox(min_pack);
         label2 = new JLabel();
         generate_button = new JButton();
 
         //======== this ========
         setFont(new Font(Font.DIALOG, Font.PLAIN, 8));
+        setPreferredSize(new Dimension(420, 300));
+        setMinimumSize(new Dimension(420, 300));
+        setMaximumSize(new Dimension(420, 300));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -139,36 +187,60 @@ public class Patient_Recording extends JFrame {
             time_intervel_select_panel.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
-                "[73,fill]" +
-                "[51,fill]" +
-                "[4,fill]" +
+                "[62,fill]" +
+                "[80,fill]" +
+                "[20,fill]0" +
+                "[26,fill]" +
                 "[39,fill]" +
                 "[60,fill]" +
                 "[50,fill]" +
+                "[fill]" +
                 "[0,fill]" +
                 "[48,fill]",
                 // rows
-                "[46]"));
+                "[46]0" +
+                "[]"));
 
             //---- start_time_label ----
             start_time_label.setText("Start Time:");
             time_intervel_select_panel.add(start_time_label, "cell 0 0");
+
+            //---- start_time_hour ----
+            start_time_hour.setMinimumSize(new Dimension(50, 30));
+            start_time_hour.setPreferredSize(new Dimension(50, 30));
+            start_time_hour.setMaximumSize(new Dimension(50, 30));
+            start_time_hour.addItemListener(e -> start_time_hourItemStateChanged(e));
             time_intervel_select_panel.add(start_time_hour, "cell 1 0");
 
             //---- colon ----
             colon.setText(":");
-            time_intervel_select_panel.add(colon, "cell 2 0");
-            time_intervel_select_panel.add(start_time_min, "cell 3 0");
+            time_intervel_select_panel.add(colon, "cell 3 0");
+
+            //---- start_time_min ----
+            start_time_min.setMinimumSize(new Dimension(50, 30));
+            start_time_min.setPreferredSize(new Dimension(50, 30));
+            start_time_min.setMaximumSize(new Dimension(50, 30));
+            time_intervel_select_panel.add(start_time_min, "cell 4 0");
 
             //---- end_time_label ----
             end_time_label.setText("End Time:");
-            time_intervel_select_panel.add(end_time_label, "cell 4 0");
-            time_intervel_select_panel.add(end_time_hour, "cell 5 0");
+            time_intervel_select_panel.add(end_time_label, "cell 5 0");
+
+            //---- end_time_hour ----
+            end_time_hour.setMinimumSize(new Dimension(50, 30));
+            end_time_hour.setPreferredSize(new Dimension(50, 30));
+            end_time_hour.setMaximumSize(new Dimension(50, 30));
+            time_intervel_select_panel.add(end_time_hour, "cell 7 0");
 
             //---- colon2 ----
             colon2.setText(":");
-            time_intervel_select_panel.add(colon2, "cell 6 0");
-            time_intervel_select_panel.add(end_time_min, "cell 7 0");
+            time_intervel_select_panel.add(colon2, "cell 8 0");
+
+            //---- end_time_min ----
+            end_time_min.setMinimumSize(new Dimension(50, 30));
+            end_time_min.setPreferredSize(new Dimension(50, 30));
+            end_time_min.setMaximumSize(new Dimension(50, 30));
+            time_intervel_select_panel.add(end_time_min, "cell 9 0");
         }
         contentPane.add(time_intervel_select_panel, "cell 0 3");
 
@@ -178,6 +250,7 @@ public class Patient_Recording extends JFrame {
 
         //---- generate_button ----
         generate_button.setText("Generate");
+        generate_button.setEnabled(false);
         generate_button.addActionListener(e -> generate_button(e));
         contentPane.add(generate_button, "cell 0 5");
         pack();
@@ -186,7 +259,7 @@ public class Patient_Recording extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JLabel recording_title;
     private JLabel signal_select_label;
     public JComboBox signal_selector;
@@ -197,13 +270,13 @@ public class Patient_Recording extends JFrame {
     private JDateChooser dateChooser1;
     private JPanel time_intervel_select_panel;
     private JLabel start_time_label;
-    private JTextField start_time_hour;
+    public JComboBox start_time_hour;
     private JLabel colon;
-    private JTextField start_time_min;
+    public JComboBox start_time_min;
     private JLabel end_time_label;
-    private JTextField end_time_hour;
+    public JComboBox end_time_hour;
     private JLabel colon2;
-    private JTextField end_time_min;
+    public JComboBox end_time_min;
     private JLabel label2;
     private JButton generate_button;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

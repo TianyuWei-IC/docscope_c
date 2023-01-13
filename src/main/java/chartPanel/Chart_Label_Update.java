@@ -12,10 +12,12 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
 
     private Chart_Label_Display chartLabel;
     long previousTime;
+    String type;
 
     public Chart_Label_Update(Chart_Label_Display chartLabel) {
         this.chartLabel = chartLabel;
         this.previousTime=this.chartLabel.time;
+        this.type=this.chartLabel.type;
     }
 
     @Override
@@ -24,9 +26,11 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
             Thread.sleep(1000);
             long currentTime=new Timestamp(System.currentTimeMillis()).getTime();
 
-            responsePack respPack=netAction.recordDataTemp(previousTime,
+            responsePack respPack=netAction.recordData(previousTime,
                     currentTime,
-                    this.chartLabel.dataInput.dataBaseInitialTime);
+                    this.chartLabel.dataInput.dataBaseInitialTime,
+                    type,
+                    1000);
             List<Double> newData= respPack.valueList;
             //System.out.println(newData.size());
             if (newData.size()!=0){

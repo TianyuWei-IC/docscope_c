@@ -17,7 +17,7 @@ public class Recording_Result extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         panel1 = new JPanel();
         Patient_name = new JLabel();
         signal_type = new JLabel();
@@ -93,7 +93,7 @@ public class Recording_Result extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel panel1;
     public JLabel Patient_name;
     public JLabel signal_type;

@@ -80,18 +80,15 @@ public class Patient_Editor extends JFrame {
 
         String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
 
-//        this.new_patient.panelTemperature.getThreshold();
-//        this.new_patient.panelHeartRate.getThreshold();
-//        this.new_patient.panelSysBloodPressure.getThreshold();
-//        this.new_patient.panelDiaBloodPressure.getThreshold();
-//        this.new_patient.panelRespiratoryRate.getThreshold();
-
-
         this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         mainGUI.patient_list.updateUI();
 
         // VERY IMPORTANT, need to get threshold after edit
         this.new_patient.panelTemperature.getThreshold();
+        this.new_patient.panelHeartRate.getThreshold();
+        this.new_patient.panelSysBloodPressure.getThreshold();
+        this.new_patient.panelDiaBloodPressure.getThreshold();
+        this.new_patient.panelRespiratoryRate.getThreshold();
 
         this.dispose();
         this.new_patient.setEnabled(true);
@@ -380,7 +377,7 @@ public class Patient_Editor extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         panel1 = new JPanel();
         title = new JLabel();
@@ -867,7 +864,7 @@ public class Patient_Editor extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel panel1;
     private JLabel title;
