@@ -34,8 +34,8 @@ public class inputData {
         if (position+whiteSpace<size-1){
             List valueFormer=partData[1].subList(position+whiteSpace, size);
             List timeFormer=partData[0].subList(position+whiteSpace, size);
-            List valueLatter=partData[1].subList(0,position+1);
-            List timeLatter=partData[0].subList(0,position+1);
+            List valueLatter=partData[1].subList(0,position);
+            List timeLatter=partData[0].subList(0,position);
             return new List[]{timeFormer,valueFormer,timeLatter,valueLatter};
         }else{
 //            List valueFormer=partData[1].subList(position, partData[1].size());
@@ -44,8 +44,8 @@ public class inputData {
             List timeFormer=new ArrayList<>();
             valueFormer.add(partData[1].get(size-1));
             timeFormer.add(partData[0].get(size-1));
-            List valueLatter=partData[1].subList(0,position+1);
-            List timeLatter=partData[0].subList(0,position+1);
+            List valueLatter=partData[1].subList(0,position);
+            List timeLatter=partData[0].subList(0,position);
             return new List[]{timeFormer,valueFormer,timeLatter,valueLatter};
         }
     }
