@@ -343,7 +343,7 @@ public class GUI_test extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Evaluation license - Jiapeng Liu
         patientList_recordings = new JPanel();
         NewPatient = new JPanel();
         label1 = new JLabel();
@@ -433,8 +433,8 @@ public class GUI_test extends JFrame {
         //======== this ========
         setBackground(new Color(0x54a0ad));
         setForeground(new Color(0x54a0ad));
-        setMaximumSize(new Dimension(1920, 1080));
-        setPreferredSize(new Dimension(1920, 1080));
+        setMaximumSize(new Dimension(1920, 1017));
+        setPreferredSize(new Dimension(1920, 1017));
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -442,9 +442,15 @@ public class GUI_test extends JFrame {
         {
             patientList_recordings.setBackground(new Color(0x54a0ad));
             patientList_recordings.setForeground(Color.white);
-            patientList_recordings.setMaximumSize(new Dimension(225, 1080));
-            patientList_recordings.setMinimumSize(new Dimension(225, 1080));
-            patientList_recordings.setPreferredSize(new Dimension(225, 1080));
+            patientList_recordings.setMaximumSize(new Dimension(225, 1017));
+            patientList_recordings.setMinimumSize(new Dimension(225, 1017));
+            patientList_recordings.setPreferredSize(new Dimension(225, 1017));
+            patientList_recordings.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+            EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing
+            . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
+            java. awt. Color. red) ,patientList_recordings. getBorder( )) ); patientList_recordings. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () ))
+            throw new RuntimeException( ); }} );
             patientList_recordings.setLayout(new MigLayout(
                 "hidemode 3,gap 100 10",
                 // columns
@@ -515,9 +521,9 @@ public class GUI_test extends JFrame {
         //======== value_display ========
         {
             value_display.setBackground(new Color(0x54a0ad));
-            value_display.setPreferredSize(new Dimension(300, 1080));
-            value_display.setMaximumSize(new Dimension(300, 1080));
-            value_display.setMinimumSize(new Dimension(300, 1080));
+            value_display.setPreferredSize(new Dimension(300, 1017));
+            value_display.setMaximumSize(new Dimension(300, 1017));
+            value_display.setMinimumSize(new Dimension(300, 1017));
             value_display.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
@@ -1066,9 +1072,9 @@ public class GUI_test extends JFrame {
         //======== plotPanel ========
         {
             plotPanel.setBackground(new Color(0x54a0ad));
-            plotPanel.setPreferredSize(new Dimension(1300, 1080));
-            plotPanel.setMaximumSize(new Dimension(1300, 1080));
-            plotPanel.setMinimumSize(new Dimension(1300, 1080));
+            plotPanel.setPreferredSize(new Dimension(1300, 1017));
+            plotPanel.setMaximumSize(new Dimension(1300, 1017));
+            plotPanel.setMinimumSize(new Dimension(1300, 1017));
             plotPanel.setLayout(new MigLayout(
                 "fill,hidemode 3",
                 // columns
@@ -1208,7 +1214,7 @@ public class GUI_test extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Evaluation license - Jiapeng Liu
     public JPanel patientList_recordings;
     public JPanel NewPatient;
     private JLabel label1;

@@ -7,8 +7,8 @@ new FormModel {
 			name: "this"
 			"background": new java.awt.Color( 84, 160, 173, 255 )
 			"foreground": new java.awt.Color( 84, 160, 173, 255 )
-			"maximumSize": new java.awt.Dimension( 1920, 1080 )
-			"preferredSize": new java.awt.Dimension( 1920, 1080 )
+			"maximumSize": new java.awt.Dimension( 1920, 1017 )
+			"preferredSize": new java.awt.Dimension( 1920, 1017 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3,gap 100 10"
 				"$columnConstraints": "[207,fill]"
@@ -17,9 +17,9 @@ new FormModel {
 				name: "patientList_recordings"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
 				"foreground": sfield java.awt.Color white
-				"maximumSize": new java.awt.Dimension( 225, 1080 )
-				"minimumSize": new java.awt.Dimension( 225, 1080 )
-				"preferredSize": new java.awt.Dimension( 225, 1080 )
+				"maximumSize": new java.awt.Dimension( 225, 1017 )
+				"minimumSize": new java.awt.Dimension( 225, 1017 )
+				"preferredSize": new java.awt.Dimension( 225, 1017 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
@@ -104,9 +104,9 @@ new FormModel {
 			} ) {
 				name: "value_display"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
-				"preferredSize": new java.awt.Dimension( 300, 1080 )
-				"maximumSize": new java.awt.Dimension( 300, 1080 )
-				"minimumSize": new java.awt.Dimension( 300, 1080 )
+				"preferredSize": new java.awt.Dimension( 300, 1017 )
+				"maximumSize": new java.awt.Dimension( 300, 1017 )
+				"minimumSize": new java.awt.Dimension( 300, 1017 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
@@ -676,9 +676,9 @@ new FormModel {
 			} ) {
 				name: "plotPanel"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
-				"preferredSize": new java.awt.Dimension( 1300, 1080 )
-				"maximumSize": new java.awt.Dimension( 1300, 1080 )
-				"minimumSize": new java.awt.Dimension( 1300, 1080 )
+				"preferredSize": new java.awt.Dimension( 1300, 1017 )
+				"maximumSize": new java.awt.Dimension( 1300, 1017 )
+				"minimumSize": new java.awt.Dimension( 1300, 1017 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
