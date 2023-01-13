@@ -175,9 +175,10 @@ public class Patient extends JButton {
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
-        responsePack respPack =netAction.recordDataTemp(timestamp.getTime()-chart_capacity,
+        responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
-                dataBaseInitialTime);
+                dataBaseInitialTime,
+                type,1000);
         return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime,0.0166667),respPack.lastTime,type,title);
     }
 

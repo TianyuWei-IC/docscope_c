@@ -40,7 +40,17 @@ public class netAction {
         }
     }
     public static responsePack recordData(long startTime, long endTime,long initialTime,String type,int interval){
-
+        if(type=="body temperature"){
+            type="temperature";
+        } else if (type == "heart rate") {
+            type="heart";
+        } else if (type == "systolic blood pressure") {
+            type="systolic";
+        } else if (type == "diastolic blood pressure") {
+            type="diastolic";
+        } else if (type == "respiratory rate") {
+            type="respiratory";
+        }
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
         Connection conn = null;
@@ -82,52 +92,52 @@ public class netAction {
         respPack.setValueList(values);
         return respPack;
         }
-    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
-
-        List<Double> values = new ArrayList<>();
-        responsePack respPack = new responsePack();
-        Connection conn = null;
-        PreparedStatement s = null;
-
-        String order = "select temperature from alphaslow where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / 1000);
-        int index2 = (int) floor((endTime - initialTime) / 1000);
-        if (index1 <= 0) {
-            System.out.println("empty");
-        }
-        try {
-            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            s = conn.prepareStatement(order);
-//                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-//                    ResultSet.CONCUR_READ_ONLY);
-            s.setInt(1, index1);
-            s.setInt(2, index2);
-        } catch (SQLException e) {
-            System.out.println("statement fail in value");
-        }
-        try {
-            ResultSet resultSet = s.executeQuery();
-            while (resultSet.next()) {
-                values.add(resultSet.getDouble("temperature"));
-            }
-            respPack.setLastTime(startTime+1000*(values.size()));
-//            System.out.println("returned size is "+values.size());
-//            System.out.println("last time is " + respPack.lastTime);
-//            System.out.println("start time is " + startTime);
-//            System.out.println("end time is " + endTime);
-        } catch (Exception e) {
-            System.out.println("resultSet fail in value");
-        }
-//        System.out.println(values);
-        try {
-            s.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("end connection fail");
-        }
-        respPack.setValueList(values);
-        return respPack;
-    }
+//    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
+//
+//        List<Double> values = new ArrayList<>();
+//        responsePack respPack = new responsePack();
+//        Connection conn = null;
+//        PreparedStatement s = null;
+//
+//        String order = "select temperature from alphaslow where id>? and id<=?";
+//        int index1 = (int) floor((startTime - initialTime) / 1000);
+//        int index2 = (int) floor((endTime - initialTime) / 1000);
+//        if (index1 <= 0) {
+//            System.out.println("empty");
+//        }
+//        try {
+//            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+//            s = conn.prepareStatement(order);
+////                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+////                    ResultSet.CONCUR_READ_ONLY);
+//            s.setInt(1, index1);
+//            s.setInt(2, index2);
+//        } catch (SQLException e) {
+//            System.out.println("statement fail in value");
+//        }
+//        try {
+//            ResultSet resultSet = s.executeQuery();
+//            while (resultSet.next()) {
+//                values.add(resultSet.getDouble("temperature"));
+//            }
+//            respPack.setLastTime(startTime+1000*(values.size()));
+////            System.out.println("returned size is "+values.size());
+////            System.out.println("last time is " + respPack.lastTime);
+////            System.out.println("start time is " + startTime);
+////            System.out.println("end time is " + endTime);
+//        } catch (Exception e) {
+//            System.out.println("resultSet fail in value");
+//        }
+////        System.out.println(values);
+//        try {
+//            s.close();
+//            conn.close();
+//        } catch (SQLException e) {
+//            System.out.println("end connection fail");
+//        }
+//        respPack.setValueList(values);
+//        return respPack;
+//    }
     public static long getInitialTime(){
 
         Connection conn = null;
