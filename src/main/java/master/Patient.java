@@ -159,7 +159,7 @@ public class Patient extends JButton {
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime,
-                type,2);
+                type,2,this.reference_value);
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title,mode);
     }
 
@@ -169,7 +169,7 @@ public class Patient extends JButton {
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime,
-                type,1000);
+                type,1000,this.reference_value);
         return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime,0.0166667),respPack.lastTime,type,title);
     }
 

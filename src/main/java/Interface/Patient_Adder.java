@@ -347,7 +347,7 @@ public class Patient_Adder extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+        // Generated using JFormDesigner Educational license - Tianyu Wei 
         patient_editor_main_panel = new JPanel();
         title_and_reference = new JPanel();
         title = new JLabel();
@@ -807,7 +807,7 @@ public class Patient_Adder extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+    // Generated using JFormDesigner Educational license - Tianyu Wei 
     private JPanel patient_editor_main_panel;
     private JPanel title_and_reference;
     private JLabel title;

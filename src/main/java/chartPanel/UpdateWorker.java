@@ -32,7 +32,7 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
             responsePack respPack=netAction.recordData(previousTime,
                     currentTime,
                     this.chart.dataInput.dataBaseInitialTime,
-                    type, 2);
+                    type, 2,this.chart.patient.reference_value);
             List<Double> newData= respPack.valueList;
             if (newData.size()!=0){
                 chart.updateData(chart.getDataInput().getData(newData,100));

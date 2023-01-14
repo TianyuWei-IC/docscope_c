@@ -26,7 +26,7 @@ import static java.lang.Math.floor;
 
 public class netAction {
     public static String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
-    public static String ref="alpha";
+//    public static String ref="alpha";
 
     public static void databaseUpdate(String order) {
         Connection conn = null;
@@ -46,7 +46,8 @@ public class netAction {
         }
     }
 
-    public static responsePack recordData(long startTime, long endTime, long initialTime, String type, int interval) {
+    public static responsePack recordData(long startTime, long endTime, long initialTime,
+                                          String type, int interval,String ref) {
         String table = ref+"slow";
         if (type == "body temperature") {
             type = "temperature";
@@ -99,7 +100,8 @@ public class netAction {
         respPack.setValueList(values);
         return respPack;
     }
-    public static responsePack averageData(long startTime, long endTime, long initialTime, String type, int interval) {
+    public static responsePack averageData(long startTime, long endTime, long initialTime,
+                                           String type, int interval,String ref) {
         String table = ref+"slowaverage";
         if (type == "body temperature") {
             type = "temperature";
@@ -386,22 +388,6 @@ public class netAction {
                 references.add(resultSet.getString("reference"));
             }
 
-            s.close();
-        } catch (SQLException e) {
-            System.out.println("end statement fail in time");
-        }
-        return references;
-    }
-    public static List<String> getReferences() {
-        List<String> references=new ArrayList<>();
-        String orderTime = "select reference from patientlist";
-        try {
-            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            PreparedStatement s = conn.prepareStatement(orderTime);
-            ResultSet resultSet = s.executeQuery();
-            while (resultSet.next()) {
-                references.add(resultSet.getString(1));
-            }
             s.close();
         } catch (SQLException e) {
             System.out.println("end statement fail in time");

@@ -95,7 +95,7 @@ public class Patient_Recording extends JFrame {
         responsePack respPack =netAction.recordData(start_in_milli,
                 end_in_milli,
                 dataBaseInitialTime,
-                type,interval);
+                type,interval,this.current_patient.reference_value);
         Recording_Panel recordingPanel = new Recording_Panel(new inputData(respPack.valueList,dataBaseInitialTime,
                 period), respPack.lastTime,type,signal_pack_select,"recording");
         recordingPanel.setVisible(true);

@@ -13,7 +13,7 @@ class netActionTest {
     void recordData() {
         netAction net = new netAction();
         long currentTime=new Timestamp(System.currentTimeMillis()).getTime();
-        responsePack pack=net.recordData(currentTime-50,currentTime,net.getInitialTime(),"resp",2);
+        responsePack pack=net.recordData(currentTime-50,currentTime,net.getInitialTime(),"resp",2,"alpha");
         System.out.println(pack.valueList);
     }
 
