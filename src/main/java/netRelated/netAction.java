@@ -22,9 +22,10 @@ import static java.lang.Math.floor;
 
 public class netAction {
     public static String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
-    public static void databaseUpdate(String order){
-        Connection conn=null;
-        PreparedStatement s=null;
+
+    public static void databaseUpdate(String order) {
+        Connection conn = null;
+        PreparedStatement s = null;
         try {
             conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             s = conn.prepareStatement(order);
@@ -39,29 +40,30 @@ public class netAction {
             System.out.println("end connection fail");
         }
     }
-    public static responsePack recordData(long startTime, long endTime,long initialTime,String type,int interval){
-        String table="alphafast";
-        if(type=="body temperature"){
-            type="temperature";
-            table="alphaslow";
+
+    public static responsePack recordData(long startTime, long endTime, long initialTime, String type, int interval) {
+        String table = "alphafast";
+        if (type == "body temperature") {
+            type = "temperature";
+            table = "alphaslow";
         } else if (type == "heart rate") {
-            type="heart";
-            table="alphaslow";
+            type = "heart";
+            table = "alphaslow";
         } else if (type == "systolic blood pressure") {
-            type="systolic";
-            table="alphaslow";
+            type = "systolic";
+            table = "alphaslow";
         } else if (type == "diastolic blood pressure") {
-            type="diastolic";
-            table="alphaslow";
+            type = "diastolic";
+            table = "alphaslow";
         } else if (type == "respiratory rate") {
-            type="respiratory";
-            table="alphaslow";
+            type = "respiratory";
+            table = "alphaslow";
         }
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
         Connection conn = null;
         PreparedStatement s = null;
-        String orderEcg1 = "select "+ type+ " from "+ table+ " where id>? and id<=?";
+        String orderEcg1 = "select " + type + " from " + table + " where id>? and id<=?";
         int index1 = (int) floor((startTime - initialTime) / interval);
         int index2 = (int) floor((endTime - initialTime) / interval);
         if (index1 <= 0) {
@@ -80,7 +82,7 @@ public class netAction {
             while (resultSet.next()) {
                 values.add(resultSet.getDouble(type));
             }
-            respPack.setLastTime(startTime+interval*(values.size()));
+            respPack.setLastTime(startTime + interval * (values.size()));
 //            System.out.println("returned size is "+values.size());
 //            System.out.println("last time is " + respPack.lastTime);
 //            System.out.println("start time is " + startTime);
@@ -96,8 +98,8 @@ public class netAction {
         }
         respPack.setValueList(values);
         return respPack;
-        }
-//    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
+    }
+    //    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
 //
 //        List<Double> values = new ArrayList<>();
 //        responsePack respPack = new responsePack();
@@ -143,32 +145,39 @@ public class netAction {
 //        respPack.setValueList(values);
 //        return respPack;
 //    }
-    public static long getInitialTime(){
-
-        Connection conn = null;
-        PreparedStatement s = null;
-        long initialTime=0;
-
+    public static long getInitialTime() {
+        long initialTime = 0;
         String orderTime = "select initialtime from patientlist where reference='alpha'";
         try {
-            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            s = conn.prepareStatement(orderTime);
+            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            PreparedStatement s = conn.prepareStatement(orderTime);
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
                 initialTime = resultSet.getLong(1);
             }
-        } catch (SQLException e) {
-            System.out.println("execute fail in time");
-        }
-        try {
             s.close();
         } catch (SQLException e) {
             System.out.println("end statement fail in time");
         }
         return initialTime;
     }
-}
-//    public static responsePack postRequestData(requestPack reqPack,String web) throws IOException {
+    public static List<String> getReferences() {
+        List<String> references=new ArrayList<>();
+        String orderTime = "select reference from patientlist";
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            PreparedStatement s = conn.prepareStatement(orderTime);
+            ResultSet resultSet = s.executeQuery();
+            while (resultSet.next()) {
+                references.add(resultSet.getString(1));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("end statement fail in time");
+        }
+        return references;
+    }
+    //    public static responsePack postRequestData(requestPack reqPack,String web) throws IOException {
 //        Gson gson = new Gson();
 //        String jsonString = gson.toJson(reqPack);
 //        // Set up the body data
@@ -205,16 +214,39 @@ public class netAction {
 //
 //        return respPack;
 //    }
-//    public static void putReference(String reference) throws IOException, InterruptedException {
-//        Gson gson = new Gson();
-//        String jsonString = gson.toJson(reference);
-//        var request= HttpRequest.newBuilder()
-//                .uri(URI.create("http://localhost:8080/docScope_s/reader"))
-//                .header("Content-Type","application/json")
-//                .PUT(HttpRequest.BodyPublishers.ofString(jsonString))
-//                .build();
-//        HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-//    }
+    public static void putReference(String reference,List<Double> threshold) throws IOException, InterruptedException {
+        updateThreshold(reference,threshold);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.println("sleep fail");
+        }
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(reference);
+        var request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/docScope_s/data"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(jsonString))
+                .build();
+        HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+    }
+    public static void updateThreshold(String ref,List<Double> threshold){
+        String order="update patientList set temperaturehigh=?,temperaturelow=?,hearthigh=?," +
+                "heartlow=?,systolichigh=?,systoliclow=?,diastolichigh=?,diastoliclow=?," +
+                "respiratoryhigh=?,respiratorylow=?";
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            PreparedStatement s = conn.prepareStatement(order);
+            for(int i=0;i<10;i++) {
+                s.setDouble(i+1, threshold.get(i));
+            }
+            s.executeUpdate();
+            s.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("end connection fail");
+        }
+    }
 //    public static void makeGetRequest() throws IOException {
 //        URL myURL = new URL("https://servlet10032.herokuapp.com/patients");
 //        HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
@@ -233,4 +265,5 @@ public class netAction {
 //        in.close();
 //
 //    }
+}
 
