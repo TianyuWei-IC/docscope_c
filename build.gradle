@@ -26,6 +26,8 @@ dependencies {
     implementation group: 'com.miglayout', name: 'miglayout-swing', version: '5.0'
     runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.27'
     implementation 'com.toedter:jcalendar:1.4'
+    // https://mavenlibs.com/maven/dependency/com.itextpdf/itextpdf
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.3'
 }
 
 
