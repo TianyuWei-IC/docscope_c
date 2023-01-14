@@ -182,26 +182,27 @@ public class netAction {
                 if (resultSet.getDouble("heart")>patient.hr_max){
                     if(!HeartHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        heartHigh.add(timestamp + " - ");
+                        heartHigh.add(timestamp.toString().substring(0,17) + " - ");
                         HeartHigh = true;
                     }
                 }
                 else if (resultSet.getDouble("heart")<patient.hr_min) {
                     if(!HeartLow) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        heartLow.add(timestamp + " - ");
+                        heartLow.add(timestamp.toString().substring(0,17) + " - ");
                         HeartLow = true;
                     }
                 }
                 else{
                     if (HeartHigh){
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        heartHigh.set(heartHigh.size()-1,heartHigh.get(heartHigh.size()-1)+timestamp);
+                        heartHigh.set(heartHigh.size()-1,heartHigh.get(heartHigh.size()-1)+timestamp.toString().substring(0,17));
                         HeartHigh=false;
                     } else if (HeartLow) {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        heartLow.set(heartLow.size()-1,heartLow.get(heartLow.size()-1)+timestamp);
+                        heartLow.set(heartLow.size()-1,heartLow.get(heartLow.size()-1)+timestamp.toString().substring(0,17));
                         HeartLow=false;
+                        System.out.println(resultSet.getDouble("heart")+"   "+patient.hr_min+"-"+patient.hr_max);
                     }
                 }
 
