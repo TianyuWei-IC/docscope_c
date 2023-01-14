@@ -651,7 +651,7 @@ public class Patient_Editor extends JFrame {
                 threshold.add(temp_min, "cell 2 1");
 
                 //---- temp_max ----
-                temp_max.setText("38.0");
+                temp_max.setText("39.0");
                 temp_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {

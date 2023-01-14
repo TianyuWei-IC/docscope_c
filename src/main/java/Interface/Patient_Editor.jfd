@@ -230,7 +230,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "temp_max"
-						"text": "38.0"
+						"text": "39.0"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}

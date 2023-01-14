@@ -68,6 +68,7 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "first_name_field"
+							"text": "TEST"
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -83,6 +84,7 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "last_name_field"
+							"text": "TEST"
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -228,7 +230,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "temp_max"
-						"text": "40.0"
+						"text": "39.0"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -398,7 +400,6 @@ new FormModel {
 					"foreground": sfield java.awt.Color white
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
 					"background": new java.awt.Color( 49, 100, 244, 255 )
-					"enabled": false
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 						"JavaCodeGenerator.postCreateCode": "save_button.setOpaque(true);\nsave_button.setBorderPainted(false);\n//save_button.disableProperty().bind(this.first_name_field.isEmpty());"

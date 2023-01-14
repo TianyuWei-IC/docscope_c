@@ -38,6 +38,10 @@ public class UpdateWorker extends SwingWorker<Void, List<Double>[]> {
                 chart.updateData(chart.getDataInput().getData(newData,100));
             }
             previousTime=respPack.lastTime;
+
+            if (type == "ecg2"){
+
+            }
         }
     }
 }
