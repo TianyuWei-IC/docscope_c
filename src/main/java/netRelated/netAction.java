@@ -179,15 +179,19 @@ public class netAction {
             boolean DiaHigh=false;
             boolean DiaLow=false;
             while (resultSet.next()) {
-                if (resultSet.getDouble("heart")>patient.hr_max && !HeartHigh){
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    heartHigh.add(timestamp+" - ");
-                    HeartHigh=true;
+                if (resultSet.getDouble("heart")>patient.hr_max){
+                    if(!HeartHigh) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        heartHigh.add(timestamp + " - ");
+                        HeartHigh = true;
+                    }
                 }
-                else if (resultSet.getDouble("heart")<patient.hr_min && !HeartLow) {
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    heartLow.add(timestamp+" - ");
-                    HeartLow=true;
+                else if (resultSet.getDouble("heart")<patient.hr_min) {
+                    if(!HeartLow) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        heartLow.add(timestamp + " - ");
+                        HeartLow = true;
+                    }
                 }
                 else{
                     if (HeartHigh){
@@ -201,15 +205,19 @@ public class netAction {
                     }
                 }
 
-                if (resultSet.getDouble("temperature")>patient.temp_max && !TempHigh){
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    tempHigh.add(timestamp+" - ");
-                    TempHigh=true;
+                if (resultSet.getDouble("temperature")>patient.temp_max){
+                    if(!TempHigh) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        tempHigh.add(timestamp + " - ");
+                        TempHigh = true;
+                    }
                 }
-                else if (resultSet.getDouble("temperature")<patient.temp_min && !TempLow) {
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    tempLow.add(timestamp+" - ");
-                    TempLow=true;
+                else if (resultSet.getDouble("temperature")<patient.temp_min) {
+                    if(!TempLow) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        tempLow.add(timestamp + " - ");
+                        TempLow = true;
+                    }
                 }
                 else{
                     if (TempHigh){
@@ -223,15 +231,19 @@ public class netAction {
                     }
                 }
                 
-                if (resultSet.getDouble("respiratory")>patient.resp_max && !RespHigh){
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    respHigh.add(timestamp+" - ");
-                    RespHigh=true;
+                if (resultSet.getDouble("respiratory")>patient.resp_max){
+                    if(!RespHigh) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        respHigh.add(timestamp + " - ");
+                        RespHigh = true;
+                    }
                 }
-                else if (resultSet.getDouble("respiratory")<patient.resp_min && !RespLow) {
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    respLow.add(timestamp+" - ");
-                    RespLow=true;
+                else if (resultSet.getDouble("respiratory")<patient.resp_min) {
+                    if(!RespLow) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        respLow.add(timestamp + " - ");
+                        RespLow = true;
+                    }
                 }
                 else{
                     if (RespHigh){
@@ -245,15 +257,19 @@ public class netAction {
                     }
                 }
 
-                if (resultSet.getDouble("systolic")>patient.sys_max && !SysHigh){
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    sysHigh.add(timestamp+" - ");
-                    SysHigh=true;
+                if (resultSet.getDouble("systolic")>patient.sys_max){
+                    if(!SysHigh) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        sysHigh.add(timestamp + " - ");
+                        SysHigh = true;
+                    }
                 }
-                else if (resultSet.getDouble("systolic")<patient.sys_min && !SysLow) {
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    sysLow.add(timestamp+" - ");
-                    SysLow=true;
+                else if (resultSet.getDouble("systolic")<patient.sys_min) {
+                    if(!SysLow) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        sysLow.add(timestamp + " - ");
+                        SysLow = true;
+                    }
                 }
                 else{
                     if (SysHigh){
@@ -267,15 +283,19 @@ public class netAction {
                     }
                 }
 
-                if (resultSet.getDouble("diastolic")>patient.dia_max && !DiaHigh){
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    diaHigh.add(timestamp+" - ");
-                    DiaHigh=true;
+                if (resultSet.getDouble("diastolic")>patient.dia_max){
+                    if(!DiaHigh) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        diaHigh.add(timestamp + " - ");
+                        DiaHigh = true;
+                    }
                 }
-                else if (resultSet.getDouble("diastolic")<patient.dia_min && !DiaLow) {
-                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                    diaLow.add(timestamp+" - ");
-                    DiaLow=true;
+                else if (resultSet.getDouble("diastolic")<patient.dia_min) {
+                    if(!DiaLow) {
+                        timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
+                        diaLow.add(timestamp + " - ");
+                        DiaLow = true;
+                    }
                 }
                 else{
                     if (DiaHigh){
