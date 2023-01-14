@@ -22,6 +22,7 @@ import static java.lang.Math.floor;
 
 public class netAction {
     public static String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
+    public static String ref="alpha";
 
     public static void databaseUpdate(String order) {
         Connection conn = null;
@@ -42,22 +43,70 @@ public class netAction {
     }
 
     public static responsePack recordData(long startTime, long endTime, long initialTime, String type, int interval) {
-        String table = "alphafast";
+        String table = ref+"slow";
         if (type == "body temperature") {
             type = "temperature";
-            table = "alphaslow";
         } else if (type == "heart rate") {
             type = "heart";
-            table = "alphaslow";
         } else if (type == "systolic blood pressure") {
             type = "systolic";
-            table = "alphaslow";
         } else if (type == "diastolic blood pressure") {
             type = "diastolic";
-            table = "alphaslow";
         } else if (type == "respiratory rate") {
             type = "respiratory";
-            table = "alphaslow";
+        }else table=ref+"fast";
+        List<Double> values = new ArrayList<>();
+        responsePack respPack = new responsePack();
+        Connection conn = null;
+        PreparedStatement s = null;
+        String orderEcg1 = "select " + type + " from " + table + " where id>? and id<=?";
+        int index1 = (int) floor((startTime - initialTime) / interval);
+        int index2 = (int) floor((endTime - initialTime) / interval);
+        if (index1 <= 0) {
+            System.out.println("empty");
+        }
+        try {
+            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            s = conn.prepareStatement(orderEcg1);
+            s.setInt(1, index1);
+            s.setInt(2, index2);
+        } catch (SQLException e) {
+            System.out.println("statement fail in value");
+        }
+        try {
+            ResultSet resultSet = s.executeQuery();
+            while (resultSet.next()) {
+                values.add(resultSet.getDouble(type));
+            }
+            respPack.setLastTime(startTime + interval * (values.size()));
+//            System.out.println("returned size is "+values.size());
+//            System.out.println("last time is " + respPack.lastTime);
+//            System.out.println("start time is " + startTime);
+//            System.out.println("end time is " + endTime);
+        } catch (Exception e) {
+            System.out.println("resultSet fail in value");
+        }
+        try {
+            s.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("end connection fail");
+        }
+        respPack.setValueList(values);
+        return respPack;
+    }
+    public static responsePack averageData(long startTime, long endTime, long initialTime, String type, int interval) {
+        String table = ref+"slowaverage";
+        if (type == "body temperature") {
+            type = "temperature";
+        } else if (type == "heart rate") {
+            type = "heart";
+        } else if (type == "systolic blood pressure") {
+            type = "systolic";
+        } else if (type == "diastolic blood pressure") {
+            type = "diastolic";
+        } else if (type == "respiratory rate") {
+            type = "respiratory";
         }
         List<Double> values = new ArrayList<>();
         responsePack respPack = new responsePack();
