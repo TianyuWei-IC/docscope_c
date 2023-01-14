@@ -1,0 +1,29 @@
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "java.awt.Window", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[766,fill]"
+			"$rowConstraints": "[144]"
+		} ) {
+			name: "this"
+			"alwaysOnTop": true
+			"background": sfield java.awt.Color gray
+			"font": new java.awt.Font( "Dialog", 0, 11 )
+			"visible": true
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "loading_text"
+				"text": "Saving the information of the patient, it might take several seconds..."
+				"foreground": new java.awt.Color( 0, 0, 0, 255 )
+				"background": sfield java.awt.Color white
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0,align center center,grow 0 0"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 145 )
+		} )
+	}
+}

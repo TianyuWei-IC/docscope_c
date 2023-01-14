@@ -1,0 +1,31 @@
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3,align center center"
+			"$columnConstraints": "[506,fill]"
+			"$rowConstraints": "[247]"
+		} ) {
+			name: "this"
+			"background": sfield java.awt.Color white
+			"minimumSize": new java.awt.Dimension( 500, 130 )
+			"preferredSize": new java.awt.Dimension( 500, 130 )
+			"maximumSize": new java.awt.Dimension( 500, 130 )
+			"resizable": false
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "The report has been downloaded to your Desktop!"
+				"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
+				"foreground": new java.awt.Color( 0, 0, 0, 255 )
+				"background": sfield java.awt.Color white
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0,align center center,grow 0 0"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 390, 240 )
+		} )
+	}
+}
