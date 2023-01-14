@@ -184,7 +184,7 @@ public class netAction {
                     heartHigh.add(timestamp+" - ");
                     HeartHigh=true;
                 }
-                else if (resultSet.getDouble("heart")>patient.hr_min) {
+                else if (resultSet.getDouble("heart")<patient.hr_min) {
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     heartLow.add(timestamp+" - ");
                     HeartLow=true;
@@ -201,12 +201,12 @@ public class netAction {
                     }
                 }
 
-                if (resultSet.getDouble("temperature")>patient.hr_max){
+                if (resultSet.getDouble("temperature")>patient.temp_max){
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     tempHigh.add(timestamp+" - ");
                     TempHigh=true;
                 }
-                else if (resultSet.getDouble("temperature")>patient.hr_min) {
+                else if (resultSet.getDouble("temperature")<patient.temp_min) {
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     tempLow.add(timestamp+" - ");
                     TempLow=true;
@@ -223,12 +223,12 @@ public class netAction {
                     }
                 }
                 
-                if (resultSet.getDouble("respiratory")>patient.hr_max){
+                if (resultSet.getDouble("respiratory")>patient.resp_max){
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     respHigh.add(timestamp+" - ");
                     RespHigh=true;
                 }
-                else if (resultSet.getDouble("respiratory")>patient.hr_min) {
+                else if (resultSet.getDouble("respiratory")<patient.resp_min) {
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     respLow.add(timestamp+" - ");
                     RespLow=true;
@@ -245,12 +245,12 @@ public class netAction {
                     }
                 }
 
-                if (resultSet.getDouble("systolic")>patient.hr_max){
+                if (resultSet.getDouble("systolic")>patient.sys_max){
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     sysHigh.add(timestamp+" - ");
                     SysHigh=true;
                 }
-                else if (resultSet.getDouble("systolic")>patient.hr_min) {
+                else if (resultSet.getDouble("systolic")<patient.sys_min) {
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     sysLow.add(timestamp+" - ");
                     SysLow=true;
@@ -267,12 +267,12 @@ public class netAction {
                     }
                 }
 
-                if (resultSet.getDouble("diastolic")>patient.hr_max){
+                if (resultSet.getDouble("diastolic")>patient.dia_max){
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     diaHigh.add(timestamp+" - ");
                     DiaHigh=true;
                 }
-                else if (resultSet.getDouble("diastolic")>patient.hr_min) {
+                else if (resultSet.getDouble("diastolic")<patient.dia_min) {
                     timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                     diaLow.add(timestamp+" - ");
                     DiaLow=true;
