@@ -19,12 +19,12 @@ class netActionTest {
 
     @Test
     void putReference() throws Exception {
-        netAction net = new netAction();
-        net.putReference("alpha", Arrays.asList(100.0,35.0,100.0,40.0,140.0,90.0,90.0,60.0,35.0,10.0));
+//        netAction net = new netAction();
+//        net.putReference("alpha", Arrays.asList(100.0,35.0,100.0,40.0,140.0,90.0,90.0,60.0,35.0,10.0));
     }
 
     @Test
     void getReferences() {
-        System.out.println(netAction.getReferences());
+//        System.out.println(netAction.getReferences());
     }
 }

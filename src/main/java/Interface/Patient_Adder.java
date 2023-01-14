@@ -2,12 +2,16 @@ package Interface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
+import java.util.List;
 
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
 import master.Patient;
 import net.miginfocom.swing.*;
+import netRelated.netAction;
 
 import static java.lang.Double.parseDouble;
 
@@ -79,6 +83,19 @@ public class Patient_Adder extends JFrame {
                 (int) parseDouble(resp_max.getText()),
                 this.mainGUI
         );
+        List<Double> threshold=Arrays.asList(new_patient.temp_max,
+                new_patient.temp_min,
+                (double)new_patient.hr_max,
+                (double)new_patient.hr_min,
+                (double)new_patient.sys_max,
+                (double)new_patient.sys_min,
+                (double)new_patient.dia_max,
+                (double)new_patient.dia_min,
+                (double)new_patient.resp_max,
+                (double)new_patient.resp_min);
+        netAction.putReference(new_patient.reference_value, threshold,
+                new_patient.first_name, new_patient.last_name, gender, new_patient.year_of_birth);
+
 
         mainGUI.patient_list.add(new_patient);
         mainGUI.patient_list.updateUI();

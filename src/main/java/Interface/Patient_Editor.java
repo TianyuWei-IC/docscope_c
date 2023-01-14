@@ -4,10 +4,14 @@ import java.awt.event.*;
 import chartPanel.Chart_Label_Display;
 import master.Patient;
 import net.miginfocom.swing.MigLayout;
+import netRelated.netAction;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import javax.swing.AbstractButton;
 
 import static java.lang.Double.parseDouble;
@@ -30,12 +34,11 @@ public class Patient_Editor extends JFrame {
         this.mainGUI = mainGUI;
         this.new_patient = new_patient;
         initComponents();
-
         this.first_name_field.setText(this.new_patient.first_name);
         this.last_name_field.setText(this.new_patient.last_name);
-        if (this.new_patient.gender=="male"){
+        if (Objects.equals(this.new_patient.gender, "male")){
             this.male_button.setSelected(true);
-        }else{
+        }else if (Objects.equals(this.new_patient.gender, "female")){
             this.female_button.setSelected(true);
         }
 
@@ -55,6 +58,7 @@ public class Patient_Editor extends JFrame {
     }
 
     private void save_button(ActionEvent e) {
+
         this.new_patient.first_name = this.first_name_field.getText();
         this.new_patient.last_name = this.last_name_field.getText();
 
@@ -77,11 +81,28 @@ public class Patient_Editor extends JFrame {
         this.new_patient.resp_max= (int) parseDouble(this.resp_max.getText());
         this.new_patient.resp_min= (int) parseDouble(this.resp_min.getText());
 
-
         String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
-
         this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         mainGUI.patient_list.updateUI();
+
+
+
+        List<Double> threshold= Arrays.asList(this.new_patient.temp_max,
+                this.new_patient.temp_min,
+                (double)this.new_patient.hr_max,
+                (double)this.new_patient.hr_min,
+                (double)this.new_patient.sys_max,
+                (double)this.new_patient.sys_min,
+                (double)this.new_patient.dia_max,
+                (double)this.new_patient.dia_min,
+                (double)this.new_patient.resp_max,
+                (double)this.new_patient.resp_min);
+        netAction.putReference(this.new_patient.reference_value,threshold,
+                this.new_patient.first_name,this.new_patient.last_name,this.new_patient.gender,
+                this.new_patient.year_of_birth);
+
+
+
 
         // VERY IMPORTANT, need to get threshold after edit
         this.new_patient.panelTemperature.getThreshold();
@@ -89,9 +110,8 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelSysBloodPressure.getThreshold();
         this.new_patient.panelDiaBloodPressure.getThreshold();
         this.new_patient.panelRespiratoryRate.getThreshold();
-
-        this.dispose();
         this.new_patient.setEnabled(true);
+        this.dispose();
     }
 
     private void createUIComponents() {
@@ -860,7 +880,7 @@ public class Patient_Editor extends JFrame {
         var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(male_button);
         buttonGroup1.add(female_button);
-        // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+        // JFormDesigner - End of component initialization  //GEN-END:initCFomponents  @formatter:on
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off

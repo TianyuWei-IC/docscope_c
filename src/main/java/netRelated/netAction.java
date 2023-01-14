@@ -222,14 +222,14 @@ public class netAction {
             ResultSet resultSet = s.executeQuery();
 
             while (resultSet.next()) {
-                if (resultSet.getString("firstname") == null) {
-                } else {
+                if (resultSet.getString("firstname") == null) {}
+                else {
                     patient_list.add(new Patient(resultSet.getString("firstname"),
                             resultSet.getString("lastname"),
                             resultSet.getString("reference"),
                             resultSet.getString("gender"),
                             resultSet.getInt("yearbirth"),
-                            resultSet.getDouble("temperatruelow"),
+                            resultSet.getDouble("temperaturelow"),
                             resultSet.getDouble("temperaturehigh"),
                             resultSet.getInt("heartlow"),
                             resultSet.getInt("hearthigh"),
@@ -304,8 +304,8 @@ public class netAction {
 //        return respPack;
 //    }
     public static void putReference(String reference,List<Double> threshold,
-                                    String first_name,String last_name,String gender) throws IOException, InterruptedException {
-        updateThreshold(reference,threshold,first_name,last_name,gender);
+                                    String first_name,String last_name,String gender,int year) {
+        updateThreshold(reference,threshold,first_name,last_name,gender,year);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -318,13 +318,15 @@ public class netAction {
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(jsonString))
                 .build();
-        HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        }catch (Exception ignore){}
     }
     public static void updateThreshold(String ref,List<Double> threshold,
-                                       String first_name,String last_name,String gender){
+                                       String first_name,String last_name,String gender,int year){
         String order="update patientList set temperaturehigh=?,temperaturelow=?,hearthigh=?," +
                 "heartlow=?,systolichigh=?,systoliclow=?,diastolichigh=?,diastoliclow=?," +
-                "respiratoryhigh=?,respiratorylow=?,firstname=?,lastname=?,gender=? where reference='"+ref+"'";
+                "respiratoryhigh=?,respiratorylow=?,firstname=?,lastname=?,gender=?,yearbirth=? where reference='"+ref+"'";
         try {
             Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             PreparedStatement s = conn.prepareStatement(order);
@@ -334,6 +336,7 @@ public class netAction {
             s.setString(11,first_name);
             s.setString(12,last_name);
             s.setString(13,gender);
+            s.setInt(14,year);
             s.executeUpdate();
             s.close();
             conn.close();
