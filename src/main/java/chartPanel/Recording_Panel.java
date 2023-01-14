@@ -18,8 +18,6 @@ public class Recording_Panel extends JPanel {
     public Recording_Panel(inputData dataInput,long time,String type, String title, String mode) {
         if (mode=="real time") {
             this.type = type;
-            this.dataInput = dataInput;
-            this.time = time;
             if (type == "ecg1" | type == "ecg2") {
                 chart = new XYChartBuilder().width(1350).height(195).title(title).build();
             } else if (type == "resp") {
@@ -28,10 +26,10 @@ public class Recording_Panel extends JPanel {
 
         } else if(mode=="recording"){
             this.type = type;
-            this.dataInput = dataInput;
-            this.time = time;
             chart = new XYChartBuilder().width(1000).height(300).title(title).build();
         }
+        this.dataInput = dataInput;
+        this.time = time;
 
         chart.addSeries("former", dataInput.partData[0], dataInput.partData[1]);
         chart.addSeries("latter", dataInput.partData[0], dataInput.partData[1]);

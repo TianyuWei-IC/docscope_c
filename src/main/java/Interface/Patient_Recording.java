@@ -81,21 +81,26 @@ public class Patient_Recording extends JFrame {
         System.out.println(start_in_milli);
         System.out.println(end_in_milli);
 
+        long dataBaseInitialTime=netAction.getInitialTime();
         //get interval
         Integer interval =1000;
         Double period = 0.0166667;
+        responsePack respPack;
         if (type=="ecg1"|type=="ecg2"|type=="resp") {
             interval = 2;
             period = 0.002;
+            respPack =netAction.recordData(start_in_milli,
+                    end_in_milli,
+                    dataBaseInitialTime,
+                    type,interval,this.current_patient.reference_value);
+        }else {
+            respPack =netAction.averageData(start_in_milli,
+                    end_in_milli,
+                    dataBaseInitialTime,
+                    type,interval,this.current_patient.reference_value);
         }
 
-
         display.setVisible(true);
-        long dataBaseInitialTime=netAction.getInitialTime();
-        responsePack respPack =netAction.recordData(start_in_milli,
-                end_in_milli,
-                dataBaseInitialTime,
-                type,interval,this.current_patient.reference_value);
         Recording_Panel recordingPanel = new Recording_Panel(new inputData(respPack.valueList,dataBaseInitialTime,
                 period), respPack.lastTime,type,signal_pack_select,"recording");
         recordingPanel.setVisible(true);
