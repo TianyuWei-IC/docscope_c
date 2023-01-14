@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.4.1" encoding: "UTF-8"
+JFDML JFormDesigner: "8.0.1.0.199" Java: "17.0.5" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -36,7 +36,7 @@ new FormModel {
 						"minimumSize": new java.awt.Dimension( 178, 155 )
 						"preferredSize": new java.awt.Dimension( 178, 155 )
 						auxiliary() {
-							"JavaCodeGenerator.postCreateCode": "urgent_icon.setIcon(new ImageIcon(\"src/main/java/icons/urgent_small.png\"));\n//label1.setIcon(new ImageIcon(\"D:/Prog3/docscope_c/src/main/java/icons/urgent.png\"));"
+							"JavaCodeGenerator.postCreateCode": "urgent_icon.setIcon(new ImageIcon(\"src/main/java/icons/urgent_small.png\"));\n"
 						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"

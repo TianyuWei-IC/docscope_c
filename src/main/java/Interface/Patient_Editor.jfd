@@ -37,7 +37,7 @@ new FormModel {
 						name: "ref_selector"
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
-							"JavaCodeGenerator.customCreateCode": "new JComboBox(referenceList);"
+							"JavaCodeGenerator.customCreateCode": "new JComboBox(this.mainGUI.referenceList);"
 						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"

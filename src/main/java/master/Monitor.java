@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Monitor {
-    public static String[] referenceList = new String[]{"patient1","patient2"};
+//    public static String[] referenceList = new String[]{"patient1","patient2"};
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
             // Registers the driver

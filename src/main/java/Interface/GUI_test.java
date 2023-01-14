@@ -22,6 +22,7 @@ import static java.lang.Math.floor;
  * @author Tianyu
  */
 public class GUI_test extends JFrame {
+    public String[] referenceList;
     public GUI_test() {
         initComponents();
     }
@@ -356,6 +357,20 @@ public class GUI_test extends JFrame {
         }
     }
 
+//    private void thisWindowClosing(WindowEvent e) {
+//        Integer num_of_patient = patient_list.getComponentCount();
+//        for (int i = 0; i<num_of_patient;i++){
+//            Patient current_patient = (Patient) patient_list.getComponent(i);
+//            for (int j = 0; j<15;i++){
+//
+//            }
+//        }
+//    }
+
+    private void thisWindowOpened(WindowEvent e) {
+        this.referenceList = new String[]{"patient1","patient2"};
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
@@ -455,6 +470,12 @@ public class GUI_test extends JFrame {
         setForeground(new Color(0x54a0ad));
         setMaximumSize(new Dimension(1920, 1017));
         setPreferredSize(new Dimension(1920, 1017));
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                thisWindowOpened(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 

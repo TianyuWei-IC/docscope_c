@@ -18,12 +18,11 @@ public class Urgent extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         urgent_panel = new JPanel();
         urgent_title = new JPanel();
         urgent_icon = new JLabel();
         urgent_icon.setIcon(new ImageIcon("src/main/java/icons/urgent_small.png"));
-        //label1.setIcon(new ImageIcon("D:/Prog3/docscope_c/src/main/java/icons/urgent.png"));
         urgent_label = new JLabel();
         abnormal_type = new JPanel();
         abnormal_label = new JLabel();
@@ -165,7 +164,7 @@ public class Urgent extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel urgent_panel;
     private JPanel urgent_title;
     private JLabel urgent_icon;
