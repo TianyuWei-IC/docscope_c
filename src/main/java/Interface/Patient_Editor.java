@@ -97,11 +97,9 @@ public class Patient_Editor extends JFrame {
                 (double)this.new_patient.dia_min,
                 (double)this.new_patient.resp_max,
                 (double)this.new_patient.resp_min);
-        netAction.putReference(this.new_patient.reference_value,threshold,
+                netAction.putReference(this.new_patient.reference_value,threshold,
                 this.new_patient.first_name,this.new_patient.last_name,this.new_patient.gender,
                 this.new_patient.year_of_birth);
-
-
 
 
         // VERY IMPORTANT, need to get threshold after edit

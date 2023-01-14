@@ -100,7 +100,13 @@ public class Patient_Adder extends JFrame {
         mainGUI.patient_list.add(new_patient);
         mainGUI.patient_list.updateUI();
         //new_patient.doClick();
-        System.out.println(mainGUI.patient_list.getComponentCount());
+//
+//        List<String> references=Arrays.asList(mainGUI.referenceList);
+//        Integer index = references.indexOf(new_patient.reference_value);
+//        references.remove(index);
+//        mainGUI.referenceList = references.toArray(new String[0]);
+//        System.out.println(mainGUI.referenceList.length);
+        //System.out.println(mainGUI.patient_list.getComponentCount());
         this.mainGUI.add_new_patient.setEnabled(true);
         this.dispose();
 
