@@ -325,7 +325,7 @@ public class Patient_Adder extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         title_and_reference = new JPanel();
         title = new JLabel();
@@ -457,6 +457,7 @@ public class Patient_Adder extends JFrame {
                     name.add(first_name, "cell 0 0");
 
                     //---- first_name_field ----
+                    first_name_field.setText("TEST");
                     first_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {
@@ -470,6 +471,7 @@ public class Patient_Adder extends JFrame {
                     name.add(last_name, "cell 2 0");
 
                     //---- last_name_field ----
+                    last_name_field.setText("TEST");
                     last_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {
@@ -592,7 +594,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(temp_min, "cell 2 1");
 
                 //---- temp_max ----
-                temp_max.setText("40.0");
+                temp_max.setText("39.0");
                 temp_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -768,7 +770,6 @@ public class Patient_Adder extends JFrame {
             save_button.setForeground(Color.white);
             save_button.setFont(save_button.getFont().deriveFont(save_button.getFont().getSize() + 2f));
             save_button.setBackground(new Color(0x3164f4));
-            save_button.setEnabled(false);
             save_button.addActionListener(e -> save_button(e));
             patient_editor_main_panel.add(save_button, "cell 0 4,align center center,grow 0 0");
         }
@@ -784,7 +785,7 @@ public class Patient_Adder extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel title_and_reference;
     private JLabel title;

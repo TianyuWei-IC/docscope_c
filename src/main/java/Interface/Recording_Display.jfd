@@ -5,16 +5,20 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[375,fill]"
-			"$rowConstraints": "[][][207]"
+			"$columnConstraints": "[1145,fill]"
+			"$rowConstraints": "[][][459]"
 		} ) {
 			name: "this"
+			"resizable": false
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[169,fill][195,fill]"
 				"$rowConstraints": "[44]"
 			} ) {
-				name: "panel1"
+				name: "name_info"
+				auxiliary() {
+					"JavaCodeGenerator.variableModifiers": 1
+				}
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "Patient_name"
 					"text": "text"
@@ -41,7 +45,10 @@ new FormModel {
 				"$columnConstraints": "[155,fill][63,fill][34,fill][96,fill]"
 				"$rowConstraints": "[]"
 			} ) {
-				name: "panel2"
+				name: "time_info"
+				auxiliary() {
+					"JavaCodeGenerator.variableModifiers": 1
+				}
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "Date"
 					"text": "text"
@@ -78,10 +85,21 @@ new FormModel {
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 1"
 			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[1326,fill]"
+				"$rowConstraints": "[340]"
+			} ) {
+				name: "A1"
+				auxiliary() {
+					"JavaCodeGenerator.variableModifiers": 1
+				}
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 5, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 1155, 445 )
 		} )
 	}
 }
-

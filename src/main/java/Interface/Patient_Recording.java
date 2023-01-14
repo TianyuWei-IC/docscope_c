@@ -3,15 +3,19 @@ package Interface;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Timestamp;
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import javax.swing.*;
+
+import chartPanel.Recording_Panel;
+import chartPanel.inputData;
 import com.toedter.calendar.*;
 import master.Patient;
 import net.miginfocom.swing.*;
 import netRelated.netAction;
-
-import static java.lang.Double.parseDouble;
+import netRelated.responsePack;
 /*
  * Created by JFormDesigner on Thu Dec 29 18:21:53 GMT 2022
  */
@@ -24,6 +28,9 @@ import static java.lang.Double.parseDouble;
 public class Patient_Recording extends JFrame {
     private GUI_test mainGUI;
     private Patient current_patient;
+    private long start_in_milli;
+    private long end_in_milli;
+
     public Patient_Recording(GUI_test mainGUI, Patient current_patient) {
         initComponents();
         this.mainGUI = mainGUI;
@@ -34,45 +41,120 @@ public class Patient_Recording extends JFrame {
         this.mainGUI.recordings.setEnabled(true);
     }
 
-    private void generate_button(ActionEvent e) {
-        Recording_Result display_window = new Recording_Result();
-        display_window.Patient_name.setText(this.current_patient.first_name+" "+this.current_patient.last_name);
+    private void generate_button_action(ActionEvent e) throws ParseException {
+
         String Date = String.valueOf(dateChooser1.getDate());
-        Date = Date.substring(4,10)+Date.substring(23,28);
-        display_window.Date.setText(Date);
-        display_window.signal_type.setText((String) signal_selector.getSelectedItem());
-        display_window.start_time.setText(start_time_hour.getSelectedItem()+":"+start_time_min.getSelectedItem());
-        display_window.end_time.setText(end_time_hour.getSelectedItem()+":"+end_time_min.getSelectedItem());
-        System.out.println(display_window.getComponentCount());
-        //display_window.repaint();
 
-        display_window.setVisible(true);
 
-        //
+        // get the start and end hour/min based on user's choice and cast them into string
+        String start_hour = (String) start_time_hour.getSelectedItem();
+        String start_min = (String) start_time_min.getSelectedItem();
+        String end_hour = (String) end_time_hour.getSelectedItem();
+        String end_min = (String) end_time_min.getSelectedItem();
 
+        // putting into the correct format
+        String start_time = start_hour + ":" + start_min;
+        String end_time = end_hour + ":" + end_min;
+
+        String[] tokens = Date.split(" ");
+        String Date_selected = tokens[2]+"-"+tokens[1]+"-"+tokens[5];
+        String start_time_date = tokens[2]+"-"+tokens[1]+"-"+tokens[5]+" "+ start_time + ":"+ "00";
+        String end_time_date = tokens[2]+"-"+tokens[1]+"-"+tokens[5]+" "+ end_time + ":"+ "00";
+
+        // set the text showed in the display window
+        String signal_pack_select = (String) signal_selector.getSelectedItem();
+        String type = find_data_type(signal_pack_select);
+        Recording_Display display = new Recording_Display();
+        display.Patient_name.setText(this.current_patient.first_name + " " + this.current_patient.last_name);
+        display.signal_type.setText(signal_pack_select);
+        display.start_time.setText(start_time);
+        display.end_time.setText(end_time);
+        display.Date.setText(Date_selected);
+
+
+        // get time in milliseconds using SimpleDateFormat
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        Date start_date = sdf.parse(start_time_date);
+        Date end_date = sdf.parse(end_time_date);
+        start_in_milli = start_date.getTime();
+        end_in_milli = end_date.getTime();
+        System.out.println(start_in_milli);
+        System.out.println(end_in_milli);
+
+        //get interval
+        Integer interval =1000;
+        Double period = 0.0166667;
+        if (type=="ecg1"|type=="ecg2"|type=="resp") {
+            interval = 2;
+            period = 0.002;
+        }
+
+
+        display.setVisible(true);
+        long dataBaseInitialTime=netAction.getInitialTime();
+        responsePack respPack =netAction.recordData(start_in_milli,
+                end_in_milli,
+                dataBaseInitialTime,
+                type,interval);
+        Recording_Panel recordingPanel = new Recording_Panel(new inputData(respPack.valueList,dataBaseInitialTime,
+                period), respPack.lastTime,type,signal_pack_select,"recording");
+        recordingPanel.setVisible(true);
+        display.A1.add(recordingPanel);
     }
 
-    private void start_time_hourItemStateChanged(ItemEvent e) {
-       try {
-            Integer start_hour = (Integer) start_time_hour.getSelectedItem();
-            Integer start_min = (Integer) start_time_min.getSelectedItem();
-            Integer end_hour = (Integer) end_time_hour.getSelectedItem();
-            Integer end_min = (Integer) end_time_min.getSelectedItem();
-            System.out.println("running");
-            //System.out.println(!dateChooser1.getDate().toString().isEmpty());
 
-            if (((start_hour<end_hour) | ((start_hour==end_hour) & (start_min<end_min)))& (!dateChooser1.getDate().toString().isEmpty())){
+    private String find_data_type(String signal_pack_select) {
+        if (Objects.equals(signal_pack_select, "ECG Lead I")) {
+            return "ecg1";
+        } else if (signal_pack_select == "ECG lead II") {
+            return "ecg2";
+        } else if (signal_pack_select =="Respiratory Pattern") {
+            return "resp";
+        } else if (signal_pack_select == "Heart Rate") {
+            return "heart rate";
+        } else if (signal_pack_select =="Respiratory Rate") {
+            return "respiratory rate";
+        } else if (signal_pack_select == "Systolic Blood Pressure") {
+            return "systolic blood pressure";
+        } else if (signal_pack_select == "Diastolic Blood Pressure") {
+            return "diastolic blood pressure";
+        } else if (signal_pack_select == "Body Temperature") {
+            return "body temperature";
+        }
+        return signal_pack_select;
+    }
+
+    private  void time_value_check_click(){
+        try {
+            Integer start_hour = Integer.parseInt((String) start_time_hour.getSelectedItem());
+            Integer start_min = Integer.parseInt((String) start_time_min.getSelectedItem());
+            Integer end_hour = Integer.parseInt((String)end_time_hour.getSelectedItem());
+            Integer end_min = Integer.parseInt((String) end_time_min.getSelectedItem());
+            System.out.println(dateChooser1.getDate()!=null);
+
+            if (((start_hour<end_hour) | ((start_hour==end_hour) & (start_min<end_min)))& (dateChooser1.getDate()!=null)){
                 generate_button.setEnabled(true);
             }else{
                 generate_button.setEnabled(false);
             }
-
         }catch(Exception error) {
             generate_button.setEnabled(false);
-            System.out.println("!dateChooser1.getDate().toString().isEmpty()");
         }
-
     }
+
+    private void start_time_hour_click(ActionEvent e) {
+        time_value_check_click();
+    }
+    private void start_time_min_click(ActionEvent e) {
+        time_value_check_click();
+    }
+    private void end_time_hour_click(ActionEvent e) {
+        time_value_check_click();
+    }
+    private void end_time_min_click(ActionEvent e) {
+        time_value_check_click();
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -80,7 +162,7 @@ public class Patient_Recording extends JFrame {
         recording_title = new JLabel();
         signal_select_label = new JLabel();
         String[] signal_pack = new String[8];
-        signal_pack[0] = "ECG lead I";
+        signal_pack[0] = "ECG Lead I";
         signal_pack[1] = "ECG lead II";
         signal_pack[2] = "Respiratory Pattern";
         signal_pack[3] = "Heart Rate";
@@ -95,6 +177,8 @@ public class Patient_Recording extends JFrame {
         label1 = new JLabel();
         dateChooser1 = new JDateChooser();
         dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));
+        dateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));
+        dateChooser1.setDate(new Date(netAction.getInitialTime()));
         time_intervel_select_panel = new JPanel();
         start_time_label = new JLabel();
         String[] hour_pack = new String[24];
@@ -209,7 +293,7 @@ public class Patient_Recording extends JFrame {
             start_time_hour.setMinimumSize(new Dimension(50, 30));
             start_time_hour.setPreferredSize(new Dimension(50, 30));
             start_time_hour.setMaximumSize(new Dimension(50, 30));
-            start_time_hour.addItemListener(e -> start_time_hourItemStateChanged(e));
+            start_time_hour.addActionListener(e -> start_time_hour_click(e));
             time_intervel_select_panel.add(start_time_hour, "cell 1 0");
 
             //---- colon ----
@@ -220,6 +304,7 @@ public class Patient_Recording extends JFrame {
             start_time_min.setMinimumSize(new Dimension(50, 30));
             start_time_min.setPreferredSize(new Dimension(50, 30));
             start_time_min.setMaximumSize(new Dimension(50, 30));
+            start_time_min.addActionListener(e -> start_time_min_click(e));
             time_intervel_select_panel.add(start_time_min, "cell 4 0");
 
             //---- end_time_label ----
@@ -230,6 +315,7 @@ public class Patient_Recording extends JFrame {
             end_time_hour.setMinimumSize(new Dimension(50, 30));
             end_time_hour.setPreferredSize(new Dimension(50, 30));
             end_time_hour.setMaximumSize(new Dimension(50, 30));
+            end_time_hour.addActionListener(e -> end_time_hour_click(e));
             time_intervel_select_panel.add(end_time_hour, "cell 7 0");
 
             //---- colon2 ----
@@ -240,6 +326,7 @@ public class Patient_Recording extends JFrame {
             end_time_min.setMinimumSize(new Dimension(50, 30));
             end_time_min.setPreferredSize(new Dimension(50, 30));
             end_time_min.setMaximumSize(new Dimension(50, 30));
+            end_time_min.addActionListener(e -> end_time_min_click(e));
             time_intervel_select_panel.add(end_time_min, "cell 9 0");
         }
         contentPane.add(time_intervel_select_panel, "cell 0 3");
@@ -251,7 +338,13 @@ public class Patient_Recording extends JFrame {
         //---- generate_button ----
         generate_button.setText("Generate");
         generate_button.setEnabled(false);
-        generate_button.addActionListener(e -> generate_button(e));
+        generate_button.addActionListener(e -> {
+            try {
+                generate_button_action(e);
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         contentPane.add(generate_button, "cell 0 5");
         pack();
         setLocationRelativeTo(getOwner());

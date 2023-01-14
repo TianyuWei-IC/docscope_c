@@ -100,7 +100,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[284,fill]"
-				"$rowConstraints": "[61][56][212][228][195][189][65][]"
+				"$rowConstraints": "[60][61][56][212][228][195][189][65][]"
 			} ) {
 				name: "value_display"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
@@ -110,6 +110,53 @@ new FormModel {
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "hidemode 3"
+					"$columnConstraints": "[345,fill]"
+					"$rowConstraints": "[][]"
+				} ) {
+					name: "email_update_panel"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "email_label"
+						"text": "E-mail Address for urgent notifying"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 0"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+						"$layoutConstraints": "hidemode 3,alignx center"
+						"$columnConstraints": "[234,fill][73,fill]"
+						"$rowConstraints": "[]"
+					} ) {
+						name: "panel9"
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "email_address"
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "email_addressKeyReleased", true ) )
+						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+							"value": "cell 0 0"
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "email_update_button"
+							"text": "update"
+							"enabled": false
+							auxiliary() {
+								"JavaCodeGenerator.variableModifiers": 1
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "email_update", true ) )
+						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+							"value": "cell 1 0"
+						} )
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 1"
+					} )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
 					"$columnConstraints": "[345,fill]"
@@ -169,7 +216,7 @@ new FormModel {
 						"value": "cell 0 1"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 0"
+					"value": "cell 0 1"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -230,7 +277,7 @@ new FormModel {
 						"value": "cell 0 1"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 1"
+					"value": "cell 0 2"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -321,7 +368,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 2"
+					"value": "cell 0 3"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -421,7 +468,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 3"
+					"value": "cell 0 4"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -551,7 +598,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 4"
+					"value": "cell 0 5"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
@@ -651,7 +698,7 @@ new FormModel {
 						"value": "cell 0 2"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 5"
+					"value": "cell 0 6"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "report_button"
@@ -664,7 +711,7 @@ new FormModel {
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "report_button", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 0 6"
+					"value": "cell 0 7"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "East"

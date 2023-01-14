@@ -36,7 +36,7 @@ new FormModel {
 				name: "signal_selector"
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
-					"JavaCodeGenerator.preCreateCode": "String[] signal_pack = new String[8];\nsignal_pack[0] = \"ECG lead I\";\nsignal_pack[1] = \"ECG lead II\";\nsignal_pack[2] = \"Respiratory Pattern\";\nsignal_pack[3] = \"Heart Rate\";\nsignal_pack[4] = \"Respiratory Rate\";\nsignal_pack[5] = \"Systolic Blood Pressure\";\nsignal_pack[6] = \"Diastolic Blood Pressure\";\nsignal_pack[7] = \"Body Temperature\";\n"
+					"JavaCodeGenerator.preCreateCode": "String[] signal_pack = new String[8];\nsignal_pack[0] = \"ECG Lead I\";\nsignal_pack[1] = \"ECG lead II\";\nsignal_pack[2] = \"Respiratory Pattern\";\nsignal_pack[3] = \"Heart Rate\";\nsignal_pack[4] = \"Respiratory Rate\";\nsignal_pack[5] = \"Systolic Blood Pressure\";\nsignal_pack[6] = \"Diastolic Blood Pressure\";\nsignal_pack[7] = \"Body Temperature\";\n"
 					"JavaCodeGenerator.customCreateCode": "new JComboBox(signal_pack);"
 				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -69,7 +69,7 @@ new FormModel {
 					name: "dateChooser1"
 					auxiliary() {
 						"JavaCodeGenerator.customCreateCode": "new JDateChooser();"
-						"JavaCodeGenerator.postCreateCode": "dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));"
+						"JavaCodeGenerator.postCreateCode": "dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));\ndateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));\ndateChooser1.setDate(new Date(netAction.getInitialTime()));"
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
@@ -99,7 +99,7 @@ new FormModel {
 						"JavaCodeGenerator.preCreateCode": "String[] hour_pack = new String[24];\nfor (int i = 0; i<24; i++) {\n if (i<10){\n        hour_pack[i] = \"0\"+i;\n    }else{\n        hour_pack[i] = String.valueOf(i);\n    }\n}"
 						"JavaCodeGenerator.customCreateCode": "new JComboBox(hour_pack);"
 					}
-					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "start_time_hourItemStateChanged", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "start_time_hour_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
 				} )
@@ -119,6 +119,7 @@ new FormModel {
 						"JavaCodeGenerator.preCreateCode": "String[] min_pack = new String[60];\nfor (int i = 0; i<60; i++) {\n    if (i<10){\n        min_pack[i] = \"0\"+i;\n    }else{\n        min_pack[i] = String.valueOf(i);\n    }\n  }"
 						"JavaCodeGenerator.customCreateCode": "new JComboBox(min_pack);"
 					}
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "start_time_min_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 4 0"
 				} )
@@ -137,6 +138,7 @@ new FormModel {
 						"JavaCodeGenerator.variableModifiers": 1
 						"JavaCodeGenerator.customCreateCode": "new JComboBox(hour_pack);"
 					}
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "end_time_hour_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 7 0"
 				} )
@@ -155,6 +157,7 @@ new FormModel {
 						"JavaCodeGenerator.variableModifiers": 1
 						"JavaCodeGenerator.customCreateCode": "new JComboBox(min_pack);"
 					}
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "end_time_min_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 9 0"
 				} )

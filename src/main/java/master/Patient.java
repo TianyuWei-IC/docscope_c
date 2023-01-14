@@ -37,8 +37,6 @@ public class Patient extends JButton {
     public GUI_test mainGUI;
 
     // data and charts for display
-    private inputData dataEcg1;
-    private inputData dataTemperature;
     public SeriesChartPane panelEcg1;
     public SeriesChartPane panelEcg2;
     public Chart_Label_Display panelTemperature;
@@ -109,16 +107,9 @@ public class Patient extends JButton {
         this.setMinimumSize(new Dimension(170,100));
         this.setHorizontalAlignment(SwingConstants.CENTER);
 
-
-        this.addMouseListener(new MouseAdapter() {
-            //@Override
-            public void mouseClicked(MouseEvent e) {
-                patient_mouseClicked(e);
-            }
-        });
-        panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I");
-        panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg2", "ECG_Lead_II");
-        panelRespiratoryPattern = load_chart((long) floor(resp_pattern_interval*1000),"resp","Respiratory Pattern");
+        panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I","real time");
+        panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg2", "ECG_Lead_II","real time");
+        panelRespiratoryPattern = load_chart((long) floor(resp_pattern_interval*1000),"resp","Respiratory Pattern","real time");
 
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
         panelHeartRate=load_chartLabel((long) floor(hr_interval*1000*60),"heart rate","Heart Rate");
@@ -162,14 +153,14 @@ public class Patient extends JButton {
         this.time_milli = time_now.getTime();
     }
 
-    public SeriesChartPane load_chart(long chart_capacity, String type, String title){
+    public SeriesChartPane load_chart(long chart_capacity, String type, String title,String mode){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime();
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime,
                 type,2);
-        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title);
+        return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title,mode);
     }
 
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
@@ -288,11 +279,4 @@ public class Patient extends JButton {
         this.mainGUI.HR_display_interval.setText(String.valueOf(this.hr_interval));
     }
 
-
-    public void patient_mouseClicked(MouseEvent e) {
-//        if(e.getClickCount()==2){
-//            Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
-//            editor.setVisible(true);
-//        }
-    }
 }

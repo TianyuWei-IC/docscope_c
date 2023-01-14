@@ -87,9 +87,9 @@ public class GUI_test extends JFrame {
         current_ECG_I.worker.cancel(true);
         current_ECG_II.worker.cancel(true);
         SeriesChartPane updated_ECG_I =  current_patient.load_chart(
-                (long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I");
+                (long) floor(current_patient.ecg_interval*1000),"ecg1","ECG_Lead_I","real time");
         SeriesChartPane updated_ECG_II =  current_patient.load_chart(
-                (long) floor(current_patient.ecg_interval*1000),"ecg2","ECG_Lead_II");
+                (long) floor(current_patient.ecg_interval*1000),"ecg2","ECG_Lead_II","real time");
         this.ecg1.removeAll();
         this.ecg2.removeAll();
         this.ecg1.add(updated_ECG_I);
@@ -110,7 +110,7 @@ public class GUI_test extends JFrame {
 
         current_patient.resp_pattern_interval = Integer.valueOf(this.RESP_pattern_display_interval.getText());
         SeriesChartPane updated_resp_pattern =  current_patient.load_chart(
-                (long) floor(current_patient.resp_pattern_interval*1000),"resp", "Respiratory Pattern");
+                (long) floor(current_patient.resp_pattern_interval*1000),"resp", "Respiratory Pattern","real time");
         this.resp_pattern_table.removeAll();
         this.resp_pattern_table.add(updated_resp_pattern);
 
@@ -341,9 +341,24 @@ public class GUI_test extends JFrame {
         }
     }
 
+    private void email_update(ActionEvent e) {
+        // TODO add your code here
+    }
+
+    private void email_addressKeyReleased(KeyEvent e) {
+        String address = email_address.getText();
+        int l = address.length();
+
+        if (l!=0&address.contains("@")&(!address.contains(" "))&address.contains(".")) {
+            email_update_button.setEnabled(true);
+        }else{
+            email_update_button.setEnabled(false);
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Evaluation license - Jiapeng Liu
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patientList_recordings = new JPanel();
         NewPatient = new JPanel();
         label1 = new JLabel();
@@ -355,6 +370,11 @@ public class GUI_test extends JFrame {
         recordings.setOpaque(true);
         recordings.setBorderPainted(false);
         value_display = new JPanel();
+        email_update_panel = new JPanel();
+        email_label = new JLabel();
+        panel9 = new JPanel();
+        email_address = new JTextField();
+        email_update_button = new JButton();
         ecg_interval_panel = new JPanel();
         label12 = new JLabel();
         panel8 = new JPanel();
@@ -445,12 +465,6 @@ public class GUI_test extends JFrame {
             patientList_recordings.setMaximumSize(new Dimension(225, 1017));
             patientList_recordings.setMinimumSize(new Dimension(225, 1017));
             patientList_recordings.setPreferredSize(new Dimension(225, 1017));
-            patientList_recordings.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-            EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax. swing
-            . border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ),
-            java. awt. Color. red) ,patientList_recordings. getBorder( )) ); patientList_recordings. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .getPropertyName () ))
-            throw new RuntimeException( ); }} );
             patientList_recordings.setLayout(new MigLayout(
                 "hidemode 3,gap 100 10",
                 // columns
@@ -529,6 +543,7 @@ public class GUI_test extends JFrame {
                 // columns
                 "[284,fill]",
                 // rows
+                "[60]" +
                 "[61]" +
                 "[56]" +
                 "[212]" +
@@ -537,6 +552,49 @@ public class GUI_test extends JFrame {
                 "[189]" +
                 "[65]" +
                 "[]"));
+
+            //======== email_update_panel ========
+            {
+                email_update_panel.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[345,fill]",
+                    // rows
+                    "[]" +
+                    "[]"));
+
+                //---- email_label ----
+                email_label.setText("E-mail Address for urgent notifying");
+                email_update_panel.add(email_label, "cell 0 0");
+
+                //======== panel9 ========
+                {
+                    panel9.setLayout(new MigLayout(
+                        "hidemode 3,alignx center",
+                        // columns
+                        "[234,fill]" +
+                        "[73,fill]",
+                        // rows
+                        "[]"));
+
+                    //---- email_address ----
+                    email_address.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+                            email_addressKeyReleased(e);
+                        }
+                    });
+                    panel9.add(email_address, "cell 0 0");
+
+                    //---- email_update_button ----
+                    email_update_button.setText("update");
+                    email_update_button.setEnabled(false);
+                    email_update_button.addActionListener(e -> email_update(e));
+                    panel9.add(email_update_button, "cell 1 0");
+                }
+                email_update_panel.add(panel9, "cell 0 1");
+            }
+            value_display.add(email_update_panel, "cell 0 0");
 
             //======== ecg_interval_panel ========
             {
@@ -594,7 +652,7 @@ public class GUI_test extends JFrame {
                 }
                 ecg_interval_panel.add(panel8, "cell 0 1");
             }
-            value_display.add(ecg_interval_panel, "cell 0 0");
+            value_display.add(ecg_interval_panel, "cell 0 1");
 
             //======== resp_interval_panel ========
             {
@@ -652,7 +710,7 @@ public class GUI_test extends JFrame {
                 }
                 resp_interval_panel.add(panel12, "cell 0 1");
             }
-            value_display.add(resp_interval_panel, "cell 0 1");
+            value_display.add(resp_interval_panel, "cell 0 2");
 
             //======== hr_panel ========
             {
@@ -738,7 +796,7 @@ public class GUI_test extends JFrame {
                 }
                 hr_panel.add(panel3, "cell 0 2");
             }
-            value_display.add(hr_panel, "cell 0 2");
+            value_display.add(hr_panel, "cell 0 3");
 
             //======== resp_panel ========
             {
@@ -836,7 +894,7 @@ public class GUI_test extends JFrame {
                 }
                 resp_panel.add(panel4, "cell 0 2");
             }
-            value_display.add(resp_panel, "cell 0 3");
+            value_display.add(resp_panel, "cell 0 4");
 
             //======== bp_panel ========
             {
@@ -961,7 +1019,7 @@ public class GUI_test extends JFrame {
                 }
                 bp_panel.add(panel5, "cell 0 2");
             }
-            value_display.add(bp_panel, "cell 0 4");
+            value_display.add(bp_panel, "cell 0 5");
 
             //======== temp_panel ========
             {
@@ -1058,14 +1116,14 @@ public class GUI_test extends JFrame {
                 }
                 temp_panel.add(panel6, "cell 0 2");
             }
-            value_display.add(temp_panel, "cell 0 5");
+            value_display.add(temp_panel, "cell 0 6");
 
             //---- report_button ----
             report_button.setText("Reports");
             report_button.setBackground(Color.yellow);
             report_button.setEnabled(false);
             report_button.addActionListener(e -> report_button(e));
-            value_display.add(report_button, "cell 0 6");
+            value_display.add(report_button, "cell 0 7");
         }
         contentPane.add(value_display, BorderLayout.EAST);
 
@@ -1214,7 +1272,7 @@ public class GUI_test extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Evaluation license - Jiapeng Liu
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     public JPanel patientList_recordings;
     public JPanel NewPatient;
     private JLabel label1;
@@ -1224,6 +1282,11 @@ public class GUI_test extends JFrame {
     private JPanel panel2;
     public JButton recordings;
     public JPanel value_display;
+    public JPanel email_update_panel;
+    private JLabel email_label;
+    private JPanel panel9;
+    public JTextField email_address;
+    public JButton email_update_button;
     public JPanel ecg_interval_panel;
     private JLabel label12;
     private JPanel panel8;
