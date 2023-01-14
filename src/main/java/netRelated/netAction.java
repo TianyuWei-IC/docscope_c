@@ -18,6 +18,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.floor;
@@ -134,11 +135,7 @@ public class netAction {
             while (resultSet.next()) {
                 values.add(resultSet.getDouble(type));
             }
-            respPack.setLastTime(startTime + interval * (values.size()));
-//            System.out.println("returned size is "+values.size());
-//            System.out.println("last time is " + respPack.lastTime);
-//            System.out.println("start time is " + startTime);
-//            System.out.println("end time is " + endTime);
+            respPack.setLastTime(startTime + (long) interval * (values.size()));
         } catch (Exception e) {
             System.out.println("resultSet fail in value");
         }
@@ -150,6 +147,151 @@ public class netAction {
         }
         respPack.setValueList(values);
         return respPack;
+    }
+    public static List<List<String>> findAbnormal(Patient patient){
+        long initialTime=getInitialTime();
+        String orderTime = "select * from "+patient.reference_value+"slowaverage";
+        List<String> heartHigh=new ArrayList<>();
+        List<String> heartLow=new ArrayList<>();
+        List<String> tempHigh=new ArrayList<>();
+        List<String> tempLow=new ArrayList<>();
+        List<String> respHigh=new ArrayList<>();
+        List<String> respLow=new ArrayList<>();
+        List<String> sysHigh=new ArrayList<>();
+        List<String> sysLow=new ArrayList<>();
+        List<String> diaHigh=new ArrayList<>();
+        List<String> diaLow=new ArrayList<>();
+        Timestamp timestamp;
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            PreparedStatement s = conn.prepareStatement(orderTime);
+            ResultSet resultSet = s.executeQuery();
+            boolean HeartHigh=false;
+            boolean HeartLow=false;
+            boolean TempHigh=false;
+            boolean TempLow=false;
+            boolean RespHigh=false;
+            boolean RespLow=false;
+            boolean SysHigh=false;
+            boolean SysLow=false;
+            boolean DiaHigh=false;
+            boolean DiaLow=false;
+            while (resultSet.next()) {
+                if (resultSet.getDouble("heart")>patient.hr_max){
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    heartHigh.add(timestamp+" - ");
+                    HeartHigh=true;
+                }
+                else if (resultSet.getDouble("heart")>patient.hr_min) {
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    heartLow.add(timestamp+" - ");
+                    HeartLow=true;
+                }
+                else{
+                    if (HeartHigh){
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        heartHigh.set(heartHigh.size()-1,heartHigh.get(heartHigh.size()-1)+timestamp);
+                        HeartHigh=false;
+                    } else if (HeartLow) {
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        heartLow.set(heartLow.size()-1,heartLow.get(heartLow.size()-1)+timestamp);
+                        HeartLow=false;
+                    }
+                }
+
+                if (resultSet.getDouble("temperature")>patient.hr_max){
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    tempHigh.add(timestamp+" - ");
+                    TempHigh=true;
+                }
+                else if (resultSet.getDouble("temperature")>patient.hr_min) {
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    tempLow.add(timestamp+" - ");
+                    TempLow=true;
+                }
+                else{
+                    if (TempHigh){
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        tempHigh.set(tempHigh.size()-1,tempHigh.get(tempHigh.size()-1)+timestamp);
+                        TempHigh=false;
+                    } else if (TempLow) {
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        tempLow.set(tempLow.size()-1,tempLow.get(tempLow.size()-1)+timestamp);
+                        TempLow=false;
+                    }
+                }
+                
+                if (resultSet.getDouble("respiratory")>patient.hr_max){
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    respHigh.add(timestamp+" - ");
+                    RespHigh=true;
+                }
+                else if (resultSet.getDouble("respiratory")>patient.hr_min) {
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    respLow.add(timestamp+" - ");
+                    RespLow=true;
+                }
+                else{
+                    if (RespHigh){
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        respHigh.set(respHigh.size()-1,respHigh.get(respHigh.size()-1)+timestamp);
+                        RespHigh=false;
+                    } else if (RespLow) {
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        respLow.set(respLow.size()-1,respLow.get(respLow.size()-1)+timestamp);
+                        RespLow=false;
+                    }
+                }
+
+                if (resultSet.getDouble("systolic")>patient.hr_max){
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    sysHigh.add(timestamp+" - ");
+                    SysHigh=true;
+                }
+                else if (resultSet.getDouble("systolic")>patient.hr_min) {
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    sysLow.add(timestamp+" - ");
+                    SysLow=true;
+                }
+                else{
+                    if (SysHigh){
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        sysHigh.set(sysHigh.size()-1,sysHigh.get(sysHigh.size()-1)+timestamp);
+                        SysHigh=false;
+                    } else if (SysLow) {
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        sysLow.set(sysLow.size()-1,sysLow.get(sysLow.size()-1)+timestamp);
+                        SysLow=false;
+                    }
+                }
+
+                if (resultSet.getDouble("diastolic")>patient.hr_max){
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    diaHigh.add(timestamp+" - ");
+                    DiaHigh=true;
+                }
+                else if (resultSet.getDouble("diastolic")>patient.hr_min) {
+                    timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                    diaLow.add(timestamp+" - ");
+                    DiaLow=true;
+                }
+                else{
+                    if (DiaHigh){
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        diaHigh.set(diaHigh.size()-1,diaHigh.get(diaHigh.size()-1)+timestamp);
+                        DiaHigh=false;
+                    } else if (DiaLow) {
+                        timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
+                        diaLow.set(diaLow.size()-1,diaLow.get(diaLow.size()-1)+timestamp);
+                        DiaLow=false;
+                    }
+                }
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("end statement fail in time");
+        }
+        return Arrays.asList(heartHigh,heartLow,tempHigh,tempLow,respHigh,respLow,sysHigh,sysLow,diaHigh,diaLow);
     }
     //    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
 //
