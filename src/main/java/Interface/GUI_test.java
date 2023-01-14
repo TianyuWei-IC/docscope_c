@@ -2,6 +2,10 @@ package Interface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
@@ -11,6 +15,9 @@ import master.*;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Math.floor;
+import static netRelated.netAction.getPatientInformation;
+
+import netRelated.netAction;
 
 /*
  * Created by JFormDesigner on Mon Dec 26 17:36:59 GMT 2022
@@ -368,7 +375,11 @@ public class GUI_test extends JFrame {
 //    }
 
     private void thisWindowOpened(WindowEvent e) {
-        this.referenceList = new String[]{"patient1","patient2"};
+
+        System.out.println("hi");
+        List<String> references=getPatientInformation(this.patient_list,this);
+        this.referenceList = new String[references.size()];
+        references.toArray(this.referenceList);
     }
 
     private void initComponents() {

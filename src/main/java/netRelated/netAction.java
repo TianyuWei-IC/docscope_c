@@ -1,8 +1,10 @@
 package netRelated;
 
+import Interface.GUI_test;
 import com.google.gson.Gson;
 import master.Patient;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -353,6 +355,43 @@ public class netAction {
         }
         return initialTime;
     }
+    public static List<String> getPatientInformation(JPanel patient_list, GUI_test gui){
+        String orderTime = "select * from patientlist";
+        List<String> references = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            PreparedStatement s = conn.prepareStatement(orderTime);
+            ResultSet resultSet = s.executeQuery();
+
+            while (resultSet.next()) {
+                if (resultSet.getString("firstname") == null) {
+                } else {
+                    patient_list.add(new Patient(resultSet.getString("firstname"),
+                            resultSet.getString("lastname"),
+                            resultSet.getString("reference"),
+                            resultSet.getString("gender"),
+                            resultSet.getInt("yearbirth"),
+                            resultSet.getDouble("temperatruelow"),
+                            resultSet.getDouble("temperaturehigh"),
+                            resultSet.getInt("heartlow"),
+                            resultSet.getInt("hearthigh"),
+                            resultSet.getInt("systoliclow"),
+                            resultSet.getInt("systolichigh"),
+                            resultSet.getInt("diastoliclow"),
+                            resultSet.getInt("diastolichigh"),
+                            resultSet.getInt("respiratorylow"),
+                            resultSet.getInt("respiratoryhigh"),
+                            gui));
+                }
+                references.add(resultSet.getString("reference"));
+            }
+
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("end statement fail in time");
+        }
+        return references;
+    }
     public static List<String> getReferences() {
         List<String> references=new ArrayList<>();
         String orderTime = "select reference from patientlist";
@@ -406,8 +445,9 @@ public class netAction {
 //
 //        return respPack;
 //    }
-    public static void putReference(String reference,List<Double> threshold) throws IOException, InterruptedException {
-        updateThreshold(reference,threshold);
+    public static void putReference(String reference,List<Double> threshold,
+                                    String first_name,String last_name,String gender) throws IOException, InterruptedException {
+        updateThreshold(reference,threshold,first_name,last_name,gender);
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -422,16 +462,20 @@ public class netAction {
                 .build();
         HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
     }
-    public static void updateThreshold(String ref,List<Double> threshold){
+    public static void updateThreshold(String ref,List<Double> threshold,
+                                       String first_name,String last_name,String gender){
         String order="update patientList set temperaturehigh=?,temperaturelow=?,hearthigh=?," +
                 "heartlow=?,systolichigh=?,systoliclow=?,diastolichigh=?,diastoliclow=?," +
-                "respiratoryhigh=?,respiratorylow=?";
+                "respiratoryhigh=?,respiratorylow=?,firstname=?,lastname=?,gender=? where reference='"+ref+"'";
         try {
             Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             PreparedStatement s = conn.prepareStatement(order);
             for(int i=0;i<10;i++) {
                 s.setDouble(i+1, threshold.get(i));
             }
+            s.setString(11,first_name);
+            s.setString(12,last_name);
+            s.setString(13,gender);
             s.executeUpdate();
             s.close();
             conn.close();
