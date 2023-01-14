@@ -12,7 +12,7 @@ import javax.swing.AbstractButton;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
-import static master.Monitor.referenceList;
+
 
 
 /*
@@ -382,7 +382,7 @@ public class Patient_Editor extends JFrame {
         panel1 = new JPanel();
         title = new JLabel();
         patient_ref = new JLabel();
-        ref_selector = new JComboBox(referenceList);
+        ref_selector = new JComboBox(this.mainGUI.referenceList);
         patient_profile = new JPanel();
         name = new JPanel();
         first_name = new JLabel();

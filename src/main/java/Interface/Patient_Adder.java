@@ -10,9 +10,7 @@ import master.Patient;
 import net.miginfocom.swing.*;
 
 import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.round;
-import static master.Monitor.referenceList;
+
 
 
 /*
@@ -27,6 +25,7 @@ import static master.Monitor.referenceList;
  */
 public class Patient_Adder extends JFrame {
     private GUI_test mainGUI;
+
     public Patient_Adder(GUI_test mainGUI) {
         this.mainGUI = mainGUI;
         initComponents();
@@ -330,7 +329,7 @@ public class Patient_Adder extends JFrame {
         title_and_reference = new JPanel();
         title = new JLabel();
         patient_ref = new JLabel();
-        ref_selector = new JComboBox(referenceList);
+        ref_selector = new JComboBox(this.mainGUI.referenceList);
         patient_profile = new JPanel();
         name = new JPanel();
         first_name = new JLabel();
