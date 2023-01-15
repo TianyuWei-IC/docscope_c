@@ -18,6 +18,7 @@ import java.util.List;
 import static java.lang.Math.floor;
 
 public class Patient extends JButton {
+    // fields for basic patient info
     public String first_name;
     public String last_name;
     public String reference_value;
@@ -35,26 +36,21 @@ public class Patient extends JButton {
     public Integer resp_max;
     public GUI_test mainGUI;
 
-    // data and charts for display
+    // fields for data and charts for display
     public SeriesChartPane panelEcg1;
     public SeriesChartPane panelEcg2;
     public Chart_Label_Display panelTemperature;
-
     public Chart_Label_Display panelHeartRate;
-
     public Chart_Label_Display panelSysBloodPressure;
-
     public Chart_Label_Display panelDiaBloodPressure;
-
     public Chart_Label_Display panelRespiratoryRate;
-
     public SeriesChartPane panelRespiratoryPattern;
 
+    // fields for detect double click interval
     private Timestamp time = new Timestamp(System.currentTimeMillis());
     private long time_milli;
 
     // fields for time interval
-
     public Integer ecg_interval = 5;
     public Integer temperature_interval = 6;
     public Integer resp_pattern_interval = 6;
@@ -132,8 +128,9 @@ public class Patient extends JButton {
     }
 
     /**
-     *
-     *
+     * This ActionListener detect the lick on the patient (Patient extends from JButton). One click on the patient will
+     * make the MainGUI switch to the signal display of this patient. If two clicks detected within 300ms, this will open
+     * the patient editor for the selected patient.
      */
     public void switch_patient(ActionEvent e) {
         // find the previous patients displaying on the MainGUI
@@ -141,9 +138,10 @@ public class Patient extends JButton {
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
 
         Patient previous_patient = current_temp_cl_display.patient;
-        System.out.println(previous_patient.first_name);
-        //previous_patient.stop_display();
+
+       // if the patient's signal is already displayed, no need for switching when its clicked once
         if (this.equals(previous_patient)==false) {
+            // if a different patient is chosen, we want to stop all the display/update of its signal
             previous_patient.panelEcg1.worker.cancel(true);
             previous_patient.panelEcg2.worker.cancel(true);
             previous_patient.panelTemperature.updater.cancel(true);
@@ -153,18 +151,22 @@ public class Patient extends JButton {
             previous_patient.panelRespiratoryPattern.worker.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
+            // set the previous patient into the default color
             previous_patient.setBackground(new Color(193, 211, 224));
             previous_patient.setOpaque(true);
             previous_patient.setBorderPainted(false);
         }
-
+        // display the current patient on the mainGUI
         display(this.reference_value);
+        // this block of code determines whether there is a double click in 300ms, if so, open the patient editor
+        // for the selected patient
         Timestamp time_now = new Timestamp(System.currentTimeMillis());
         if ((time_now.getTime()-time_milli)<=300){
             this.setEnabled(false);
             Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
             editor.setVisible(true);
         }
+        // set the current patient into a different color, indicating it is now this patient displaying on the mainGUI
         this.setBackground(new Color(84, 160, 173));
         this.setOpaque(true);
         this.setBorderPainted(false);
@@ -208,12 +210,13 @@ public class Patient extends JButton {
 
     /**
      * This function display all the vital signals of the patient to the corresponding slots on the MainGUI
-     *
      */
     private void display(String reference_value) {
-        // if the updater/worker of the patient is cancelled, we create a new updater/worker for it.
-        // when switching between the patient on the MainGUI by clicking, the previous patient's updater/worker will be
-        // cancelled
+         /*if the updater/worker of the patient is cancelled, we create a new updater/worker for it.
+         when switching between the patient on the MainGUI by clicking, the previous patient's updater/worker will be
+         cancelled. When we switch back to the 'previous patient', since all its updater/worker is cancelled, new ones
+         are needed.
+          */
         if (this.panelEcg1.worker.isCancelled()) {
             this.panelEcg1.worker = new UpdateWorker(this.panelEcg1);
             this.panelEcg1.worker.execute();
@@ -240,7 +243,9 @@ public class Patient extends JButton {
             this.panelDiaBloodPressure.updater.execute();
         }
 
-        //
+        //this block of code add all the signals to the corresponding spaces on the mainGUI by removing all the
+        //pre-existing plot in the panel, and add new ones.
+
         // ecg1
         this.mainGUI.ecg1.setVisible(false);
         this.mainGUI.ecg1.removeAll();
