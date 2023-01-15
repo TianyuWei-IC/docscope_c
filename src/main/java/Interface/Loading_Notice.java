@@ -13,8 +13,8 @@ import net.miginfocom.swing.*;
  *  with the server.
  *
  */
-public class loading_notice extends JFrame {
-    public loading_notice() {
+public class Loading_Notice extends JFrame {
+    public Loading_Notice() {
         initComponents();
     }
 

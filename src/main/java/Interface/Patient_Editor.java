@@ -27,7 +27,7 @@ public class Patient_Editor extends JFrame {
     private GUI_test mainGUI;
     private Patient new_patient;
     private Boolean save_or_not = false;
-    private loading_notice loading = new loading_notice();
+    private Loading_Notice loading = new Loading_Notice();
     public Patient_Editor(GUI_test mainGUI, Patient new_patient) {
         this.mainGUI = mainGUI;
         this.new_patient = new_patient;

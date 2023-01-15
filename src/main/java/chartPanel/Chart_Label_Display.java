@@ -27,7 +27,6 @@ public class Chart_Label_Display {
     private Double threshold_double_high;
     private Double threshold_double_low;
     private Double baseline_value;
-
     public String type;
     private Boolean pop_or_not;
     private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());

@@ -22,7 +22,7 @@ import static java.lang.Double.parseDouble;
 public class Patient_Adder extends JFrame {
     private GUI_test mainGUI;
     private Boolean save_or_not = false;
-    private loading_notice loading = new loading_notice();
+    private Loading_Notice loading = new Loading_Notice();
 
     /**
      * this is a JFrame that adds the patient into the patient_list
