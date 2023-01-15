@@ -112,12 +112,12 @@ public class Urgent extends JFrame {
 
                 //---- abnormal_signal ----
                 abnormal_signal.setText("text");
-                abnormal_signal.setFont(abnormal_signal.getFont().deriveFont(abnormal_signal.getFont().getSize() + 20f));
+                abnormal_signal.setFont(new Font("Arial", Font.PLAIN, 32));
                 abnormal_type.add(abnormal_signal, "cell 1 0");
 
                 //---- high_low ----
                 high_low.setText("text");
-                high_low.setFont(high_low.getFont().deriveFont(high_low.getFont().getSize() + 20f));
+                high_low.setFont(new Font("Arial", Font.PLAIN, 32));
                 abnormal_type.add(high_low, "cell 2 0");
             }
             urgent_panel.add(abnormal_type, "cell 0 1");

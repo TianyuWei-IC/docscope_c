@@ -662,6 +662,7 @@ public class Patient_Editor extends JFrame {
                     name.add(first_name, "cell 0 0");
 
                     //---- first_name_field ----
+                    first_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     first_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {
@@ -676,6 +677,7 @@ public class Patient_Editor extends JFrame {
                     name.add(last_name, "cell 2 0");
 
                     //---- last_name_field ----
+                    last_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     last_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {

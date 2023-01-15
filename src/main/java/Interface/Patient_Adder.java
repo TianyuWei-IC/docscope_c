@@ -360,7 +360,7 @@ public class Patient_Adder extends JFrame {
                     (dia_min_value_double>dia_max_value_double)|
                     (resp_min_value_double>resp_max_value_double)|
                     first_name_field.getText().isEmpty()|
-                    last_name_field.getText().isEmpty())
+                    last_name_field.getText().isEmpty()|ref_selector.getComponentCount()==0)
             {
                 save_button.setEnabled(false);
             }else{
@@ -446,6 +446,10 @@ public class Patient_Adder extends JFrame {
     private void last_name_fieldKeyReleased(KeyEvent e) {
         value_check();
     }
+
+    private void thisWindowOpened(WindowEvent e) {
+        value_check();
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void initComponents() {
@@ -521,6 +525,10 @@ public class Patient_Adder extends JFrame {
             public void windowClosing(WindowEvent e) {
                 PatientAdderWindowClosing(e);
             }
+            @Override
+            public void windowOpened(WindowEvent e) {
+                thisWindowOpened(e);
+            }
         });
         var contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
@@ -593,6 +601,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- first_name_field ----
                     first_name_field.setText("TEST");
+                    first_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     first_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {
@@ -608,6 +617,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- last_name_field ----
                     last_name_field.setText("TEST");
+                    last_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     last_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {

@@ -72,6 +72,7 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "first_name_field"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -88,6 +89,7 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "last_name_field"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
