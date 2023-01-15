@@ -63,23 +63,10 @@ public class Patient extends JButton {
     public Integer bp_interval = 6;
 
     /**
-     * Patient object represent one patient, it contains all relevant information of the patients
-     * @param first_name
-     * @param last_name
-     * @param reference_value
-     * @param gender
-     * @param year_of_birth
-     * @param temp_min
-     * @param temp_max
-     * @param hr_min
-     * @param hr_max
-     * @param sys_min
-     * @param sys_max
-     * @param dia_min
-     * @param dia_max
-     * @param resp_min
-     * @param resp_max
-     * @param mainGUI
+     * Patient object represent one patient, it contains all relevant information of the patients. Inherent from JButton
+     * so that it's clickable which enables switching and editing of the patients.
+     * (NOTE: for min/max values, e.g. temp_min,these correspond to the values that would pop the urgent notification
+     * once reached, defined by users.)
      */
     public Patient(String first_name,
                    String last_name,
@@ -115,11 +102,13 @@ public class Patient extends JButton {
         this.resp_min= resp_min;
         this.resp_max= resp_max;
         this.mainGUI = mainGUI;
+        // this is the default color of the patient as a JButton
         this.setBackground(new Color(193, 211, 224));
         this.setOpaque(true);
         this.setBorderPainted(false);
 
         String patient_full_name = this.first_name+" "+this.last_name;
+        // these lines of code help with handling long string in JButton, so that patient name can be displayed properly
         this.setText("<html>" + patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         this.setFont(new Font("Arial", Font.PLAIN, 20));
         this.setMaximumSize(new Dimension(170,100));
@@ -127,24 +116,27 @@ public class Patient extends JButton {
         this.setMinimumSize(new Dimension(170,100));
         this.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // creation of all the signal display for the patient
         panelEcg1 = load_chart((long) floor(ecg_interval*1000),"ecg1","ECG_Lead_I","real time");
         panelEcg2 = load_chart((long) floor(ecg_interval * 1000), "ecg2", "ECG_Lead_II","real time");
         panelRespiratoryPattern = load_chart((long) floor(resp_pattern_interval*1000),"resp","Respiratory Pattern","real time");
-
         panelTemperature=load_chartLabel((long) floor(temperature_interval*1000*60),"body temperature","Body Temperature");
         panelHeartRate=load_chartLabel((long) floor(hr_interval*1000*60),"heart rate","Heart Rate");
         panelRespiratoryRate=load_chartLabel((long) floor(resp_rate_interval*1000*60),"respiratory rate","Respiratory Rate");
         panelDiaBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"diastolic blood pressure","Diastolic Blood Pressure");
         panelSysBloodPressure = load_chartLabel((long) floor(bp_interval*1000*60),"systolic blood pressure","Systolic Blood Pressure");
 
-
         display(this.reference_value);
         this.addActionListener(e -> switch_patient(e));
         this.time_milli = time.getTime();
     }
 
+    /**
+     *
+     *
+     */
     public void switch_patient(ActionEvent e) {
-        // find the previous patients
+        // find the previous patients displaying on the MainGUI
         Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
 
@@ -179,6 +171,14 @@ public class Patient extends JButton {
         this.time_milli = time_now.getTime();
     }
 
+    /**
+     *
+     * @param chart_capacity
+     * @param type
+     * @param title
+     * @param mode
+     * @return
+     */
     public SeriesChartPane load_chart(long chart_capacity, String type, String title,String mode){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime(this.reference_value);
@@ -189,6 +189,13 @@ public class Patient extends JButton {
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title,mode);
     }
 
+    /**
+     *
+     * @param chart_capacity
+     * @param type
+     * @param title
+     * @return
+     */
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         long dataBaseInitialTime=netAction.getInitialTime(this.reference_value);
@@ -199,8 +206,14 @@ public class Patient extends JButton {
         return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime,0.0166667),respPack.lastTime,type,title);
     }
 
+    /**
+     * This function display all the vital signals of the patient to the corresponding slots on the MainGUI
+     *
+     */
     private void display(String reference_value) {
-
+        // if the updater/worker of the patient is cancelled, we create a new updater/worker for it.
+        // when switching between the patient on the MainGUI by clicking, the previou patient's updater/worker will be
+        // cancelled
         if (this.panelEcg1.worker.isCancelled()) {
             this.panelEcg1.worker = new UpdateWorker(this.panelEcg1);
             this.panelEcg1.worker.execute();
@@ -227,6 +240,7 @@ public class Patient extends JButton {
             this.panelDiaBloodPressure.updater.execute();
         }
 
+        //
         // ecg1
         this.mainGUI.ecg1.setVisible(false);
         this.mainGUI.ecg1.removeAll();
@@ -296,7 +310,7 @@ public class Patient extends JButton {
         this.mainGUI.dia_display_value.add(this.panelDiaBloodPressure.value_label);
         this.mainGUI.dia_display_value.setVisible(true);
 
-        // set the default length
+        // set the default signal display length
         this.mainGUI.ECG_display_interval.setText(String.valueOf(this.ecg_interval));
         this.mainGUI.Temp_display_interval.setText(String.valueOf(this.temperature_interval));
         this.mainGUI.RESP_rate_display_interval.setText(String.valueOf(this.resp_rate_interval));

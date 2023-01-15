@@ -14,12 +14,21 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
     long previousTime;
     String type;
 
+    /**
+     * This class communicate with the server and feed the data constantly into the Chart_Label_Display
+     * @param chartLabel the Chart_Label_Display that requires updates
+     */
     public Chart_Label_Update(Chart_Label_Display chartLabel) {
         this.chartLabel = chartLabel;
         this.previousTime=this.chartLabel.time;
         this.type=this.chartLabel.type;
     }
 
+
+    /**
+     * communicating with the server once 1000 milliseconds to obtain the data and pass into the Chart_Label_Display
+     * for data updates
+     */
     @Override
     protected Void doInBackground() throws Exception {
         while (true) {
@@ -32,27 +41,11 @@ public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
                     type,
                     1000,this.chartLabel.patient.reference_value);
             List<Double> newData= respPack.valueList;
-            //System.out.println(newData.size());
             if (newData.size()!=0){
                 chartLabel.updateData(chartLabel.dataInput.getData(newData,10));
             }
             previousTime=respPack.lastTime;
         }
-//        while (true) {
-//            Thread.sleep(1100);
-//            long timestamp=new Timestamp(System.currentTimeMillis()).getTime();
-//            requestPack reqPack =new requestPack(previousTime,timestamp);
-//            responsePack respPack= netAction.postRequestData(reqPack,"http://localhost:8080/docScope_s/recorder");
-//            List<Double> newData= respPack.valueList;
-//            if (newData.size()!=0){
-//                System.out.println(newData.size());
-//                chartLabel.updateData(chartLabel.getDataInput().getData(newData));
-//                if(respPack.lastTime==0) {
-//                    previousTime=timestamp;
-//                }
-//                else previousTime=respPack.lastTime;
-//            }
-//        }
     }
 }
 
