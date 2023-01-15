@@ -116,27 +116,27 @@ public class Chart_Label_Display {
         if (type =="body temperature"){
             this.threshold_double_low= patient.temp_min ;
             this.threshold_double_high= patient.temp_max;
-            this.baseline_value = 36.5;
+            this.baseline_value = (this.threshold_double_low+this.threshold_double_high)/2;
 
         }else if(type =="heart rate"){
             this.threshold_double_low=  (double) patient.hr_min;
             this.threshold_double_high= (double) patient.hr_max;
-            this.baseline_value = 75.0;
+            this.baseline_value = (this.threshold_double_low+this.threshold_double_high)/2;
 
         }else if(type =="systolic blood pressure"){
             this.threshold_double_low= (double) patient.sys_min;
             this.threshold_double_high= (double) patient.sys_max;
-            this.baseline_value = 105.0;
+            this.baseline_value = (this.threshold_double_low+this.threshold_double_high)/2;
 
         }else if(type =="diastolic blood pressure"){
             this.threshold_double_low= (double) patient.dia_min;
             this.threshold_double_high= (double) patient.dia_max;
-            this.baseline_value = 70.0;
+            this.baseline_value = (this.threshold_double_low+this.threshold_double_high)/2;
 
         }else if(type =="respiratory rate"){
             this.threshold_double_low= (double) patient.resp_min;
             this.threshold_double_high= (double) patient.resp_max;
-            this.baseline_value = 15.0;
+            this.baseline_value = (this.threshold_double_low+this.threshold_double_high)/2;
 
         }
     }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
+import chartPanel.SeriesChartPane;
 import master.Patient;
 import net.miginfocom.swing.*;
 import netRelated.netAction;
@@ -130,6 +131,10 @@ public class Patient_Adder extends JFrame {
             mainGUI.patient_list.add(new_patient);
             mainGUI.patient_list.updateUI();
             loading.dispose();
+
+            // now make change the color on the Patient(as a button)
+            Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
+            Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
 
         }else {
             loading.dispose();
@@ -623,7 +628,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(temp_min, "cell 2 1");
 
                 //---- temp_max ----
-                temp_max.setText("39.0");
+                temp_max.setText("38.0");
                 temp_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -645,7 +650,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(heart_rate, "cell 0 2");
 
                 //---- hr_min ----
-                hr_min.setText("40");
+                hr_min.setText("50");
                 hr_min.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -659,7 +664,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(hr_min, "cell 2 2");
 
                 //---- hr_max ----
-                hr_max.setText("100");
+                hr_max.setText("110");
                 hr_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -685,7 +690,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(systolic, "cell 1 3");
 
                 //---- sys_min ----
-                sys_min.setText("90");
+                sys_min.setText("85");
                 sys_min.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -699,7 +704,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(sys_min, "cell 2 3");
 
                 //---- sys_max ----
-                sys_max.setText("140");
+                sys_max.setText("145");
                 sys_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -721,7 +726,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(diastolic, "cell 1 4");
 
                 //---- dia_min ----
-                dia_min.setText("60");
+                dia_min.setText("55");
                 dia_min.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -757,7 +762,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(respiratory_rate, "cell 0 5");
 
                 //---- resp_min ----
-                resp_min.setText("10");
+                resp_min.setText("12");
                 resp_min.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -771,7 +776,7 @@ public class Patient_Adder extends JFrame {
                 threshold.add(resp_min, "cell 2 5");
 
                 //---- resp_max ----
-                resp_max.setText("35");
+                resp_max.setText("20");
                 resp_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {

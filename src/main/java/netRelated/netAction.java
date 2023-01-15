@@ -142,7 +142,7 @@ public class netAction {
         return respPack;
     }
     public static List<List<String>> findAbnormal(Patient patient){
-        long initialTime=getInitialTime();
+        long initialTime=getInitialTime(patient.reference_value);
         String orderTime = "select * from "+patient.reference_value+"slowaverage";
         List<String> heartHigh=new ArrayList<>();
         List<String> heartLow=new ArrayList<>();
@@ -307,58 +307,13 @@ public class netAction {
         }
         return Arrays.asList(heartHigh,heartLow,tempHigh,tempLow,respHigh,respLow,sysHigh,sysLow,diaHigh,diaLow);
     }
-    //    public static responsePack recordDataTemp(long startTime, long endTime,long initialTime){
-//
-//        List<Double> values = new ArrayList<>();
-//        responsePack respPack = new responsePack();
-//        Connection conn = null;
-//        PreparedStatement s = null;
-//
-//        String order = "select temperature from alphaslow where id>? and id<=?";
-//        int index1 = (int) floor((startTime - initialTime) / 1000);
-//        int index2 = (int) floor((endTime - initialTime) / 1000);
-//        if (index1 <= 0) {
-//            System.out.println("empty");
-//        }
-//        try {
-//            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-//            s = conn.prepareStatement(order);
-////                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-////                    ResultSet.CONCUR_READ_ONLY);
-//            s.setInt(1, index1);
-//            s.setInt(2, index2);
-//        } catch (SQLException e) {
-//            System.out.println("statement fail in value");
-//        }
-//        try {
-//            ResultSet resultSet = s.executeQuery();
-//            while (resultSet.next()) {
-//                values.add(resultSet.getDouble("temperature"));
-//            }
-//            respPack.setLastTime(startTime+1000*(values.size()));
-////            System.out.println("returned size is "+values.size());
-////            System.out.println("last time is " + respPack.lastTime);
-////            System.out.println("start time is " + startTime);
-////            System.out.println("end time is " + endTime);
-//        } catch (Exception e) {
-//            System.out.println("resultSet fail in value");
-//        }
-////        System.out.println(values);
-//        try {
-//            s.close();
-//            conn.close();
-//        } catch (SQLException e) {
-//            System.out.println("end connection fail");
-//        }
-//        respPack.setValueList(values);
-//        return respPack;
-//    }
-    public static long getInitialTime() {
+    public static long getInitialTime(String ref) {
         long initialTime = 0;
-        String orderTime = "select initialtime from patientlist where reference='alpha'";
+        String orderTime = "select initialtime from patientlist where reference=?";
         try {
             Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             PreparedStatement s = conn.prepareStatement(orderTime);
+            s.setString(1,ref);
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
                 initialTime = resultSet.getLong(1);

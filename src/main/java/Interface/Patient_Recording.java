@@ -94,7 +94,7 @@ public class Patient_Recording extends JFrame {
         time_value_check_click();
     }
 
-    private void generate_button(ActionEvent e) throws ParseException {
+    private void generate_button(ActionEvent e)  {
         String Date = String.valueOf(dateChooser1.getDate());
 
 
@@ -126,14 +126,18 @@ public class Patient_Recording extends JFrame {
 
         // get time in milliseconds using SimpleDateFormat
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-        Date start_date = sdf.parse(start_time_date);
-        Date end_date = sdf.parse(end_time_date);
+        Date start_date=null;
+        Date end_date=null;
+        try {
+            start_date = sdf.parse(start_time_date);
+            end_date = sdf.parse(end_time_date);
+        }catch (Exception ignore){}
         start_in_milli = start_date.getTime();
         end_in_milli = end_date.getTime();
         System.out.println(start_in_milli);
         System.out.println(end_in_milli);
 
-        long dataBaseInitialTime=netAction.getInitialTime();
+        long dataBaseInitialTime=netAction.getInitialTime(current_patient.reference_value);
         //get interval
         Integer interval;
         Double period = 1.0;
@@ -179,9 +183,9 @@ public class Patient_Recording extends JFrame {
         panel1 = new JPanel();
         label1 = new JLabel();
         dateChooser1 = new JDateChooser();
-        dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));
+        dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
         dateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));
-        dateChooser1.setDate(new Date(netAction.getInitialTime()));
+        dateChooser1.setDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
         time_intervel_select_panel = new JPanel();
         start_time_label = new JLabel();
         String[] hour_pack = new String[24];
@@ -353,13 +357,7 @@ public class Patient_Recording extends JFrame {
         //---- generate_button ----
         generate_button.setText("Generate");
         generate_button.setEnabled(false);
-        generate_button.addActionListener(e -> {
-            try {
-                generate_button(e);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        generate_button.addActionListener(e -> generate_button(e));
         contentPane.add(generate_button, "cell 0 5");
         pack();
         setLocationRelativeTo(getOwner());

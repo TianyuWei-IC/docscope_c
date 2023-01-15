@@ -155,7 +155,7 @@ public class Patient extends JButton {
 
     public SeriesChartPane load_chart(long chart_capacity, String type, String title,String mode){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        long dataBaseInitialTime=netAction.getInitialTime();
+        long dataBaseInitialTime=netAction.getInitialTime(this.reference_value);
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime,
@@ -165,7 +165,7 @@ public class Patient extends JButton {
 
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        long dataBaseInitialTime=netAction.getInitialTime();
+        long dataBaseInitialTime=netAction.getInitialTime(this.reference_value);
         responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
                 timestamp.getTime(),
                 dataBaseInitialTime,

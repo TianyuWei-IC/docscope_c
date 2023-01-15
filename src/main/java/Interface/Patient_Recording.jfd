@@ -69,7 +69,7 @@ new FormModel {
 					name: "dateChooser1"
 					auxiliary() {
 						"JavaCodeGenerator.customCreateCode": "new JDateChooser();"
-						"JavaCodeGenerator.postCreateCode": "dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime()));\ndateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));\ndateChooser1.setDate(new Date(netAction.getInitialTime()));"
+						"JavaCodeGenerator.postCreateCode": "dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime(current_patient.reference_value)));\ndateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));\ndateChooser1.setDate(new Date(netAction.getInitialTime(current_patient.reference_value)));"
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"

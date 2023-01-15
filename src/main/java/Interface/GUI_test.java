@@ -15,8 +15,7 @@ import master.*;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Math.floor;
-import static netRelated.netAction.findAbnormal;
-import static netRelated.netAction.getPatientInformation;
+import static netRelated.netAction.*;
 
 import netRelated.netAction;
 
@@ -359,7 +358,7 @@ public class GUI_test extends JFrame {
     }
 
     private void email_update(ActionEvent e) {
-
+        postEmailAddress(this.email_address.getText());
     }
 
     private void email_addressKeyReleased(KeyEvent e) {
@@ -385,7 +384,17 @@ public class GUI_test extends JFrame {
 
     private void thisWindowOpened(WindowEvent e) {
 
-        System.out.println("hi");
+
+        this.email_address.setText(postEmailAddress(null));
+        String address = email_address.getText();
+        int l = address.length();
+
+        if (l!=0&address.contains("@")&(!address.contains(" "))&address.contains(".")) {
+            email_update_button.setEnabled(true);
+        }else{
+            email_update_button.setEnabled(false);
+        }
+
         List<String> references=getPatientInformation(this.patient_list,this);
         if(patient_list.getComponentCount()>0){
             this.recordings.setEnabled(true);
@@ -396,7 +405,6 @@ public class GUI_test extends JFrame {
             this.RESP_pattern_update_button.setEnabled(true);
             this.HR_update_button.setEnabled(true);
             this.BP_update_button.setEnabled(true);
-
         }
 
         this.referenceList = new String[references.size()];

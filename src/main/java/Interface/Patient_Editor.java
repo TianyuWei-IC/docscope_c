@@ -64,12 +64,12 @@ public class Patient_Editor extends JFrame {
     }
 
     private void save_button(ActionEvent e) {
-        //loading.setAlwaysOnTop(true);
-        //loading.setVisible(true);
+        loading.setAlwaysOnTop(true);
+        loading.setVisible(true);
         this.save_or_not = true;
         this.dispose();
 
-        WindowEvent event = new WindowEvent(this,WINDOW_CLOSING);
+        WindowEvent event = new WindowEvent(this,WINDOW_CLOSED);
         PatientEditorWindowClosing(event);
     }
 
@@ -208,8 +208,11 @@ public class Patient_Editor extends JFrame {
         loading.dispose();
     }
     private void PatientEditorWindowClosing(WindowEvent e) {
+        this.new_patient.setEnabled(true);
+    }
+
+    private void thisWindowClosed(WindowEvent e) {
         if (save_or_not){
-            //loading.setVisible(true);
             this.dispose();
             update_server();
         }else {
@@ -420,9 +423,7 @@ public class Patient_Editor extends JFrame {
         value_check();
     }
 
-    private void thisWindowClosed(WindowEvent e) {
-        // TODO add your code here
-    }
+
 
 
     private void initComponents() {
