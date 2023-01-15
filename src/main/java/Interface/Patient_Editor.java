@@ -56,7 +56,7 @@ public class Patient_Editor extends JFrame {
     }
 
     /**
-     * when the save_button is pressure, the loading window will be pop up telling the server-communication may
+     * when the save_button is pressed, the loading window will be pop up telling the server-communication may
      * takes time. Then dispose the editor window and proceed to PatientEditorWindowClosing(event), which deals
      * with updating saved results on server
      */

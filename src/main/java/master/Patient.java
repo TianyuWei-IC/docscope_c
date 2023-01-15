@@ -1,22 +1,21 @@
 package master;
-
 import Interface.GUI_test;
 import Interface.Patient_Editor;
 import chartPanel.*;
 import netRelated.netAction;
-import netRelated.requestPack;
 import netRelated.responsePack;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.List;
-
 import static java.lang.Math.floor;
 
+/**
+ * Patient object represent one patient, it contains all relevant information of the patients.
+ * Since it extends JButton, it is clickable which enables switching and editing of the patients.
+ * (NOTE: for min/max values, e.g. temp_min,these correspond to the values that would pop the urgent notification
+ * once reached, defined by users.)
+ */
 public class Patient extends JButton {
     // fields for basic patient info
     public String first_name;
