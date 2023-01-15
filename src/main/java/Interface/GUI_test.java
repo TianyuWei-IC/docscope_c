@@ -475,7 +475,6 @@ public class GUI_test extends JFrame {
         }else{
             email_update_button.setEnabled(false);
         }
-
         // request patient reference from the server
         List<String> references=getPatientInformation(this.patient_list,this);
         // if there is any patient now displaying, enabling all buttons.
@@ -500,7 +499,6 @@ public class GUI_test extends JFrame {
         current_patient.setBackground(new Color(84, 160, 173));
         current_patient.setOpaque(true);
         current_patient.setBorderPainted(false);
-
     }
 
     private void initComponents() {
