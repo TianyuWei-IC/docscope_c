@@ -212,7 +212,7 @@ public class Patient extends JButton {
      */
     private void display(String reference_value) {
         // if the updater/worker of the patient is cancelled, we create a new updater/worker for it.
-        // when switching between the patient on the MainGUI by clicking, the previou patient's updater/worker will be
+        // when switching between the patient on the MainGUI by clicking, the previous patient's updater/worker will be
         // cancelled
         if (this.panelEcg1.worker.isCancelled()) {
             this.panelEcg1.worker = new UpdateWorker(this.panelEcg1);
