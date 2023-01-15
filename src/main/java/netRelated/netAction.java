@@ -415,43 +415,34 @@ public class netAction {
         }
         return references;
     }
-    //    public static responsePack postRequestData(requestPack reqPack,String web) throws IOException {
-//        Gson gson = new Gson();
-//        String jsonString = gson.toJson(reqPack);
-//        // Set up the body data
-//        String message = jsonString;
-//        byte[] body = message.getBytes(StandardCharsets.UTF_8);
-//
-//        URL myURL = new URL(web);
-//        HttpURLConnection conn = null;
-//
-//        conn = (HttpURLConnection) myURL.openConnection();
-//// Set up the header
-//        conn.setRequestMethod("POST");
-//        conn.setRequestProperty("Accept", "application/json");
-//        conn.setRequestProperty("charset", "utf-8");
-//        conn.setRequestProperty("Content-Length", Integer.toString(body.length));
-//        conn.setDoOutput(true);
-//
-//// Write the body of the request
-//        try (OutputStream outputStream = conn.getOutputStream()) {
-//            outputStream.write(body, 0, body.length);
-//        }
-//
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-//
-//        String inputLine;
-//// Read the body of the response
-//        responsePack respPack = null;
-//        while ((inputLine = bufferedReader.readLine()) != null) {
-////            System.out.println(inputLine);
-//            respPack=gson.fromJson(inputLine, responsePack.class);
-//            return respPack;
-//        }
-//        bufferedReader.close();
-//
-//        return respPack;
-//    }
+    public static String postEmailAddress(String emailAddress) {
+        String newEmailAddress=null;
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(emailAddress);
+        String message = jsonString;
+        byte[] body = message.getBytes(StandardCharsets.UTF_8);
+        try {
+            URL myURL = new URL("http://localhost:8080/docScope_s/data");
+            HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(body.length));
+            conn.setDoOutput(true);
+            try (OutputStream outputStream = conn.getOutputStream()) {
+                outputStream.write(body, 0, body.length);
+            }
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+            String inputLine;
+            while ((inputLine = bufferedReader.readLine()) != null) {
+                newEmailAddress = gson.fromJson(inputLine, String.class);
+            }
+            bufferedReader.close();
+        }catch (Exception ignore){}
+        if (newEmailAddress == null) {
+            return emailAddress;
+        }else return newEmailAddress;
+    }
     public static void putReference(String reference,List<Double> threshold,
                                     String first_name,String last_name,String gender,int year) {
         updateThreshold(reference,threshold,first_name,last_name,gender,year);
