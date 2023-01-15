@@ -16,7 +16,7 @@ import static netRelated.netAction.*;
  */
 
 /**
- * @author Tianyu
+ * This is the mainGUI
  */
 public class GUI_test extends JFrame {
     //patient reference list is accessed in Patient Adder and Patient Editor

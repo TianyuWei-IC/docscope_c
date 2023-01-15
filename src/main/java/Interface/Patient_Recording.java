@@ -23,7 +23,7 @@ import netRelated.responsePack;
 
 
 /**
- * @author Tianyu
+ *
  */
 public class Patient_Recording extends JFrame {
     private GUI_test mainGUI;

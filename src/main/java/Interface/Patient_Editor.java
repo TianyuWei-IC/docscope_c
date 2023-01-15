@@ -28,7 +28,7 @@ import static netRelated.netAction.deletePatient;
 
 
 /**
- * @author Tianyu
+ *
  */
 public class Patient_Editor extends JFrame {
     private GUI_test mainGUI;

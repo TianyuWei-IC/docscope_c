@@ -1,35 +1,24 @@
 package Interface;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 import java.util.List;
-
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
-import chartPanel.SeriesChartPane;
 import master.Patient;
 import net.miginfocom.swing.*;
 import netRelated.netAction;
-
-import static java.awt.AWTEvent.MOUSE_EVENT_MASK;
 import static java.awt.event.WindowEvent.WINDOW_CLOSED;
-import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 import static java.lang.Double.parseDouble;
-
-
-
 /*
 
  * Created by JFormDesigner on Tue Dec 27 20:41:28 GMT 2022
  */
 
-
-
 /**
- * @author Tianyu
+ *
+ * this is a JFrame that adds the patient into the patien_list
  */
 public class Patient_Adder extends JFrame {
     private GUI_test mainGUI;

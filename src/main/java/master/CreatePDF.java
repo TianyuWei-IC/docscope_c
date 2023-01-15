@@ -23,16 +23,6 @@ public class CreatePDF {
         Font paraFont = FontFactory.getFont(FontFactory.COURIER_BOLD,13);
         Font timeFont = FontFactory.getFont(FontFactory.COURIER,10);
 
-
-
-//        List<String> HeartRateH = new ArrayList<>();
-//        HeartRateH.add("2023/2/3T19:12:55-2023/2/21T18:55:12");
-//        HeartRateH.add("2023/2/3T19:12:55-2023/2/21T18:55:12");
-//        HeartRateH.add("2023/2/3T19:12:55-2023/2/21T18:55:12");
-//        HeartRateH.add("2023/2/3T19:12:55-2023/2/21T18:55:12");
-
-
-
         Document document = new Document();
         try {
             PdfWriter.getInstance(document, new FileOutputStream(new File(pdfPath)));

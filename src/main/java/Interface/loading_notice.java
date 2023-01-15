@@ -9,7 +9,9 @@ import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- * @author Tianyu
+ *  this is a JFrame showing the doctors after saving or the patient info, it might take several seconds to communicate
+ *  with the server.
+ *
  */
 public class loading_notice extends JFrame {
     public loading_notice() {
