@@ -22,6 +22,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "Patient_name"
 					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 12 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
@@ -31,6 +32,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "signal_type"
 					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 12 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
@@ -52,6 +54,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "Date"
 					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 12 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
@@ -61,6 +64,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "start_time"
 					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 12 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
@@ -70,12 +74,14 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "to_label"
 					"text": "to"
+					"font": new java.awt.Font( "Arial", 0, 12 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "end_time"
 					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 12 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}

@@ -65,7 +65,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "abnormal_label"
 						"text": "ABNORMAL"
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 20, false )
+						"font": new java.awt.Font( "Arial", 0, 32 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -101,7 +101,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "detect_label"
 						"text": "has been detected at "
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 15, false )
+						"font": new java.awt.Font( "Arial", 0, 27 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -117,7 +117,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "on_patient_label"
 						"text": "on patient : "
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 15, false )
+						"font": new java.awt.Font( "Arial", 0, 27 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 0"
 					} )
@@ -136,7 +136,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "immediate_action_table"
 					"text": "An immediate action is required!"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 15, false )
+					"font": new java.awt.Font( "Arial", 0, 27 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 4"
 				} )

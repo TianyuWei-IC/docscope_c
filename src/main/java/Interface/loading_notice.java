@@ -4,6 +4,7 @@
 
 package Interface;
 
+import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
@@ -32,6 +33,7 @@ public class loading_notice extends JFrame {
 
         //---- label1 ----
         label1.setText("Handling the information of the patient, it might take several seconds...");
+        label1.setFont(new Font("Arial", Font.PLAIN, 16));
         contentPane.add(label1, "cell 0 0,align center center,grow 0 0");
         pack();
         setLocationRelativeTo(getOwner());

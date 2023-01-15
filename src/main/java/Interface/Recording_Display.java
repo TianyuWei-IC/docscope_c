@@ -18,7 +18,7 @@ public class Recording_Display extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         name_info = new JPanel();
         Patient_name = new JLabel();
         signal_type = new JLabel();
@@ -53,10 +53,12 @@ public class Recording_Display extends JFrame {
 
             //---- Patient_name ----
             Patient_name.setText("text");
+            Patient_name.setFont(new Font("Arial", Font.PLAIN, 12));
             name_info.add(Patient_name, "cell 0 0");
 
             //---- signal_type ----
             signal_type.setText("text");
+            signal_type.setFont(new Font("Arial", Font.PLAIN, 12));
             name_info.add(signal_type, "cell 1 0");
         }
         contentPane.add(name_info, "cell 0 0");
@@ -75,18 +77,22 @@ public class Recording_Display extends JFrame {
 
             //---- Date ----
             Date.setText("text");
+            Date.setFont(new Font("Arial", Font.PLAIN, 12));
             time_info.add(Date, "cell 0 0");
 
             //---- start_time ----
             start_time.setText("text");
+            start_time.setFont(new Font("Arial", Font.PLAIN, 12));
             time_info.add(start_time, "cell 1 0");
 
             //---- to_label ----
             to_label.setText("to");
+            to_label.setFont(new Font("Arial", Font.PLAIN, 12));
             time_info.add(to_label, "cell 2 0");
 
             //---- end_time ----
             end_time.setText("text");
+            end_time.setFont(new Font("Arial", Font.PLAIN, 12));
             time_info.add(end_time, "cell 3 0");
         }
         contentPane.add(time_info, "cell 0 1");
@@ -107,7 +113,7 @@ public class Recording_Display extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     public JPanel name_info;
     public JLabel Patient_name;
     public JLabel signal_type;

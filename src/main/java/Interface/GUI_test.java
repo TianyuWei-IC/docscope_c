@@ -556,13 +556,14 @@ public class GUI_test extends JFrame {
 
                 //---- label1 ----
                 label1.setText("Patient List");
-                label1.setFont(label1.getFont().deriveFont(label1.getFont().getStyle() | Font.BOLD, label1.getFont().getSize() + 6f));
+                label1.setFont(new Font("Arial", Font.BOLD, 18));
                 label1.setHorizontalAlignment(SwingConstants.CENTER);
                 label1.setVerticalAlignment(SwingConstants.TOP);
                 NewPatient.add(label1, "cell 0 0");
 
                 //---- add_new_patient ----
                 add_new_patient.setText("Add a New Patient");
+                add_new_patient.setFont(new Font("Arial", Font.PLAIN, 12));
                 add_new_patient.addActionListener(e -> add_new_patient(e));
                 NewPatient.add(add_new_patient, "cell 0 1");
             }
@@ -594,6 +595,7 @@ public class GUI_test extends JFrame {
                 recordings.setText("Recordings");
                 recordings.setBackground(Color.yellow);
                 recordings.setEnabled(false);
+                recordings.setFont(new Font("Arial", Font.PLAIN, 12));
                 recordings.addActionListener(e -> recordings(e));
                 panel2.add(recordings, "cell 0 0,dock center");
             }
@@ -634,6 +636,7 @@ public class GUI_test extends JFrame {
 
                 //---- email_label ----
                 email_label.setText("E-mail Address for urgent notifying");
+                email_label.setFont(new Font("Arial", Font.PLAIN, 12));
                 email_update_panel.add(email_label, "cell 0 0");
 
                 //======== panel9 ========
@@ -658,6 +661,7 @@ public class GUI_test extends JFrame {
                     //---- email_update_button ----
                     email_update_button.setText("update");
                     email_update_button.setEnabled(false);
+                    email_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                     email_update_button.addActionListener(e -> email_update(e));
                     panel9.add(email_update_button, "cell 1 0");
                 }
@@ -677,6 +681,7 @@ public class GUI_test extends JFrame {
 
                 //---- label12 ----
                 label12.setText("ECG Lead I and II");
+                label12.setFont(new Font("Arial", Font.PLAIN, 12));
                 ecg_interval_panel.add(label12, "cell 0 0");
 
                 //======== panel8 ========
@@ -693,6 +698,7 @@ public class GUI_test extends JFrame {
 
                     //---- label10 ----
                     label10.setText("Plot");
+                    label10.setFont(new Font("Arial", Font.PLAIN, 12));
                     panel8.add(label10, "cell 0 0");
 
                     //---- ECG_display_interval ----
@@ -711,11 +717,13 @@ public class GUI_test extends JFrame {
 
                     //---- label11 ----
                     label11.setText("seconds");
+                    label11.setFont(new Font("Arial", Font.PLAIN, 12));
                     panel8.add(label11, "cell 2 0");
 
                     //---- ECG_update_button ----
                     ECG_update_button.setText("update");
                     ECG_update_button.setEnabled(false);
+                    ECG_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                     ECG_update_button.addActionListener(e -> ECG_update_button(e));
                     panel8.add(ECG_update_button, "cell 3 0");
                 }
@@ -735,6 +743,7 @@ public class GUI_test extends JFrame {
 
                 //---- label16 ----
                 label16.setText("Respiratory Pattern");
+                label16.setFont(new Font("Arial", Font.PLAIN, 12));
                 resp_interval_panel.add(label16, "cell 0 0");
 
                 //======== panel12 ========
@@ -751,6 +760,7 @@ public class GUI_test extends JFrame {
 
                     //---- label17 ----
                     label17.setText("Plot");
+                    label17.setFont(new Font("Arial", Font.PLAIN, 12));
                     panel12.add(label17, "cell 0 0");
 
                     //---- RESP_pattern_display_interval ----
@@ -769,11 +779,13 @@ public class GUI_test extends JFrame {
 
                     //---- label18 ----
                     label18.setText("seconds");
+                    label18.setFont(new Font("Arial", Font.PLAIN, 12));
                     panel12.add(label18, "cell 2 0");
 
                     //---- RESP_pattern_update_button ----
                     RESP_pattern_update_button.setText("update");
                     RESP_pattern_update_button.setEnabled(false);
+                    RESP_pattern_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                     RESP_pattern_update_button.addActionListener(e -> RESP_pattern_update_button(e));
                     panel12.add(RESP_pattern_update_button, "cell 3 0");
                 }
@@ -794,6 +806,7 @@ public class GUI_test extends JFrame {
 
                 //---- hr_title ----
                 hr_title.setText("Heart Rate");
+                hr_title.setFont(new Font("Arial", Font.PLAIN, 12));
                 hr_panel.add(hr_title, "cell 0 0");
 
                 //======== hr_display ========
@@ -819,6 +832,7 @@ public class GUI_test extends JFrame {
 
                     //---- hr_unit ----
                     hr_unit.setText("BPM");
+                    hr_unit.setFont(new Font("Arial", Font.PLAIN, 12));
                     hr_display.add(hr_unit, "cell 1 0");
                 }
                 hr_panel.add(hr_display, "cell 0 1");
@@ -837,6 +851,7 @@ public class GUI_test extends JFrame {
 
                     //---- label2 ----
                     label2.setText("Plot");
+                    label2.setFont(new Font("Arial", Font.PLAIN, 12));
                     panel3.add(label2, "cell 0 0");
 
                     //---- HR_display_interval ----
@@ -855,11 +870,13 @@ public class GUI_test extends JFrame {
 
                     //---- label3 ----
                     label3.setText("mins");
+                    label3.setFont(new Font("Arial", Font.PLAIN, 12));
                     panel3.add(label3, "cell 2 0");
 
                     //---- HR_update_button ----
                     HR_update_button.setText("update");
                     HR_update_button.setEnabled(false);
+                    HR_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                     HR_update_button.addActionListener(e -> HR_update_button(e));
                     panel3.add(HR_update_button, "cell 3 0");
                 }
@@ -880,6 +897,7 @@ public class GUI_test extends JFrame {
 
                 //---- resp_title ----
                 resp_title.setText("Respiratory Rate");
+                resp_title.setFont(new Font("Arial", Font.PLAIN, 12));
                 resp_panel.add(resp_title, "cell 0 0");
 
                 //======== resp_display ========
@@ -905,6 +923,7 @@ public class GUI_test extends JFrame {
 
                     //---- resp_unit ----
                     resp_unit.setText("/min");
+                    resp_unit.setFont(new Font("Arial", Font.PLAIN, 12));
                     resp_display.add(resp_unit, "cell 1 0");
                 }
                 resp_panel.add(resp_display, "cell 0 1");
@@ -933,6 +952,7 @@ public class GUI_test extends JFrame {
 
                         //---- label19 ----
                         label19.setText("Plot");
+                        label19.setFont(new Font("Arial", Font.PLAIN, 12));
                         panel13.add(label19, "cell 0 0");
 
                         //---- RESP_rate_display_interval ----
@@ -951,11 +971,13 @@ public class GUI_test extends JFrame {
 
                         //---- label20 ----
                         label20.setText("mins");
+                        label20.setFont(new Font("Arial", Font.PLAIN, 12));
                         panel13.add(label20, "cell 2 0");
 
                         //---- RESP_rate_update_button ----
                         RESP_rate_update_button.setText("update");
                         RESP_rate_update_button.setEnabled(false);
+                        RESP_rate_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                         RESP_rate_update_button.addActionListener(e -> RESP_rate_update_button(e));
                         panel13.add(RESP_rate_update_button, "cell 3 0");
                     }
@@ -978,6 +1000,7 @@ public class GUI_test extends JFrame {
 
                 //---- bp_title ----
                 bp_title.setText("Blood Pressure");
+                bp_title.setFont(new Font("Arial", Font.PLAIN, 12));
                 bp_panel.add(bp_title, "cell 0 0");
 
                 //======== bp_display ========
@@ -1031,6 +1054,7 @@ public class GUI_test extends JFrame {
 
                     //---- bp_unit ----
                     bp_unit.setText("mmHg");
+                    bp_unit.setFont(new Font("Arial", Font.PLAIN, 12));
                     bp_display.add(bp_unit, "cell 1 0");
                 }
                 bp_panel.add(bp_display, "cell 0 1");
@@ -1058,6 +1082,7 @@ public class GUI_test extends JFrame {
 
                         //---- label4 ----
                         label4.setText("Plot");
+                        label4.setFont(label4.getFont().deriveFont(label4.getFont().getStyle() & ~Font.BOLD));
                         panel14.add(label4, "cell 0 0");
 
                         //---- BP_display_interval ----
@@ -1076,11 +1101,13 @@ public class GUI_test extends JFrame {
 
                         //---- label5 ----
                         label5.setText("mins");
+                        label5.setFont(new Font("Arial", Font.PLAIN, 12));
                         panel14.add(label5, "cell 2 0");
 
                         //---- BP_update_button ----
                         BP_update_button.setText("update");
                         BP_update_button.setEnabled(false);
+                        BP_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                         BP_update_button.addActionListener(e -> BP_update_button(e));
                         panel14.add(BP_update_button, "cell 3 0");
                     }
@@ -1103,6 +1130,7 @@ public class GUI_test extends JFrame {
 
                 //---- temp_title ----
                 temp_title.setText("Body Temperature");
+                temp_title.setFont(new Font("Arial", Font.PLAIN, 12));
                 temp_panel.add(temp_title, "cell 0 0");
 
                 //======== temp_display ========
@@ -1155,6 +1183,7 @@ public class GUI_test extends JFrame {
 
                         //---- label6 ----
                         label6.setText("Plot");
+                        label6.setFont(label6.getFont().deriveFont(Font.PLAIN));
                         panel15.add(label6, "cell 0 0");
 
                         //---- Temp_display_interval ----
@@ -1173,11 +1202,13 @@ public class GUI_test extends JFrame {
 
                         //---- label7 ----
                         label7.setText("mins");
+                        label7.setFont(new Font("Arial", Font.PLAIN, 12));
                         panel15.add(label7, "cell 2 0");
 
                         //---- Temp_update_button ----
                         Temp_update_button.setText("update");
                         Temp_update_button.setEnabled(false);
+                        Temp_update_button.setFont(new Font("Arial", Font.PLAIN, 12));
                         Temp_update_button.addActionListener(e -> Temp_update_button(e));
                         panel15.add(Temp_update_button, "cell 3 0");
                     }
@@ -1191,6 +1222,7 @@ public class GUI_test extends JFrame {
             report_button.setText("Reports");
             report_button.setBackground(Color.yellow);
             report_button.setEnabled(false);
+            report_button.setFont(new Font("Arial", Font.PLAIN, 12));
             report_button.addActionListener(e -> report_button(e));
             value_display.add(report_button, "cell 0 7");
         }

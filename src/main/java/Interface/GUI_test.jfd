@@ -36,7 +36,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label1"
 						"text": "Patient List"
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 6, false )
+						"font": new java.awt.Font( "Arial", 1, 18 )
 						"horizontalAlignment": 0
 						"verticalAlignment": 1
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -45,6 +45,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "add_new_patient"
 						"text": "Add a New Patient"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -84,6 +85,7 @@ new FormModel {
 						"text": "Recordings"
 						"background": new java.awt.Color( 255, 255, 0, 255 )
 						"enabled": false
+						"font": new java.awt.Font( "Arial", 0, 12 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 							"JavaCodeGenerator.postCreateCode": "recordings.setOpaque(true);\nrecordings.setBorderPainted(false);"
@@ -123,6 +125,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "email_label"
 						"text": "E-mail Address for urgent notifying"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -145,6 +148,7 @@ new FormModel {
 							name: "email_update_button"
 							"text": "update"
 							"enabled": false
+							"font": new java.awt.Font( "Arial", 0, 12 )
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -170,6 +174,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label12"
 						"text": "ECG Lead I and II"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -182,6 +187,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label10"
 							"text": "Plot"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 0 0"
 						} )
@@ -199,6 +205,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label11"
 							"text": "seconds"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 2 0"
 						} )
@@ -206,6 +213,7 @@ new FormModel {
 							name: "ECG_update_button"
 							"text": "update"
 							"enabled": false
+							"font": new java.awt.Font( "Arial", 0, 12 )
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -231,6 +239,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label16"
 						"text": "Respiratory Pattern"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -243,6 +252,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label17"
 							"text": "Plot"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 0 0"
 						} )
@@ -260,6 +270,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label18"
 							"text": "seconds"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 2 0"
 						} )
@@ -267,6 +278,7 @@ new FormModel {
 							name: "RESP_pattern_update_button"
 							"text": "update"
 							"enabled": false
+							"font": new java.awt.Font( "Arial", 0, 12 )
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -292,6 +304,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "hr_title"
 						"text": "Heart Rate"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -319,6 +332,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "hr_unit"
 							"text": "BPM"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -334,6 +348,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label2"
 							"text": "Plot"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 0 0"
 						} )
@@ -351,6 +366,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label3"
 							"text": "mins"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 2 0"
 						} )
@@ -358,6 +374,7 @@ new FormModel {
 							name: "HR_update_button"
 							"text": "update"
 							"enabled": false
+							"font": new java.awt.Font( "Arial", 0, 12 )
 							auxiliary() {
 								"JavaCodeGenerator.variableModifiers": 1
 							}
@@ -383,6 +400,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "resp_title"
 						"text": "Respiratory Rate"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -410,6 +428,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "resp_unit"
 							"text": "/min"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -431,6 +450,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label19"
 								"text": "Plot"
+								"font": new java.awt.Font( "Arial", 0, 12 )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 0 0"
 							} )
@@ -448,6 +468,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label20"
 								"text": "mins"
+								"font": new java.awt.Font( "Arial", 0, 12 )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 2 0"
 							} )
@@ -455,6 +476,7 @@ new FormModel {
 								name: "RESP_rate_update_button"
 								"text": "update"
 								"enabled": false
+								"font": new java.awt.Font( "Arial", 0, 12 )
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
@@ -483,6 +505,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "bp_title"
 						"text": "Blood Pressure"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -540,6 +563,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "bp_unit"
 							"text": "mmHg"
+							"font": new java.awt.Font( "Arial", 0, 12 )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 0"
 						} )
@@ -561,6 +585,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label4"
 								"text": "Plot"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, 0, false )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 0 0"
 							} )
@@ -578,6 +603,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label5"
 								"text": "mins"
+								"font": new java.awt.Font( "Arial", 0, 12 )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 2 0"
 							} )
@@ -585,6 +611,7 @@ new FormModel {
 								name: "BP_update_button"
 								"text": "update"
 								"enabled": false
+								"font": new java.awt.Font( "Arial", 0, 12 )
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
@@ -613,6 +640,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "temp_title"
 						"text": "Body Temperature"
+						"font": new java.awt.Font( "Arial", 0, 12 )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 0"
 					} )
@@ -661,6 +689,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label6"
 								"text": "Plot"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 196608, 0, false )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 0 0"
 							} )
@@ -678,6 +707,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label7"
 								"text": "mins"
+								"font": new java.awt.Font( "Arial", 0, 12 )
 							}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 								"value": "cell 2 0"
 							} )
@@ -685,6 +715,7 @@ new FormModel {
 								name: "Temp_update_button"
 								"text": "update"
 								"enabled": false
+								"font": new java.awt.Font( "Arial", 0, 12 )
 								auxiliary() {
 									"JavaCodeGenerator.variableModifiers": 1
 								}
@@ -706,6 +737,7 @@ new FormModel {
 					"text": "Reports"
 					"background": sfield java.awt.Color yellow
 					"enabled": false
+					"font": new java.awt.Font( "Arial", 0, 12 )
 					auxiliary() {
 						"JavaCodeGenerator.postCreateCode": "report_button.setOpaque(true);\nreport_button.setBorderPainted(false);"
 						"JavaCodeGenerator.variableModifiers": 1

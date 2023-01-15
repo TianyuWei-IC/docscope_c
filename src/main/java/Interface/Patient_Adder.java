@@ -464,11 +464,12 @@ public class Patient_Adder extends JFrame {
 
                 //---- title ----
                 title.setText("Patient");
-                title.setFont(title.getFont().deriveFont(title.getFont().getSize() + 6f));
+                title.setFont(new Font("Arial", Font.PLAIN, 18));
                 title_and_reference.add(title, "cell 0 0");
 
                 //---- patient_ref ----
                 patient_ref.setText("Patient Reference: ");
+                patient_ref.setFont(new Font("Arial", Font.PLAIN, 12));
                 title_and_reference.add(patient_ref, "cell 1 0");
                 title_and_reference.add(ref_selector, "cell 1 0");
             }
@@ -501,6 +502,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- first_name ----
                     first_name.setText("First Name:");
+                    first_name.setFont(new Font("Arial", Font.PLAIN, 12));
                     name.add(first_name, "cell 0 0");
 
                     //---- first_name_field ----
@@ -515,6 +517,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- last_name ----
                     last_name.setText("Last Name:");
+                    last_name.setFont(new Font("Arial", Font.PLAIN, 12));
                     name.add(last_name, "cell 2 0");
 
                     //---- last_name_field ----
@@ -530,6 +533,7 @@ public class Patient_Adder extends JFrame {
                     //---- label1 ----
                     label1.setText("* First Name and Last name must be filled");
                     label1.setForeground(new Color(0xff0033));
+                    label1.setFont(new Font("Arial", Font.PLAIN, 12));
                     name.add(label1, "cell 4 0");
                 }
                 patient_profile.add(name, "cell 0 0");
@@ -547,15 +551,18 @@ public class Patient_Adder extends JFrame {
 
                     //---- gender_label ----
                     gender_label.setText("Gender:");
+                    gender_label.setFont(new Font("Arial", Font.PLAIN, 12));
                     gender.add(gender_label, "cell 0 0");
 
                     //---- male_button ----
                     male_button.setText("Male");
                     male_button.setSelected(true);
+                    male_button.setFont(new Font("Arial", Font.PLAIN, 12));
                     gender.add(male_button, "cell 1 0");
 
                     //---- female_button ----
                     female_button.setText("Female");
+                    female_button.setFont(new Font("Arial", Font.PLAIN, 12));
                     gender.add(female_button, "cell 1 0");
                 }
                 patient_profile.add(gender, "cell 0 2");
@@ -573,6 +580,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- YoB ----
                     YoB.setText("Year of Birth:");
+                    YoB.setFont(new Font("Arial", Font.PLAIN, 12));
                     birthday.add(YoB, "cell 0 1");
                     birthday.add(year_selector, "cell 1 1");
                 }
@@ -582,13 +590,14 @@ public class Patient_Adder extends JFrame {
 
             //---- reminder ----
             reminder.setText("The thresholds are set to be:");
-            reminder.setFont(reminder.getFont().deriveFont(reminder.getFont().getSize() + 2f));
+            reminder.setFont(new Font("Arial", Font.PLAIN, 12));
             reminder.setHorizontalAlignment(SwingConstants.LEFT);
             patient_editor_main_panel.add(reminder, "cell 0 2");
 
             //---- label2 ----
             label2.setText("* Max must be greater than Min");
             label2.setForeground(new Color(0xff0033));
+            label2.setFont(new Font("Arial", Font.PLAIN, 12));
             patient_editor_main_panel.add(label2, "cell 0 2");
             patient_editor_main_panel.add(label3, "cell 0 2");
 
@@ -614,16 +623,19 @@ public class Patient_Adder extends JFrame {
                 min_value.setText("Min");
                 min_value.setHorizontalTextPosition(SwingConstants.CENTER);
                 min_value.setHorizontalAlignment(SwingConstants.CENTER);
+                min_value.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(min_value, "cell 2 0");
 
                 //---- max_value ----
                 max_value.setText("Max");
                 max_value.setHorizontalTextPosition(SwingConstants.CENTER);
                 max_value.setHorizontalAlignment(SwingConstants.CENTER);
+                max_value.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(max_value, "cell 3 0");
 
                 //---- body_temperature ----
                 body_temperature.setText("Body Temperature:");
+                body_temperature.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(body_temperature, "cell 0 1");
 
                 //---- temp_min ----
@@ -660,6 +672,7 @@ public class Patient_Adder extends JFrame {
 
                 //---- heart_rate ----
                 heart_rate.setText("Heart Rate:");
+                heart_rate.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(heart_rate, "cell 0 2");
 
                 //---- hr_min ----
@@ -696,10 +709,12 @@ public class Patient_Adder extends JFrame {
 
                 //---- blood_pressure ----
                 blood_pressure.setText("Blood Pressure:");
+                blood_pressure.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(blood_pressure, "cell 0 3");
 
                 //---- systolic ----
                 systolic.setText("Systolic:");
+                systolic.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(systolic, "cell 1 3");
 
                 //---- sys_min ----
@@ -736,6 +751,7 @@ public class Patient_Adder extends JFrame {
 
                 //---- diastolic ----
                 diastolic.setText("Diastolic:");
+                diastolic.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(diastolic, "cell 1 4");
 
                 //---- dia_min ----
@@ -772,6 +788,7 @@ public class Patient_Adder extends JFrame {
 
                 //---- respiratory_rate ----
                 respiratory_rate.setText("Respiratory Rate:");
+                respiratory_rate.setFont(new Font("Arial", Font.PLAIN, 12));
                 threshold.add(respiratory_rate, "cell 0 5");
 
                 //---- resp_min ----
@@ -815,7 +832,7 @@ public class Patient_Adder extends JFrame {
             save_button.setMaximumSize(new Dimension(130, 50));
             save_button.setHorizontalTextPosition(SwingConstants.CENTER);
             save_button.setForeground(Color.white);
-            save_button.setFont(save_button.getFont().deriveFont(save_button.getFont().getSize() + 2f));
+            save_button.setFont(new Font("Arial", Font.PLAIN, 14));
             save_button.setBackground(new Color(0x3164f4));
             save_button.addActionListener(e -> save_button(e));
             patient_editor_main_panel.add(save_button, "cell 0 4,align center center,grow 0 0");

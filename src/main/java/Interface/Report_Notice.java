@@ -38,7 +38,7 @@ public class Report_Notice extends JFrame {
 
         //---- label1 ----
         label1.setText("The report has been downloaded to your Desktop!");
-        label1.setFont(label1.getFont().deriveFont(label1.getFont().getSize() + 5f));
+        label1.setFont(new Font("Arial", Font.PLAIN, 17));
         label1.setForeground(Color.black);
         label1.setBackground(Color.white);
         contentPane.add(label1, "cell 0 0,align center center,grow 0 0");

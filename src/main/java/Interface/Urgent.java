@@ -107,7 +107,7 @@ public class Urgent extends JFrame {
 
                 //---- abnormal_label ----
                 abnormal_label.setText("ABNORMAL");
-                abnormal_label.setFont(abnormal_label.getFont().deriveFont(abnormal_label.getFont().getSize() + 20f));
+                abnormal_label.setFont(new Font("Arial", Font.PLAIN, 32));
                 abnormal_type.add(abnormal_label, "cell 0 0");
 
                 //---- abnormal_signal ----
@@ -135,7 +135,7 @@ public class Urgent extends JFrame {
 
                 //---- detect_label ----
                 detect_label.setText("has been detected at ");
-                detect_label.setFont(detect_label.getFont().deriveFont(detect_label.getFont().getSize() + 15f));
+                detect_label.setFont(new Font("Arial", Font.PLAIN, 27));
                 detected_time_display.add(detect_label, "cell 0 0");
 
                 //---- urgent_time ----
@@ -144,7 +144,7 @@ public class Urgent extends JFrame {
 
                 //---- on_patient_label ----
                 on_patient_label.setText("on patient : ");
-                on_patient_label.setFont(on_patient_label.getFont().deriveFont(on_patient_label.getFont().getSize() + 15f));
+                on_patient_label.setFont(new Font("Arial", Font.PLAIN, 27));
                 detected_time_display.add(on_patient_label, "cell 2 0");
             }
             urgent_panel.add(detected_time_display, "cell 0 2");
@@ -155,7 +155,7 @@ public class Urgent extends JFrame {
 
             //---- immediate_action_table ----
             immediate_action_table.setText("An immediate action is required!");
-            immediate_action_table.setFont(immediate_action_table.getFont().deriveFont(immediate_action_table.getFont().getSize() + 15f));
+            immediate_action_table.setFont(new Font("Arial", Font.PLAIN, 27));
             urgent_panel.add(immediate_action_table, "cell 0 4");
         }
         contentPane.add(urgent_panel, "cell 0 0");

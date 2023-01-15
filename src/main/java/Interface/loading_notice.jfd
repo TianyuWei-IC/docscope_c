@@ -13,6 +13,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
 				"text": "Handling the information of the patient, it might take several seconds..."
+				"font": new java.awt.Font( "Arial", 0, 16 )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 0,align center center,grow 0 0"
 			} )
