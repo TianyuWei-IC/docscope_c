@@ -1,6 +1,7 @@
 package Interface;
-
 import java.awt.event.*;
+
+import Interface.GUI_test;
 import chartPanel.Chart_Label_Display;
 import master.Patient;
 import net.miginfocom.swing.MigLayout;
@@ -20,12 +21,11 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static netRelated.netAction.deletePatient;
 
-
-
 /*
 
  * Created by JFormDesigner on Tue Dec 27 20:41:28 GMT 2022
  */
+
 
 /**
  * @author Tianyu
@@ -61,9 +61,6 @@ public class Patient_Editor extends JFrame {
         this.resp_max.setText(String.valueOf(this.new_patient.resp_max));
         mainGUI.patient_list.updateUI();
         //loading.setVisible(true);
-
-
-
     }
 
     private void save_button(ActionEvent e) {
@@ -137,6 +134,7 @@ public class Patient_Editor extends JFrame {
             deletePatient(new_patient.reference_value);
             disableDisplaySettings();
         }
+
 
     }
 
@@ -422,10 +420,14 @@ public class Patient_Editor extends JFrame {
         value_check();
     }
 
+    private void thisWindowClosed(WindowEvent e) {
+        // TODO add your code here
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         panel1 = new JPanel();
         title = new JLabel();
@@ -487,6 +489,10 @@ public class Patient_Editor extends JFrame {
 
         //======== this ========
         addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                thisWindowClosed(e);
+            }
             @Override
             public void windowClosing(WindowEvent e) {
                 PatientEditorWindowClosing(e);
@@ -699,7 +705,7 @@ public class Patient_Editor extends JFrame {
                 threshold.add(temp_min, "cell 2 1");
 
                 //---- temp_max ----
-                temp_max.setText("39.0");
+                temp_max.setText("38.0");
                 temp_max.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
@@ -908,11 +914,11 @@ public class Patient_Editor extends JFrame {
         var buttonGroup1 = new ButtonGroup();
         buttonGroup1.add(male_button);
         buttonGroup1.add(female_button);
-        // JFormDesigner - End of component initialization  //GEN-END:initCFomponents  @formatter:on
+        // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel panel1;
     private JLabel title;
