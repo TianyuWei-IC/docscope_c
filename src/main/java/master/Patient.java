@@ -17,7 +17,6 @@ import java.util.List;
 
 import static java.lang.Math.floor;
 
-
 public class Patient extends JButton {
     public String first_name;
     public String last_name;
@@ -63,7 +62,25 @@ public class Patient extends JButton {
     public Integer hr_interval = 6;
     public Integer bp_interval = 6;
 
-
+    /**
+     * Patient object represent one patient, it contains all relevant information of the patients
+     * @param first_name
+     * @param last_name
+     * @param reference_value
+     * @param gender
+     * @param year_of_birth
+     * @param temp_min
+     * @param temp_max
+     * @param hr_min
+     * @param hr_max
+     * @param sys_min
+     * @param sys_max
+     * @param dia_min
+     * @param dia_max
+     * @param resp_min
+     * @param resp_max
+     * @param mainGUI
+     */
     public Patient(String first_name,
                    String last_name,
                    String reference_value,
