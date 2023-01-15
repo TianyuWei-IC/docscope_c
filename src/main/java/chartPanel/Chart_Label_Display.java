@@ -90,23 +90,23 @@ public class Chart_Label_Display {
 
         if (data_type=="body temperature"){
             chart.getStyler().setYAxisMax(42.0);
-            chart.getStyler().setXAxisMin(0.1);
+            chart.getStyler().setXAxisMin(0.0);
             chart.getStyler().setYAxisMin(35.0);
         }else if(data_type=="heart rate"){
             chart.getStyler().setYAxisMax(200.0);
-            chart.getStyler().setXAxisMin(0.1);
+            chart.getStyler().setXAxisMin(0.0);
             chart.getStyler().setYAxisMin(0.0);
         }else if(data_type=="systolic blood pressure"){
             chart.getStyler().setYAxisMax(150.0);
-            chart.getStyler().setXAxisMin(0.1);
+            chart.getStyler().setXAxisMin(0.0);
             chart.getStyler().setYAxisMin(70.0);
         }else if(data_type=="diastolic blood pressure"){
             chart.getStyler().setYAxisMax(100.0);
-            chart.getStyler().setXAxisMin(0.1);
+            chart.getStyler().setXAxisMin(0.0);
             chart.getStyler().setYAxisMin(40.0);
         }else if(data_type=="respiratory rate"){
             chart.getStyler().setYAxisMax(30.0);
-            chart.getStyler().setXAxisMin(0.1);
+            chart.getStyler().setXAxisMin(0.0);
             chart.getStyler().setYAxisMin(0.0);
         }
 

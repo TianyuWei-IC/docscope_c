@@ -14,8 +14,11 @@ import java.util.List;
 import java.util.Objects;
 import javax.swing.AbstractButton;
 
+import static java.awt.event.WindowEvent.WINDOW_CLOSED;
+import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import static netRelated.netAction.deletePatient;
 
 
 
@@ -30,6 +33,8 @@ import static java.lang.Integer.parseInt;
 public class Patient_Editor extends JFrame {
     private GUI_test mainGUI;
     private Patient new_patient;
+    private Boolean save_or_not = false;
+    private loading_notice loading = new loading_notice();
     public Patient_Editor(GUI_test mainGUI, Patient new_patient) {
         this.mainGUI = mainGUI;
         this.new_patient = new_patient;
@@ -55,61 +60,20 @@ public class Patient_Editor extends JFrame {
         this.resp_min.setText(String.valueOf(this.new_patient.resp_min));
         this.resp_max.setText(String.valueOf(this.new_patient.resp_max));
         mainGUI.patient_list.updateUI();
+        //loading.setVisible(true);
+
+
+
     }
 
     private void save_button(ActionEvent e) {
-
-        this.new_patient.first_name = this.first_name_field.getText();
-        this.new_patient.last_name = this.last_name_field.getText();
-
-        if (male_button.isSelected()){
-            this.new_patient.gender = "male";
-        }else{
-            this.new_patient.gender = "female";
-        }
-
-        this.new_patient.reference_value = (String) this.ref_selector.getSelectedItem();
-        this.new_patient.year_of_birth = (Integer) this.year_selector.getSelectedItem();
-        this.new_patient.temp_max= Double.valueOf(this.temp_max.getText());
-        this.new_patient.temp_min= Double.valueOf(this.temp_min.getText());
-        this.new_patient.hr_max= (int) parseDouble(this.hr_max.getText());
-        this.new_patient.hr_min= (int) parseDouble(hr_min.getText());
-        this.new_patient.sys_max= (int) parseDouble(this.sys_max.getText());
-        this.new_patient.sys_min= (int) parseDouble(this.sys_min.getText());
-        this.new_patient.dia_max= (int) parseDouble(this.dia_max.getText());
-        this.new_patient.dia_min= (int) parseDouble(this.dia_min.getText());
-        this.new_patient.resp_max= (int) parseDouble(this.resp_max.getText());
-        this.new_patient.resp_min= (int) parseDouble(this.resp_min.getText());
-
-        String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
-        this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
-        mainGUI.patient_list.updateUI();
-
-
-
-        List<Double> threshold= Arrays.asList(this.new_patient.temp_max,
-                this.new_patient.temp_min,
-                (double)this.new_patient.hr_max,
-                (double)this.new_patient.hr_min,
-                (double)this.new_patient.sys_max,
-                (double)this.new_patient.sys_min,
-                (double)this.new_patient.dia_max,
-                (double)this.new_patient.dia_min,
-                (double)this.new_patient.resp_max,
-                (double)this.new_patient.resp_min);
-                netAction.putReference(this.new_patient.reference_value,threshold,
-                this.new_patient.first_name,this.new_patient.last_name,this.new_patient.gender,
-                this.new_patient.year_of_birth);
-
-
-        // VERY IMPORTANT, need to get threshold after edit
-        this.new_patient.panelTemperature.getThreshold();
-        this.new_patient.panelHeartRate.getThreshold();
-        this.new_patient.panelSysBloodPressure.getThreshold();
-        this.new_patient.panelDiaBloodPressure.getThreshold();
-        this.new_patient.panelRespiratoryRate.getThreshold();
-        this.new_patient.setEnabled(true);
+        //loading.setAlwaysOnTop(true);
+        //loading.setVisible(true);
+        this.save_or_not = true;
         this.dispose();
+
+        WindowEvent event = new WindowEvent(this,WINDOW_CLOSING);
+        PatientEditorWindowClosing(event);
     }
 
     private void createUIComponents() {
@@ -139,35 +103,44 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelRespiratoryRate.updater.cancel(true);
         //this.new_patient = null;
         if (mainGUI.patient_list.getComponentCount()==0){
-            mainGUI.ECG_display_interval.setText("");
-            mainGUI.Temp_display_interval.setText("");
-
             //ecg
             mainGUI.ecg1.removeAll();
             mainGUI.ecg2.removeAll();
+            mainGUI.ECG_display_interval.setText("");
+            mainGUI.ECG_update_button.setEnabled(false);
             //body temp
             mainGUI.body_temp_table.removeAll();
             mainGUI.temp_display_value.removeAll();
+            mainGUI.Temp_display_interval.setText("");
+            mainGUI.Temp_update_button.setEnabled(false);
             //blood pressure
             mainGUI.dia_table.removeAll();
             mainGUI.sys_table.removeAll();
             mainGUI.sys_display_value.removeAll();
             mainGUI.dia_display_value.removeAll();
+            mainGUI.BP_display_interval.setText("");
+            mainGUI.BP_update_button.setEnabled(false);
             //resp
             mainGUI.resp_rate_table.removeAll();
             mainGUI.resp_pattern_table.removeAll();
             mainGUI.resp_display_value.removeAll();
+            mainGUI.RESP_rate_display_interval.setText("");
+            mainGUI.RESP_rate_update_button.setEnabled(false);
+            mainGUI.RESP_pattern_display_interval.setText("");
+            mainGUI.RESP_pattern_update_button.setEnabled(false);
             //hr
             mainGUI.heartrate_table.removeAll();
             mainGUI.hr_display_value.removeAll();
+            mainGUI.HR_display_interval.setText("");
+            mainGUI.HR_update_button.setEnabled(false);
 
+            deletePatient(new_patient.reference_value);
             disableDisplaySettings();
-
         }
 
     }
 
-    private  void disableDisplaySettings(){
+    private void disableDisplaySettings(){
         this.mainGUI.ECG_display_interval.setEditable(false);
         this.mainGUI.Temp_display_interval.setEditable(false);
         this.mainGUI.HR_display_interval.setEditable(false);
@@ -186,7 +159,64 @@ public class Patient_Editor extends JFrame {
         this.mainGUI.report_button.setEnabled(false);
     }
 
+    private void update_server(){
+        this.new_patient.first_name = this.first_name_field.getText();
+        this.new_patient.last_name = this.last_name_field.getText();
+
+        if (male_button.isSelected()){
+            this.new_patient.gender = "male";
+        }else{
+            this.new_patient.gender = "female";
+        }
+
+        this.new_patient.reference_value = (String) this.ref_selector.getSelectedItem();
+        this.new_patient.year_of_birth = (Integer) this.year_selector.getSelectedItem();
+        this.new_patient.temp_max= Double.valueOf(this.temp_max.getText());
+        this.new_patient.temp_min= Double.valueOf(this.temp_min.getText());
+        this.new_patient.hr_max= (int) parseDouble(this.hr_max.getText());
+        this.new_patient.hr_min= (int) parseDouble(hr_min.getText());
+        this.new_patient.sys_max= (int) parseDouble(this.sys_max.getText());
+        this.new_patient.sys_min= (int) parseDouble(this.sys_min.getText());
+        this.new_patient.dia_max= (int) parseDouble(this.dia_max.getText());
+        this.new_patient.dia_min= (int) parseDouble(this.dia_min.getText());
+        this.new_patient.resp_max= (int) parseDouble(this.resp_max.getText());
+        this.new_patient.resp_min= (int) parseDouble(this.resp_min.getText());
+
+        String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
+        this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
+        mainGUI.patient_list.updateUI();
+
+        List<Double> threshold= Arrays.asList(this.new_patient.temp_max,
+                this.new_patient.temp_min,
+                (double)this.new_patient.hr_max,
+                (double)this.new_patient.hr_min,
+                (double)this.new_patient.sys_max,
+                (double)this.new_patient.sys_min,
+                (double)this.new_patient.dia_max,
+                (double)this.new_patient.dia_min,
+                (double)this.new_patient.resp_max,
+                (double)this.new_patient.resp_min);
+        netAction.putReference(this.new_patient.reference_value,threshold,
+                this.new_patient.first_name,this.new_patient.last_name,this.new_patient.gender,
+                this.new_patient.year_of_birth);
+
+
+        // VERY IMPORTANT, need to get threshold after edit
+        this.new_patient.panelTemperature.getThreshold();
+        this.new_patient.panelHeartRate.getThreshold();
+        this.new_patient.panelSysBloodPressure.getThreshold();
+        this.new_patient.panelDiaBloodPressure.getThreshold();
+        this.new_patient.panelRespiratoryRate.getThreshold();
+        loading.dispose();
+    }
     private void PatientEditorWindowClosing(WindowEvent e) {
+        if (save_or_not){
+            //loading.setVisible(true);
+            this.dispose();
+            update_server();
+        }else {
+            loading.dispose();
+        }
         this.new_patient.setEnabled(true);
     }
 

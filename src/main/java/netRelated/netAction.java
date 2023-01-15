@@ -26,7 +26,6 @@ import static java.lang.Math.floor;
 
 public class netAction {
     public static String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
-//    public static String ref="alpha";
 
     public static void databaseUpdate(String order) {
         Connection conn = null;
@@ -174,52 +173,52 @@ public class netAction {
                 if (resultSet.getDouble("heart")>patient.hr_max){
                     if(!HeartHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        heartHigh.add(timestamp.toString().substring(0,17) + " - ");
+                        heartHigh.add(timestamp.toString().substring(0,16) + " - ");
                         HeartHigh = true;
                     }
                 }
                 else if (resultSet.getDouble("heart")<patient.hr_min) {
                     if(!HeartLow) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        heartLow.add(timestamp.toString().substring(0,17) + " - ");
+                        heartLow.add(timestamp.toString().substring(0,16) + " - ");
                         HeartLow = true;
                     }
                 }
                 else{
                     if (HeartHigh){
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        heartHigh.set(heartHigh.size()-1,heartHigh.get(heartHigh.size()-1)+timestamp.toString().substring(0,17));
+                        heartHigh.set(heartHigh.size()-1,heartHigh.get(heartHigh.size()-1)+timestamp.toString().substring(0,16));
                         HeartHigh=false;
                     } else if (HeartLow) {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        heartLow.set(heartLow.size()-1,heartLow.get(heartLow.size()-1)+timestamp.toString().substring(0,17));
+                        heartLow.set(heartLow.size()-1,heartLow.get(heartLow.size()-1)+timestamp.toString().substring(0,16));
                         HeartLow=false;
-                        System.out.println(resultSet.getDouble("heart")+"   "+patient.hr_min+"-"+patient.hr_max);
+//                        System.out.println(resultSet.getDouble("heart")+"   "+patient.hr_min+"-"+patient.hr_max);
                     }
                 }
 
                 if (resultSet.getDouble("temperature")>patient.temp_max){
                     if(!TempHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        tempHigh.add(timestamp + " - ");
+                        tempHigh.add(timestamp.toString().substring(0,16) + " - ");
                         TempHigh = true;
                     }
                 }
                 else if (resultSet.getDouble("temperature")<patient.temp_min) {
                     if(!TempLow) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        tempLow.add(timestamp + " - ");
+                        tempLow.add(timestamp.toString().substring(0,16) + " - ");
                         TempLow = true;
                     }
                 }
                 else{
                     if (TempHigh){
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        tempHigh.set(tempHigh.size()-1,tempHigh.get(tempHigh.size()-1)+timestamp);
+                        tempHigh.set(tempHigh.size()-1,tempHigh.get(tempHigh.size()-1)+timestamp.toString().substring(0,16));
                         TempHigh=false;
                     } else if (TempLow) {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        tempLow.set(tempLow.size()-1,tempLow.get(tempLow.size()-1)+timestamp);
+                        tempLow.set(tempLow.size()-1,tempLow.get(tempLow.size()-1)+timestamp.toString().substring(0,16));
                         TempLow=false;
                     }
                 }
@@ -227,25 +226,25 @@ public class netAction {
                 if (resultSet.getDouble("respiratory")>patient.resp_max){
                     if(!RespHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        respHigh.add(timestamp + " - ");
+                        respHigh.add(timestamp.toString().substring(0,16) + " - ");
                         RespHigh = true;
                     }
                 }
                 else if (resultSet.getDouble("respiratory")<patient.resp_min) {
                     if(!RespLow) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        respLow.add(timestamp + " - ");
+                        respLow.add(timestamp.toString().substring(0,16) + " - ");
                         RespLow = true;
                     }
                 }
                 else{
                     if (RespHigh){
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        respHigh.set(respHigh.size()-1,respHigh.get(respHigh.size()-1)+timestamp);
+                        respHigh.set(respHigh.size()-1,respHigh.get(respHigh.size()-1)+timestamp.toString().substring(0,16));
                         RespHigh=false;
                     } else if (RespLow) {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        respLow.set(respLow.size()-1,respLow.get(respLow.size()-1)+timestamp);
+                        respLow.set(respLow.size()-1,respLow.get(respLow.size()-1)+timestamp.toString().substring(0,16));
                         RespLow=false;
                     }
                 }
@@ -253,25 +252,25 @@ public class netAction {
                 if (resultSet.getDouble("systolic")>patient.sys_max){
                     if(!SysHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        sysHigh.add(timestamp + " - ");
+                        sysHigh.add(timestamp.toString().substring(0,16) + " - ");
                         SysHigh = true;
                     }
                 }
                 else if (resultSet.getDouble("systolic")<patient.sys_min) {
                     if(!SysLow) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        sysLow.add(timestamp + " - ");
+                        sysLow.add(timestamp.toString().substring(0,16) + " - ");
                         SysLow = true;
                     }
                 }
                 else{
                     if (SysHigh){
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        sysHigh.set(sysHigh.size()-1,sysHigh.get(sysHigh.size()-1)+timestamp);
+                        sysHigh.set(sysHigh.size()-1,sysHigh.get(sysHigh.size()-1)+timestamp.toString().substring(0,16));
                         SysHigh=false;
                     } else if (SysLow) {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        sysLow.set(sysLow.size()-1,sysLow.get(sysLow.size()-1)+timestamp);
+                        sysLow.set(sysLow.size()-1,sysLow.get(sysLow.size()-1)+timestamp.toString().substring(0,16));
                         SysLow=false;
                     }
                 }
@@ -279,25 +278,25 @@ public class netAction {
                 if (resultSet.getDouble("diastolic")>patient.dia_max){
                     if(!DiaHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        diaHigh.add(timestamp + " - ");
+                        diaHigh.add(timestamp.toString().substring(0,16) + " - ");
                         DiaHigh = true;
                     }
                 }
                 else if (resultSet.getDouble("diastolic")<patient.dia_min) {
                     if(!DiaLow) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
-                        diaLow.add(timestamp + " - ");
+                        diaLow.add(timestamp.toString().substring(0,16) + " - ");
                         DiaLow = true;
                     }
                 }
                 else{
                     if (DiaHigh){
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        diaHigh.set(diaHigh.size()-1,diaHigh.get(diaHigh.size()-1)+timestamp);
+                        diaHigh.set(diaHigh.size()-1,diaHigh.get(diaHigh.size()-1)+timestamp.toString().substring(0,16));
                         DiaHigh=false;
                     } else if (DiaLow) {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
-                        diaLow.set(diaLow.size()-1,diaLow.get(diaLow.size()-1)+timestamp);
+                        diaLow.set(diaLow.size()-1,diaLow.get(diaLow.size()-1)+timestamp.toString().substring(0,16));
                         DiaLow=false;
                     }
                 }
@@ -470,6 +469,25 @@ public class netAction {
             s.setString(13,gender);
             s.setInt(14,year);
             s.executeUpdate();
+            s.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("end connection fail");
+        }
+    }
+    public static void deletePatient(String ref){
+        String order="update patientlist set firstname=null,lastname=null where reference=?";
+        Connection conn = null;
+        PreparedStatement s = null;
+        try {
+            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            s = conn.prepareStatement(order);
+            s.setString(1,ref);
+            s.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("execute fail in time");
+        }
+        try {
             s.close();
             conn.close();
         } catch (SQLException e) {

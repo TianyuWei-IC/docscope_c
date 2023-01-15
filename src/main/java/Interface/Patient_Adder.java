@@ -13,6 +13,8 @@ import master.Patient;
 import net.miginfocom.swing.*;
 import netRelated.netAction;
 
+import static java.awt.event.WindowEvent.WINDOW_CLOSED;
+import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 import static java.lang.Double.parseDouble;
 
 
@@ -29,91 +31,23 @@ import static java.lang.Double.parseDouble;
  */
 public class Patient_Adder extends JFrame {
     private GUI_test mainGUI;
+    private Boolean save_or_not = false;
 
+    private loading_notice loading = new loading_notice();
     public Patient_Adder(GUI_test mainGUI) {
         this.mainGUI = mainGUI;
+        loading.setVisible(false);
         initComponents();
     }
 
     private void save_button(ActionEvent e) {
-
-        Report_Notice loading = new Report_Notice();
+        System.out.println(loading.isVisible());
         loading.setVisible(true);
-
-        String gender = "male";
-        if (female_button.isSelected()){
-            gender = "female";
-        }else{
-            gender = "male";
-        }
-
-
-        if (mainGUI.patient_list.getComponentCount()!=0){
-            Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
-            Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
-
-            System.out.println("lll");
-            Patient previous_patient = current_temp_cl_display.patient;
-            System.out.println(previous_patient.first_name );
-            previous_patient.panelEcg1.worker.cancel(true);
-            previous_patient.panelEcg2.worker.cancel(true);
-            previous_patient.panelTemperature.updater.cancel(true);
-            previous_patient.panelRespiratoryRate.updater.cancel(true);
-            previous_patient.panelDiaBloodPressure.updater.cancel(true);
-            previous_patient.panelSysBloodPressure.updater.cancel(true);
-            previous_patient.panelRespiratoryPattern.worker.cancel(true);
-            previous_patient.panelHeartRate.updater.cancel(true);
-            System.out.println(previous_patient.panelEcg1.worker.isCancelled());
-        }else{
-           enableDisplaySettings();
-        }
-        // creates a master.Patient object contains all patient's parameters
-        Patient new_patient = new Patient(
-                first_name_field.getText(),
-                last_name_field.getText(),
-                (String) ref_selector.getSelectedItem(),
-                gender,
-                (Integer) year_selector.getSelectedItem(),
-                parseDouble(temp_min.getText()),
-                parseDouble(temp_max.getText()),
-                (int) parseDouble(hr_min.getText()),
-                (int) parseDouble(hr_max.getText()),
-                (int) parseDouble(sys_min.getText()),
-                (int) parseDouble(sys_max.getText()),
-                (int) parseDouble(dia_min.getText()),
-                (int) parseDouble(dia_max.getText()),
-                (int) parseDouble(resp_min.getText()),
-                (int) parseDouble(resp_max.getText()),
-                this.mainGUI
-        );
-        List<Double> threshold=Arrays.asList(new_patient.temp_max,
-                new_patient.temp_min,
-                (double)new_patient.hr_max,
-                (double)new_patient.hr_min,
-                (double)new_patient.sys_max,
-                (double)new_patient.sys_min,
-                (double)new_patient.dia_max,
-                (double)new_patient.dia_min,
-                (double)new_patient.resp_max,
-                (double)new_patient.resp_min);
-        netAction.putReference(new_patient.reference_value, threshold,
-                new_patient.first_name, new_patient.last_name, gender, new_patient.year_of_birth);
-
-
-        mainGUI.patient_list.add(new_patient);
-        mainGUI.patient_list.updateUI();
-        //new_patient.doClick();
-//
-//        List<String> references=Arrays.asList(mainGUI.referenceList);
-//        Integer index = references.indexOf(new_patient.reference_value);
-//        references.remove(index);
-//        mainGUI.referenceList = references.toArray(new String[0]);
-//        System.out.println(mainGUI.referenceList.length);
-        //System.out.println(mainGUI.patient_list.getComponentCount());
-        this.mainGUI.add_new_patient.setEnabled(true);
-        loading.dispose();
+        loading.setAlwaysOnTop(true);
+        this.save_or_not = true;
         this.dispose();
-
+        WindowEvent event = new WindowEvent(this,WINDOW_CLOSED);
+        PatientAdderWindowClosing(event);
     }
 
     private void enableDisplaySettings(){
@@ -135,8 +69,72 @@ public class Patient_Adder extends JFrame {
         this.mainGUI.report_button.setEnabled(true);
     }
 
-    private void createUIComponents() {
-        // TODO: add custom component creation code here
+    private void thisWindowClosed(WindowEvent e) {
+        if(save_or_not) {
+            String gender = "male";
+            if (female_button.isSelected()){
+                gender = "female";
+            }else{
+                gender = "male";
+            }
+            if (mainGUI.patient_list.getComponentCount()!=0){
+                Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
+                Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+
+
+                Patient previous_patient = current_temp_cl_display.patient;
+                previous_patient.panelEcg1.worker.cancel(true);
+                previous_patient.panelEcg2.worker.cancel(true);
+                previous_patient.panelTemperature.updater.cancel(true);
+                previous_patient.panelRespiratoryRate.updater.cancel(true);
+                previous_patient.panelDiaBloodPressure.updater.cancel(true);
+                previous_patient.panelSysBloodPressure.updater.cancel(true);
+                previous_patient.panelRespiratoryPattern.worker.cancel(true);
+                previous_patient.panelHeartRate.updater.cancel(true);
+            }else{
+                enableDisplaySettings();
+            }
+            // creates a master.Patient object contains all patient's parameters
+            Patient new_patient = new Patient(
+                    first_name_field.getText(),
+                    last_name_field.getText(),
+                    (String) ref_selector.getSelectedItem(),
+                    gender,
+                    (Integer) year_selector.getSelectedItem(),
+                    parseDouble(temp_min.getText()),
+                    parseDouble(temp_max.getText()),
+                    (int) parseDouble(hr_min.getText()),
+                    (int) parseDouble(hr_max.getText()),
+                    (int) parseDouble(sys_min.getText()),
+                    (int) parseDouble(sys_max.getText()),
+                    (int) parseDouble(dia_min.getText()),
+                    (int) parseDouble(dia_max.getText()),
+                    (int) parseDouble(resp_min.getText()),
+                    (int) parseDouble(resp_max.getText()),
+                    this.mainGUI
+            );
+            List<Double> threshold=Arrays.asList(new_patient.temp_max,
+                    new_patient.temp_min,
+                    (double)new_patient.hr_max,
+                    (double)new_patient.hr_min,
+                    (double)new_patient.sys_max,
+                    (double)new_patient.sys_min,
+                    (double)new_patient.dia_max,
+                    (double)new_patient.dia_min,
+                    (double)new_patient.resp_max,
+                    (double)new_patient.resp_min);
+            netAction.putReference(new_patient.reference_value, threshold,
+                    new_patient.first_name, new_patient.last_name, gender, new_patient.year_of_birth);
+
+
+            mainGUI.patient_list.add(new_patient);
+            mainGUI.patient_list.updateUI();
+            loading.dispose();
+
+        }else {
+            loading.dispose();
+        }
+        this.mainGUI.add_new_patient.setEnabled(true);
     }
 
     private void PatientAdderWindowClosing(WindowEvent e) {
@@ -346,12 +344,13 @@ public class Patient_Adder extends JFrame {
         value_check();
     }
 
+
   
 
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patient_editor_main_panel = new JPanel();
         title_and_reference = new JPanel();
         title = new JLabel();
@@ -410,6 +409,10 @@ public class Patient_Adder extends JFrame {
 
         //======== this ========
         addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                thisWindowClosed(e);
+            }
             @Override
             public void windowClosing(WindowEvent e) {
                 PatientAdderWindowClosing(e);
@@ -811,7 +814,7 @@ public class Patient_Adder extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel patient_editor_main_panel;
     private JPanel title_and_reference;
     private JLabel title;

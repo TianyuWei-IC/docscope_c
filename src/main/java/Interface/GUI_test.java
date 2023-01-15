@@ -63,7 +63,7 @@ public class GUI_test extends JFrame {
 
         Patient current_patient = current_temp_cl_display.patient;
         List<List<String>> timeLine=findAbnormal(current_patient);
-        new CreatePDF("",current_patient.reference_value,timeLine.get(0),timeLine.get(1),timeLine.get(2),
+        new CreatePDF(current_patient.last_name+" "+current_patient.first_name,current_patient.reference_value,timeLine.get(0),timeLine.get(1),timeLine.get(2),
                 timeLine.get(3),timeLine.get(4),timeLine.get(5),timeLine.get(6),timeLine.get(7),timeLine.get(8),
                 timeLine.get(9));
 

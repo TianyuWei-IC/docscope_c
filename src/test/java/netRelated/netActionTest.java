@@ -26,10 +26,14 @@ class netActionTest {
     void getReferences() {
 //        System.out.println(netAction.getReferences());
     }
-
     @Test
     void postEmailAddress() {
         System.out.println(netAction.postEmailAddress("yaoshuyu0430@outlook.com"));
         System.out.println(netAction.postEmailAddress(null));
+    }
+
+    @Test
+    void deletePatient() {
+        netAction.deletePatient("alpha");
     }
 }
