@@ -21,13 +21,15 @@ public class CreatePDF {
     public CreatePDF(String name, String ref, List<String> HeartRateH, List<String> HeartRateL,
                      List<String> TemperatureH, List<String> TemperatureL, List<String> RespRateH, List<String> RespRateL,
                      List<String> SystolicH, List<String> SystolicL, List<String> DiastolicH, List<String> DiastolicL) {
-        //set directory and font
+        //set directory
         String currDir = System.getProperty("user.dir");
         String home = System.getProperty("user.home");
         String desktop =  home + "/Desktop";
         String pdfPath = desktop + "/docScope_Urgent Timeline.pdf";
         String logoPath = currDir + "/src/main/resources/logo.jpg";
+        //set current time
         String current_time = String.valueOf(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
+        //set text font
         Font titleFont = FontFactory.getFont(FontFactory.TIMES,30,Font.BOLD,BaseColor.RED);
         Font textFont = FontFactory.getFont(FontFactory.COURIER,10);
         Font paraFont = FontFactory.getFont(FontFactory.COURIER_BOLD,13);
@@ -36,27 +38,32 @@ public class CreatePDF {
         //document lay out and content
         Document document = new Document();
         try {
+            //create a PDF document
             PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
             document.open();
+            //report generated time
             Paragraph currTime = new Paragraph("Generated time:" + current_time +"\n\n",textFont);
             currTime.setAlignment(Element.ALIGN_TOP);
             currTime.setAlignment(Element.ALIGN_RIGHT);
             document.add(currTime);
 
+            //print the logo on the first page of the document
             Image img=Image.getInstance(logoPath);
             img.setAbsolutePosition(30,760);
             document.add(img);
 
+            //print the report title
             Paragraph title = new Paragraph("*Urgent Timeline Report*",titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
+            //patient name & reference
             Paragraph pname = new Paragraph("\nPatient name: " + name,textFont);
             document.add(pname);
-
             Paragraph pref = new Paragraph("Patient reference: " + ref,textFont);
             document.add(pref);
 
+            //insert the abnormal timeline of heart rate
             Paragraph HeartH = new Paragraph("\nHeart Rate High: ",paraFont);
             document.add(HeartH);
             for(String HeartRateHIT:HeartRateH){
@@ -71,6 +78,7 @@ public class CreatePDF {
                 timeInt2.setAlignment(Element.ALIGN_CENTER);
                 document.add(timeInt2);
             }
+            //insert the abnormal timeline of temperature
             Paragraph TempH = new Paragraph("Temperature High: ",paraFont);
             document.add(TempH);
             for(String TemperatureHIT:TemperatureH){
@@ -85,6 +93,7 @@ public class CreatePDF {
                 timeInt4.setAlignment(Element.ALIGN_CENTER);
                 document.add(timeInt4);
             }
+            //insert the abnormal timeline of respiratory rate
             Paragraph RaspH = new Paragraph("Respiratory Rate High: ",paraFont);
             document.add(RaspH);
             for(String RaspRateHIT:RespRateH){
@@ -99,6 +108,7 @@ public class CreatePDF {
                 timeInt6.setAlignment(Element.ALIGN_CENTER);
                 document.add(timeInt6);
             }
+            //insert the abnormal timeline of systolic pressure
             Paragraph SysH = new Paragraph("Systolic Pressure High: ",paraFont);
             document.add(SysH);
             for(String SystolicHIT:SystolicH){
@@ -113,6 +123,7 @@ public class CreatePDF {
                 timeInt8.setAlignment(Element.ALIGN_CENTER);
                 document.add(timeInt8);
             }
+            //insert the abnormal timeline of diastolic pressure
             Paragraph DiaH = new Paragraph("Diastolic Pressure High: ",paraFont);
             document.add(DiaH);
             for(String DiastolicHIT:DiastolicH){
@@ -128,6 +139,7 @@ public class CreatePDF {
                 document.add(timeInt10);
             }
 
+            //close the document
             document.close();
             System.out.println("PDF Done");
         } catch (Exception e) {
