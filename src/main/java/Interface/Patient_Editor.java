@@ -1,24 +1,16 @@
 package Interface;
 import java.awt.event.*;
-
-import Interface.GUI_test;
-import chartPanel.Chart_Label_Display;
 import master.Patient;
 import net.miginfocom.swing.MigLayout;
 import netRelated.netAction;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import javax.swing.AbstractButton;
-
 import static java.awt.event.WindowEvent.WINDOW_CLOSED;
-import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
 import static netRelated.netAction.deletePatient;
 
 /*
@@ -28,7 +20,8 @@ import static netRelated.netAction.deletePatient;
 
 
 /**
- *
+ * this is a JFrame that will be displayed when double-clicked on the Patient object, this enables edit all the info of
+ * the patient
  */
 public class Patient_Editor extends JFrame {
     private GUI_test mainGUI;
@@ -46,7 +39,6 @@ public class Patient_Editor extends JFrame {
         }else if (Objects.equals(this.new_patient.gender, "female")){
             this.female_button.setSelected(true);
         }
-
         this.ref_selector.setSelectedItem(this.new_patient.reference_value);
         this.year_selector.setSelectedItem(this.new_patient.year_of_birth);
         this.temp_min.setText(String.valueOf(this.new_patient.temp_min));
@@ -63,6 +55,11 @@ public class Patient_Editor extends JFrame {
         //loading.setVisible(true);
     }
 
+    /**
+     * when the save_button is pressure, the loading window will be pop up telling the server-communication may
+     * takes time. Then dispose the editor window and proceed to PatientEditorWindowClosing(event), which deals
+     * with updating saved results on server
+     */
     private void save_button(ActionEvent e) {
         loading.setAlwaysOnTop(true);
         loading.setVisible(true);
@@ -73,23 +70,27 @@ public class Patient_Editor extends JFrame {
         PatientEditorWindowClosing(event);
     }
 
-    private void createUIComponents() {
-        // TODO: add custom component creation code here
-    }
-
+    /**
+     * when 'Delete This Patient' button is hit, this patient will be removed from the mainGUI, and
+     * switching to the next available patient in the patient list if exists.
+     */
     private void delete_button(ActionEvent e) {
         mainGUI.patient_list.remove(this.new_patient);
         mainGUI.patient_list.updateUI();
         mainGUI.repaint();
         this.dispose();
 
-        // switch to another available patient
+        // switch to another available patient if exist
         if (mainGUI.patient_list.getComponentCount()!=0){
-
-            JButton next_button = (JButton) mainGUI.patient_list.getComponent(0);
-            next_button.setEnabled(true);
-            next_button.doClick();
+            JButton next_patient = (JButton) mainGUI.patient_list.getComponent(0);
+            next_patient.setEnabled(true);
+             /*
+             do click will be detected and call the display() method in patient to repaint
+             all the panels on mainGUI
+              */
+            next_patient.doClick();
         }
+        // cancel all the updater/workers if the patient is deleted
         this.new_patient.panelEcg1.worker.cancel(true);
         this.new_patient.panelTemperature.updater.cancel(true);
         this.new_patient.panelEcg2.worker.cancel(true);
@@ -98,7 +99,11 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelSysBloodPressure.updater.cancel(true);
         this.new_patient.panelHeartRate.updater.cancel(true);
         this.new_patient.panelRespiratoryRate.updater.cancel(true);
-        //this.new_patient = null;
+
+         /*
+         if there is no any patient left after the deleting, all the plots and entered time interval
+         setting in the mainGUI will be removed and all the buttons will be set to disabled.
+          */
         if (mainGUI.patient_list.getComponentCount()==0){
             //ecg
             mainGUI.ecg1.removeAll();
@@ -134,10 +139,11 @@ public class Patient_Editor extends JFrame {
             deletePatient(new_patient.reference_value);
             disableDisplaySettings();
         }
-
-
     }
 
+    /**
+     * this method will turn all the buttons and text fields on the mainGUI into disabled.
+     */
     private void disableDisplaySettings(){
         this.mainGUI.ECG_display_interval.setEditable(false);
         this.mainGUI.Temp_display_interval.setEditable(false);
@@ -157,16 +163,24 @@ public class Patient_Editor extends JFrame {
         this.mainGUI.report_button.setEnabled(false);
     }
 
+    /**
+     * this function will save the changed setting of the patient both in the client and server
+     */
     private void update_server(){
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+        this block of code update all the patient's setting in the client by access the text fields
+        in the patient editor.
+         */
         this.new_patient.first_name = this.first_name_field.getText();
         this.new_patient.last_name = this.last_name_field.getText();
-
+        // some extra processing on gender since it is a JRadioButton
         if (male_button.isSelected()){
             this.new_patient.gender = "male";
         }else{
             this.new_patient.gender = "female";
         }
-
         this.new_patient.reference_value = (String) this.ref_selector.getSelectedItem();
         this.new_patient.year_of_birth = (Integer) this.year_selector.getSelectedItem();
         this.new_patient.temp_max= Double.valueOf(this.temp_max.getText());
@@ -179,10 +193,15 @@ public class Patient_Editor extends JFrame {
         this.new_patient.dia_min= (int) parseDouble(this.dia_min.getText());
         this.new_patient.resp_max= (int) parseDouble(this.resp_max.getText());
         this.new_patient.resp_min= (int) parseDouble(this.resp_min.getText());
-
         String new_patient_full_name = this.new_patient.first_name+" "+this.new_patient.last_name;
         this.new_patient.setText("<html>" + new_patient_full_name.replaceAll("<break>", "<br>") + "</html>");
         mainGUI.patient_list.updateUI();
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+        this block of code communicate with the server to give updates for all the values and settings
+        for the patient by packing them into a List<Double> and then calls the netAction.putReference()
+        along with parameters
+         */
 
         List<Double> threshold= Arrays.asList(this.new_patient.temp_max,
                 this.new_patient.temp_min,
@@ -197,9 +216,9 @@ public class Patient_Editor extends JFrame {
         netAction.putReference(this.new_patient.reference_value,threshold,
                 this.new_patient.first_name,this.new_patient.last_name,this.new_patient.gender,
                 this.new_patient.year_of_birth);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-        // VERY IMPORTANT, need to get threshold after edit
+        // VERY IMPORTANT, the panel need to get the updated threshold to update urgent and warning condition
         this.new_patient.panelTemperature.getThreshold();
         this.new_patient.panelHeartRate.getThreshold();
         this.new_patient.panelSysBloodPressure.getThreshold();
@@ -207,10 +226,18 @@ public class Patient_Editor extends JFrame {
         this.new_patient.panelRespiratoryRate.getThreshold();
         loading.dispose();
     }
+
+    /**
+     * set the patient as enabled after the editor is closed
+     */
     private void PatientEditorWindowClosing(WindowEvent e) {
         this.new_patient.setEnabled(true);
     }
 
+    /**
+     * when the save button is clicked, run the update_server() or dispose the loading window
+     * if click exit directly without save
+     */
     private void thisWindowClosed(WindowEvent e) {
         if (save_or_not){
             this.dispose();
@@ -221,6 +248,13 @@ public class Patient_Editor extends JFrame {
         this.new_patient.setEnabled(true);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // this block of code check entered key, the input only allows the numerical values and dot(temperature only)
+
+    /*
+     format checker
+     */
     private void temp_minKeyPressed(KeyEvent e) {
         String temp_min_value = temp_min.getText();
         int l = temp_min_value.length();
@@ -234,7 +268,9 @@ public class Patient_Editor extends JFrame {
             temp_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void temp_maxKeyPressed(KeyEvent e) {
         String temp_max_value = temp_max.getText();
         int l = temp_max_value.length();
@@ -248,7 +284,9 @@ public class Patient_Editor extends JFrame {
             temp_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void hr_minKeyPressed(KeyEvent e) {
         String hr_min_value = hr_min.getText();
         int l = hr_min_value.length();
@@ -260,7 +298,9 @@ public class Patient_Editor extends JFrame {
             hr_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void hr_maxKeyPressed(KeyEvent e) {
         String hr_max_value = hr_max.getText();
         int l = hr_max_value.length();
@@ -272,7 +312,9 @@ public class Patient_Editor extends JFrame {
             hr_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void sys_minKeyPressed(KeyEvent e) {
         String sys_min_value = sys_min.getText();
         int l = sys_min_value.length();
@@ -284,7 +326,9 @@ public class Patient_Editor extends JFrame {
             sys_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void sys_maxKeyPressed(KeyEvent e) {
         String sys_max_value = sys_max.getText();
         int l = sys_max_value.length();
@@ -296,7 +340,9 @@ public class Patient_Editor extends JFrame {
             sys_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void dia_minKeyPressed(KeyEvent e) {
         String dia_min_value = dia_min.getText();
         int l = dia_min_value.length();
@@ -308,7 +354,9 @@ public class Patient_Editor extends JFrame {
             dia_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void dia_maxKeyPressed(KeyEvent e) {
         String dia_max_value = dia_max.getText();
         int l = dia_max_value.length();
@@ -320,7 +368,9 @@ public class Patient_Editor extends JFrame {
             dia_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void resp_minKeyPressed(KeyEvent e) {
         String resp_min_value = resp_min.getText();
         int l = resp_min_value.length();
@@ -332,7 +382,9 @@ public class Patient_Editor extends JFrame {
             resp_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void resp_maxKeyPressed(KeyEvent e) {
         String resp_max_value = resp_max.getText();
         int l = resp_max_value.length();
@@ -344,7 +396,13 @@ public class Patient_Editor extends JFrame {
             resp_max.setEditable(false);
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * this function checks the entered value on the text field for max/min.
+     * the max should always be larger than min, otherwise the save button
+     * is set to be disabled.
+     */
     private void value_check(){
         try {
             Double temp_min_value_double = parseDouble(temp_min.getText());
@@ -375,56 +433,88 @@ public class Patient_Editor extends JFrame {
             save_button.setEnabled(false);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     this block of codes checks the valued entered
+     the first and last name cannot be empty
+     max value should always be greater than the min value
+     if one of the above condition is not fulfill, the save button is set to be disabled
+    */
+
+    /**
+     * value checker
+     */
     private void first_name_fieldKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void last_name_fieldKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void temp_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void temp_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void hr_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void hr_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void sys_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void sys_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void dia_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void dia_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void resp_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void resp_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
-
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off

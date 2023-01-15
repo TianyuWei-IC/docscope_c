@@ -10,7 +10,10 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.List;
 
-
+/**
+ * This function creates a continuous XYChart plot and number display for resp rate, heart rate, blood pressure and body temperature
+ * (HIGHLY ADVISED to use load_chartLabel() in master.Patient to create this object).
+ * */
 public class Chart_Label_Display {
     public Patient patient;
     public inputData dataInput;

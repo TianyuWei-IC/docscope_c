@@ -8,11 +8,15 @@ import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * This class communicate with the server and feed the data constantly into the Chart_Label_Display
+ */
 public class Chart_Label_Update extends SwingWorker<Void, List<Double>[]> {
 
     private Chart_Label_Display chartLabel;
     long previousTime;
     String type;
+
 
     /**
      * This class communicate with the server and feed the data constantly into the Chart_Label_Display
