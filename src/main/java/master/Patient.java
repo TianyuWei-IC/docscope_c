@@ -4,7 +4,6 @@ import Interface.GUI_test;
 import Interface.Patient_Editor;
 import chartPanel.*;
 import netRelated.netAction;
-import netRelated.requestPack;
 import netRelated.responsePack;
 
 import javax.swing.*;
@@ -174,35 +173,39 @@ public class Patient extends JButton {
     }
 
     /**
-     *
-     * @param chart_capacity
-     * @param type
-     * @param title
-     * @param mode
-     * @return
+     * method to load signal that only have charts
+     * @param chart_capacity the ideal size of the chart
+     * @param type the type of the signal
+     * @param title title of the chart
+     * @param mode determine whether it is recording or real time
+     * @return chart to display
      */
     public SeriesChartPane load_chart(long chart_capacity, String type, String title,String mode){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        long timestamp = new Timestamp(System.currentTimeMillis()).getTime();
         long dataBaseInitialTime=netAction.getInitialTime(this.reference_value);
-        responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
-                timestamp.getTime(),
+        //get the initial values to fill the chart
+        //end time should be current time, and start time should be the current time minus chart_capacity
+        responsePack respPack =netAction.recordData(timestamp-chart_capacity,
+                timestamp,
                 dataBaseInitialTime,
                 type,2,this.reference_value);
         return new SeriesChartPane(new inputData(respPack.valueList,dataBaseInitialTime,0.002),respPack.lastTime,type,this,title,mode);
     }
 
     /**
-     *
-     * @param chart_capacity
-     * @param type
-     * @param title
-     * @return
+     * method to load signal that have both labels and charts
+     * @param chart_capacity the ideal size of the chart
+     * @param type the type of the signal
+     * @param title title of the chart
+     * @return chart and label to display
      */
     public Chart_Label_Display load_chartLabel(long chart_capacity,String type, String title){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        long timestamp = new Timestamp(System.currentTimeMillis()).getTime();
         long dataBaseInitialTime=netAction.getInitialTime(this.reference_value);
-        responsePack respPack =netAction.recordData(timestamp.getTime()-chart_capacity,
-                timestamp.getTime(),
+        //get the initial values to fill the chart
+        //end time should be current time, and start time should be the current time minus chart_capacity
+        responsePack respPack =netAction.recordData(timestamp-chart_capacity,
+                timestamp,
                 dataBaseInitialTime,
                 type,1000,this.reference_value);
         return new Chart_Label_Display(this,new inputData(respPack.valueList,dataBaseInitialTime,0.0166667),respPack.lastTime,type,title);
