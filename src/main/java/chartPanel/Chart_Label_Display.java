@@ -10,11 +10,15 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.List;
 
-
+/**
+ * This function creates a continuous XYChart plot and number display for resp rate, heart rate, blood pressure and body temperature
+ * (HIGHLY ADVISED to use load_chartLabel() in master.Patient to create this object).
+ * */
 public class Chart_Label_Display {
     public Patient patient;
     public inputData dataInput;
     private XYChart chart;
+
     public long time;
     public Display_Chart display_chart;
     public JLabel value_label;
@@ -28,7 +32,7 @@ public class Chart_Label_Display {
     private Boolean pop_or_not;
     private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
     private long time_milli;
-    public  Chart_Label_Update updater;
+    public Chart_Label_Update updater;
     public int WhiteSpace;
 
     /**
@@ -51,6 +55,7 @@ public class Chart_Label_Display {
         this.type = type;
         // default whitespace value, this indicates the white gap on the plot;
         this.WhiteSpace = 10;
+
         /* get threshold obtains the critical value for the vital signs, this method set the threshold_high and
          threshold_low in the field, that is frequently used when finding whether the patient is in urgent/warning
          condition.

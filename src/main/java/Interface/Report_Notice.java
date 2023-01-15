@@ -1,16 +1,13 @@
 /*
  * Created by JFormDesigner on Sat Jan 14 19:43:50 GMT 2023
  */
-
 package Interface;
-
 import java.awt.*;
 import javax.swing.*;
-
 import net.miginfocom.swing.*;
 
 /**
- * @author Tianyu
+ * this is a JFrame that informs the doctor
  */
 public class Report_Notice extends JFrame {
     public Report_Notice() {

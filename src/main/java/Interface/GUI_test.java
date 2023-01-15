@@ -1,10 +1,6 @@
 package Interface;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import chartPanel.Chart_Label_Display;
@@ -12,30 +8,27 @@ import chartPanel.Display_Chart;
 import chartPanel.SeriesChartPane;
 import net.miginfocom.swing.*;
 import master.*;
-
-import static java.lang.Double.parseDouble;
 import static java.lang.Math.floor;
 import static netRelated.netAction.*;
-
-import netRelated.netAction;
 
 /*
  * Created by JFormDesigner on Mon Dec 26 17:36:59 GMT 2022
  */
 
-
-
 /**
- * @author Tianyu
+ * This is the mainGUI
  */
 public class GUI_test extends JFrame {
+    //patient reference list is accessed in Patient Adder and Patient Editor
     public String[] referenceList;
+    //initialize all the components
     public GUI_test() {
         initComponents();
     }
 
-
-
+    /**
+     * button pressed to display Recording panel
+     */
     private void recordings(ActionEvent e) {
         Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
@@ -47,7 +40,9 @@ public class GUI_test extends JFrame {
         this.recordings.setEnabled(false);
     }
 
-
+    /**
+     * button pressed to display Patient Adder penel
+     */
     private void add_new_patient(ActionEvent e) {
         Patient_Adder editor = new Patient_Adder(this);
         this.add_new_patient.setEnabled(false);
@@ -56,11 +51,16 @@ public class GUI_test extends JFrame {
 
     }
 
+    /**
+     * by clicking the report button, a PDF summary of all the anomalies will be downloaded to the Desktop
+     */
     private void report_button(ActionEvent e) {
+        //find the patient displaying on the mainGUI
         Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
 
         Patient current_patient = current_temp_cl_display.patient;
+        //this gets all the abnormal info of the current patient
         List<List<String>> timeLine=findAbnormal(current_patient);
         new CreatePDF(current_patient.last_name+" "+current_patient.first_name,current_patient.reference_value,timeLine.get(0),timeLine.get(1),timeLine.get(2),
                 timeLine.get(3),timeLine.get(4),timeLine.get(5),timeLine.get(6),timeLine.get(7),timeLine.get(8),
@@ -70,6 +70,22 @@ public class GUI_test extends JFrame {
         notice.setVisible(true);
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    this block of codes are all update button on the mainGUI for the updating the display time interval for each vital
+    signal
+
+    the method used is find the current Display_Chart/SeriesChartPane displayed in the panel and via this XYChart,
+    we could locate back to the corresponding patient. the signal now displaying is then removed, with the updater/worker
+    shutting down. Now, create a new Display_Chart/SeriesChartPane with the typed time interval add it to mainGUI and
+    updating patient's fields for data and charts.
+
+     */
+
+
+    /**
+     * update the display interval
+     */
     private void Temp_update_button(ActionEvent e) {
         // get the chart in the temp display panel
         Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
@@ -91,6 +107,9 @@ public class GUI_test extends JFrame {
         current_patient.panelTemperature = updated_temp_cl_display;
     }
 
+    /**
+     * update the display interval
+     */
     private void ECG_update_button(ActionEvent e) {
         // get the chart in the ecg panel
         SeriesChartPane current_ECG_I = (SeriesChartPane) this.ecg1.getComponent(0);
@@ -116,6 +135,9 @@ public class GUI_test extends JFrame {
 
     }
 
+    /**
+     * update the display interval
+     */
     private void RESP_pattern_update_button(ActionEvent e) {
         SeriesChartPane current_RESP_pattern = (SeriesChartPane) this.resp_pattern_table.getComponent(0);
 
@@ -133,6 +155,9 @@ public class GUI_test extends JFrame {
         current_patient.panelRespiratoryPattern = updated_resp_pattern;
     }
 
+    /**
+     * update the display interval
+     */
     private void HR_update_button(ActionEvent e) {
         Display_Chart current_HR = (Display_Chart) this.heartrate_table.getComponent(0);
         Chart_Label_Display current_hr_cl_display = current_HR.find_cl_display();
@@ -154,6 +179,9 @@ public class GUI_test extends JFrame {
 
     }
 
+    /**
+     * update the display interval
+     */
     private void RESP_rate_update_button(ActionEvent e) {
         Display_Chart current_RESP_rate = (Display_Chart) this.resp_rate_table.getComponent(0);
         Chart_Label_Display current_resp_rate_cl_display = current_RESP_rate.find_cl_display();
@@ -172,6 +200,9 @@ public class GUI_test extends JFrame {
         current_patient.panelRespiratoryRate = updated_resp_rate_cl_display;
     }
 
+    /**
+     * update the display interval
+     */
     private void BP_update_button(ActionEvent e) {
         Display_Chart current_BP_dia = (Display_Chart) this.dia_table.getComponent(0);
         Display_Chart current_BP_sys = (Display_Chart) this.sys_table.getComponent(0);
@@ -204,8 +235,22 @@ public class GUI_test extends JFrame {
         current_patient.panelDiaBloodPressure = updated_bp_dia_cl_display;
         current_patient.panelSysBloodPressure = updated_bp_sys_cl_display;
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /*
 
+    this block of codes prevent the user gives wrong input to custom display interval text field by disabling the update
+    button.
+
+    The filtering is done by using KeyRelease and KeyPressed to detect the input value when user enter a key.
+    All the non-numerical input are filtered out from time interval text field.
+    for e-mail, a valid email address must contain a dot and a @.
+
+     */
+
+    /**
+     * key enter detection for updating time interval
+     */
     private void ECG_display_intervalKeyReleased(KeyEvent e) {
         try {
                  String ecg_interval = ECG_display_interval.getText();
@@ -220,6 +265,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void ECG_display_intervalKeyPressed(KeyEvent e) {
         System.out.println(e.getKeyChar());
         int l =  ECG_display_interval.getText().length();
@@ -232,6 +280,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void RESP_pattern_display_intervalKeyPressed(KeyEvent e) {
         int l = RESP_pattern_display_interval.getText().length();
         if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
@@ -243,6 +294,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void RESP_pattern_display_intervalKeyReleased(KeyEvent e) {
         try {
             String RESP_interval = RESP_pattern_display_interval.getText();
@@ -257,6 +311,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void HR_display_intervalKeyPressed(KeyEvent e) {
         int l = HR_display_interval.getText().length();
         if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
@@ -268,6 +325,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void HR_display_intervalKeyReleased(KeyEvent e) {
         try {
             String HR_interval = HR_display_interval.getText();
@@ -282,6 +342,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void RESP_rate_display_intervalKeyPressed(KeyEvent e) {
         int l = RESP_rate_display_interval.getText().length();
         if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
@@ -293,6 +356,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void RESP_rate_display_intervalKeyReleased(KeyEvent e) {
         try {
             String HR_interval = RESP_rate_display_interval.getText();
@@ -307,6 +373,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void BP_display_intervalKeyPressed(KeyEvent e) {
         int l = BP_display_interval.getText().length();
         if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
@@ -318,6 +387,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void BP_display_intervalKeyReleased(KeyEvent e) {
         try {
             String HR_interval = BP_display_interval.getText();
@@ -332,6 +404,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void Temp_display_intervalKeyPressed(KeyEvent e) {
         int l = Temp_display_interval.getText().length();
         if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
@@ -343,6 +418,9 @@ public class GUI_test extends JFrame {
         }
     }
 
+    /**
+     * key enter detection for updating time interval
+     */
     private void Temp_display_intervalKeyReleased(KeyEvent e) {
         try {
             String Temp_interval = Temp_display_interval.getText();
@@ -357,10 +435,9 @@ public class GUI_test extends JFrame {
         }
     }
 
-    private void email_update(ActionEvent e) {
-        postEmailAddress(this.email_address.getText());
-    }
-
+    /**
+     * key enter detection for updating time interval
+     */
     private void email_addressKeyReleased(KeyEvent e) {
         String address = email_address.getText();
         int l = address.length();
@@ -371,31 +448,37 @@ public class GUI_test extends JFrame {
             email_update_button.setEnabled(false);
         }
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * send the input email address to the server by click the update button
+     */
+    private void email_update(ActionEvent e) {
+        postEmailAddress(this.email_address.getText());
+    }
 
-//    private void thisWindowClosing(WindowEvent e) {
-//        Integer num_of_patient = patient_list.getComponentCount();
-//        for (int i = 0; i<num_of_patient;i++){
-//            Patient current_patient = (Patient) patient_list.getComponent(i);
-//            for (int j = 0; j<15;i++){
-//
-//            }
-//        }
-//    }
-
+    /**
+     * run when the mainGUI is opened. this will set all the buttons to disabled if there is no patient in the patient
+     * list. if there is any patient in the list and its signals are displayed on the mainGUI, set it to have the 'selected'
+     * color.
+     */
     private void thisWindowOpened(WindowEvent e) {
-
-
+        /* request the saved email address and put it on the email address text field, so that the doctor can see which
+           email address is used to send urgent notification when the client is opened (even after closed).
+        */
         this.email_address.setText(postEmailAddress(null));
         String address = email_address.getText();
         int l = address.length();
 
+        // format for address text field
         if (l!=0&address.contains("@")&(!address.contains(" "))&address.contains(".")) {
             email_update_button.setEnabled(true);
         }else{
             email_update_button.setEnabled(false);
         }
 
+        // request patient reference from the server
         List<String> references=getPatientInformation(this.patient_list,this);
+        // if there is any patient now displaying, enabling all buttons.
         if(patient_list.getComponentCount()>0){
             this.recordings.setEnabled(true);
             this.report_button.setEnabled(true);
@@ -406,10 +489,11 @@ public class GUI_test extends JFrame {
             this.HR_update_button.setEnabled(true);
             this.BP_update_button.setEnabled(true);
         }
-
+        // changed into String[] so that it can be sent into JComboBox
         this.referenceList = new String[references.size()];
         references.toArray(this.referenceList);
 
+        // the following lines set the current_displaying patient as selected by changing the color
         Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
         Patient current_patient = current_temp_cl_display.patient;

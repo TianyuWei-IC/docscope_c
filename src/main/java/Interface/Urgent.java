@@ -9,7 +9,7 @@ import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- * @author Tianyu
+ * This is a JFrame that will be shown when urgent threshold is met.
  */
 public class Urgent extends JFrame {
     public Urgent() {

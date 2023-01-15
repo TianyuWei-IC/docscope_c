@@ -23,25 +23,40 @@ import netRelated.responsePack;
 
 
 /**
- * @author Tianyu
+ * this is a JFrame using for displaying the selected patient's vital signs' recordings
  */
 public class Patient_Recording extends JFrame {
+    // the mainGUI it corresponding to
     private GUI_test mainGUI;
+    // selected patient
     private Patient current_patient;
+    // the recording start and end time
     private long start_in_milli;
     private long end_in_milli;
 
+    /**
+     *  this is a JFrame using for displaying the selected patient's vital signs' recordings
+     * @param mainGUI the mainGUI it corresponding to
+     * @param current_patient the recording start and end time
+     */
     public Patient_Recording(GUI_test mainGUI, Patient current_patient) {
         initComponents();
         this.mainGUI = mainGUI;
         this.current_patient = current_patient;
     }
 
+    /**
+     * when the recording window closed, the recording button on mainGUI should be set back to enabled
+     */
     private void PatientRecordingWindowClosing(WindowEvent e) {
         this.mainGUI.recordings.setEnabled(true);
     }
 
-
+    /**
+     * transform the selected signal from JComboBox into the formatted type of signal used as input for Recording_Panel
+     * @param signal_pack_select the selected signal from JComboBox
+     * @return the formatted type of signal used as input for Recording_Panel
+     */
     private String find_data_type(String signal_pack_select) {
         if (Objects.equals(signal_pack_select, "ECG Lead I")) {
             return "ecg1";
@@ -63,14 +78,18 @@ public class Patient_Recording extends JFrame {
         return signal_pack_select;
     }
 
+    /**
+     *  this is a input key filter for entering the start hour and min
+     *  the generate button is only enabled when start hour/min is smaller than end hour
+     *  and the date is chosen
+     */
     private void time_value_check_click(){
         try {
             Integer start_hour = Integer.parseInt((String) start_time_hour.getSelectedItem());
             Integer start_min = Integer.parseInt((String) start_time_min.getSelectedItem());
             Integer end_hour = Integer.parseInt((String)end_time_hour.getSelectedItem());
             Integer end_min = Integer.parseInt((String) end_time_min.getSelectedItem());
-            System.out.println(dateChooser1.getDate()!=null);
-
+            // only when start hour/min is smaller than end hour and the date is chosen the button is enabled
             if (((start_hour<end_hour) | ((start_hour==end_hour) & (start_min<end_min)))& (dateChooser1.getDate()!=null)){
                 generate_button.setEnabled(true);
             }else{
@@ -81,22 +100,36 @@ public class Patient_Recording extends JFrame {
         }
     }
 
+    /**
+     * key enter and date chosen check
+     */
     private void start_time_hour_click(ActionEvent e) {
         time_value_check_click();
     }
+    /**
+     * key enter and date chosen check
+     */
     private void start_time_min_click(ActionEvent e) {
         time_value_check_click();
     }
+    /**
+     * key enter and date chosen check
+     */
     private void end_time_hour_click(ActionEvent e) {
         time_value_check_click();
     }
+    /**
+     * key enter and date chosen check
+     */
     private void end_time_min_click(ActionEvent e) {
         time_value_check_click();
     }
 
+    /**
+     * when generate button is clicked, the recording will be displayed via creating new Recording_Display()
+     */
     private void generate_button(ActionEvent e)  {
         String Date = String.valueOf(dateChooser1.getDate());
-
 
         // get the start and end hour/min based on user's choice and cast them into string
         String start_hour = (String) start_time_hour.getSelectedItem();
@@ -162,6 +195,11 @@ public class Patient_Recording extends JFrame {
         display.A1.add(recordingPanel);
     }
 
+
+    /**
+     * when the patient recording window is opened, the current time and the recording start time from server
+     * are found to limit doctor's choice on recording.
+     */
     private void thisWindowOpened(WindowEvent e) {
         dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
         dateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));

@@ -9,7 +9,7 @@ import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- * @author Tianyu
+ * this is a JFrame that display the recorded signal
  */
 public class Recording_Display extends JFrame {
     public Recording_Display() {

@@ -1,51 +1,44 @@
 package Interface;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 import java.util.List;
-
 import chartPanel.Chart_Label_Display;
 import chartPanel.Display_Chart;
-import chartPanel.SeriesChartPane;
 import master.Patient;
 import net.miginfocom.swing.*;
 import netRelated.netAction;
-
-import static java.awt.AWTEvent.MOUSE_EVENT_MASK;
 import static java.awt.event.WindowEvent.WINDOW_CLOSED;
-import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 import static java.lang.Double.parseDouble;
-
-
-
 /*
-
  * Created by JFormDesigner on Tue Dec 27 20:41:28 GMT 2022
  */
 
-
-
 /**
- * @author Tianyu
+ *
+ * this is a JFrame that adds the patient into the patient_list
  */
 public class Patient_Adder extends JFrame {
     private GUI_test mainGUI;
     private Boolean save_or_not = false;
-
     private loading_notice loading = new loading_notice();
-    private ActionEvent click;
 
+    /**
+     * this is a JFrame that adds the patient into the patient_list
+     */
     public Patient_Adder(GUI_test mainGUI) {
         this.mainGUI = mainGUI;
         loading.setVisible(false);
         initComponents();
     }
 
+    /**
+     * when the save_button is pressure, the loading window will be pop up telling the server-communication may
+     * takes time. Then dispose the adder window and proceed to PatientAdderWindowClosing(event);, which deals
+     * with updating saved results on server
+     */
     private void save_button(ActionEvent e) {
-        this.click = e;
         System.out.println(loading.isVisible());
         loading.setVisible(true);
         loading.setAlwaysOnTop(true);
@@ -55,6 +48,9 @@ public class Patient_Adder extends JFrame {
         PatientAdderWindowClosing(event);
     }
 
+    /**
+     * this method will turn all the buttons and text fields on the mainGUI into enabled.
+     */
     private void enableDisplaySettings(){
         this.mainGUI.ECG_display_interval.setEditable(true);
         this.mainGUI.Temp_display_interval.setEditable(true);
@@ -74,7 +70,13 @@ public class Patient_Adder extends JFrame {
         this.mainGUI.report_button.setEnabled(true);
     }
 
+    /**
+     *when Patient Adder is closed, this will save the changed setting of the patient both in the client and server
+     */
     private void thisWindowClosed(WindowEvent e) throws InterruptedException {
+        /*
+        if the save button is clicked, 
+         */
         if(save_or_not) {
             String gender = "male";
             if (female_button.isSelected()){
@@ -120,6 +122,13 @@ public class Patient_Adder extends JFrame {
                     (int) parseDouble(resp_max.getText()),
                     this.mainGUI
             );
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+        this block of code communicate with the server to give updates for all the values and settings
+        for the patient by packing them into a List<Double> and then calls the netAction.putReference()
+        along with parameters
+         */
             List<Double> threshold=Arrays.asList(new_patient.temp_max,
                     new_patient.temp_min,
                     (double)new_patient.hr_max,
@@ -132,7 +141,7 @@ public class Patient_Adder extends JFrame {
                     (double)new_patient.resp_min);
             netAction.putReference(new_patient.reference_value, threshold,
                     new_patient.first_name, new_patient.last_name, gender, new_patient.year_of_birth);
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             mainGUI.patient_list.add(new_patient);
             mainGUI.patient_list.updateUI();
@@ -151,10 +160,21 @@ public class Patient_Adder extends JFrame {
         this.mainGUI.add_new_patient.setEnabled(true);
     }
 
+    /**
+     * set the patient as enabled after the editor is closed
+     */
     private void PatientAdderWindowClosing(WindowEvent e) {
         this.mainGUI.add_new_patient.setEnabled(true);
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // this block of code check entered key, the input only allows the numerical values and dot(temperature only)
+
+    /*
+     format checker
+     */
     private void temp_minKeyPressed(KeyEvent e) {
         String temp_min_value = temp_min.getText();
         int l = temp_min_value.length();
@@ -168,7 +188,9 @@ public class Patient_Adder extends JFrame {
             temp_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void temp_maxKeyPressed(KeyEvent e) {
         String temp_max_value = temp_max.getText();
         int l = temp_max_value.length();
@@ -182,11 +204,15 @@ public class Patient_Adder extends JFrame {
             temp_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void temp_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /*
+     format checker
+     */
     private void hr_minKeyPressed(KeyEvent e) {
         String hr_min_value = hr_min.getText();
         int l = hr_min_value.length();
@@ -199,7 +225,9 @@ public class Patient_Adder extends JFrame {
         }
 
     }
-
+    /*
+     format checker
+     */
     private void hr_maxKeyPressed(KeyEvent e) {
         String hr_max_value = hr_max.getText();
         int l = hr_max_value.length();
@@ -211,6 +239,9 @@ public class Patient_Adder extends JFrame {
             hr_max.setEditable(false);
         }
     }
+    /*
+     format checker
+     */
     private void sys_minKeyPressed(KeyEvent e) {
         String sys_min_value = sys_min.getText();
         int l = sys_min_value.length();
@@ -222,7 +253,9 @@ public class Patient_Adder extends JFrame {
             sys_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void sys_maxKeyPressed(KeyEvent e) {
         String sys_max_value = sys_max.getText();
         int l = sys_max_value.length();
@@ -234,7 +267,9 @@ public class Patient_Adder extends JFrame {
             sys_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void dia_minKeyPressed(KeyEvent e) {
         String dia_min_value = dia_min.getText();
         int l = dia_min_value.length();
@@ -246,7 +281,9 @@ public class Patient_Adder extends JFrame {
             dia_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void dia_maxKeyPressed(KeyEvent e) {
         String dia_max_value = dia_max.getText();
         int l = dia_max_value.length();
@@ -258,7 +295,9 @@ public class Patient_Adder extends JFrame {
             dia_max.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void resp_minKeyPressed(KeyEvent e) {
         String resp_min_value = resp_min.getText();
         int l = resp_min_value.length();
@@ -270,7 +309,9 @@ public class Patient_Adder extends JFrame {
             resp_min.setEditable(false);
         }
     }
-
+    /*
+     format checker
+     */
     private void resp_maxKeyPressed(KeyEvent e) {
         String resp_max_value = resp_max.getText();
         int l = resp_max_value.length();
@@ -282,7 +323,13 @@ public class Patient_Adder extends JFrame {
             resp_max.setEditable(false);
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * this function checks the entered value on the text field for max/min.
+     * the max should always be larger than min, otherwise the save button
+     * is set to be disabled.
+     */
     private void value_check(){
         try {
             Double temp_min_value_double = parseDouble(temp_min.getText());
@@ -314,53 +361,81 @@ public class Patient_Adder extends JFrame {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     this block of codes checks the valued entered
+     the first and last name cannot be empty
+     max value should always be greater than the min value
+     if one of the above condition is not fulfill, the save button is set to be disabled
+    */
+
+    /**
+     * value checker
+     */
     private void temp_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void hr_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void hr_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void sys_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void sys_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void dia_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void dia_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void resp_minKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void resp_maxKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void first_name_fieldKeyReleased(KeyEvent e) {
         value_check();
     }
-
+    /**
+     * value checker
+     */
     private void last_name_fieldKeyReleased(KeyEvent e) {
         value_check();
     }
-
-
-  
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
