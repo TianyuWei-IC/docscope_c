@@ -1,6 +1,5 @@
 package master;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.List;
@@ -8,10 +7,21 @@ import java.util.List;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * class to generate a pdf report for abnormalities
+ */
 public class CreatePDF {
+    /**
+     * take name, references, and abnormal times.
+     * times should be 10 String lists, each element of one list should have
+     * a start time and an end time (if the abnormal period ends)
+     * @param name patient's name
+     * @param ref patient's reference
+     */
     public CreatePDF(String name, String ref, List<String> HeartRateH, List<String> HeartRateL,
                      List<String> TemperatureH, List<String> TemperatureL, List<String> RespRateH, List<String> RespRateL,
                      List<String> SystolicH, List<String> SystolicL, List<String> DiastolicH, List<String> DiastolicL) {
+        //set directory and font
         String currDir = System.getProperty("user.dir");
         String home = System.getProperty("user.home");
         String desktop =  home + "/Desktop";
@@ -23,9 +33,10 @@ public class CreatePDF {
         Font paraFont = FontFactory.getFont(FontFactory.COURIER_BOLD,13);
         Font timeFont = FontFactory.getFont(FontFactory.COURIER,10);
 
+        //document lay out and content
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(new File(pdfPath)));
+            PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
             document.open();
             Paragraph currTime = new Paragraph("Generated time:" + current_time +"\n\n",textFont);
             currTime.setAlignment(Element.ALIGN_TOP);

@@ -90,8 +90,8 @@ public class netAction {
         } catch (SQLException ignored) {}
         // In case the database does not have the data at end time,
         // return the actual time corresponding to the last value
-        respPack.setLastTime(startTime + (long) interval * (values.size()));
-        respPack.setValueList(values);
+        respPack.lastTime=startTime + (long) interval * (values.size());
+        respPack.valueList=values;
         return respPack;
     }
 
@@ -141,8 +141,8 @@ public class netAction {
         } catch (SQLException ignored) {}
         // In case the database does not have the data at end time,
         // return the actual time corresponding to the last value
-        respPack.setLastTime(startTime + (long) 60000 * (values.size()));
-        respPack.setValueList(values);
+        respPack.lastTime=startTime + (long) 60000 * (values.size());
+        respPack.valueList=values;
         return respPack;
     }
 

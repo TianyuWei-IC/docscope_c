@@ -1,7 +1,6 @@
 package chartPanel;
 
 import netRelated.netAction;
-import netRelated.requestPack;
 import netRelated.responsePack;
 
 import javax.swing.*;
