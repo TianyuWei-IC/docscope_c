@@ -1,4 +1,4 @@
-package Interface;
+package user_interface;
 import java.awt.event.*;
 import master.Patient;
 import net.miginfocom.swing.MigLayout;

@@ -1,12 +1,10 @@
 package master;
 
-import Interface.GUI_test;
-import Interface.Server_Login;
+import user_interface.Server_Login;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Monitor {
     public static void main(String[] args) throws IOException, InterruptedException {

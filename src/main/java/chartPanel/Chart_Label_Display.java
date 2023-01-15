@@ -1,5 +1,5 @@
 package chartPanel;
-import Interface.Urgent;
+import user_interface.Urgent;
 import master.Patient;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;

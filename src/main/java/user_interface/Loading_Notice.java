@@ -1,18 +1,20 @@
 /*
- * Created by JFormDesigner on Sun Jan 15 21:43:58 GMT 2023
+ * Created by JFormDesigner on Sat Jan 14 23:15:06 GMT 2023
  */
 
-package Interface;
+package user_interface;
 
 import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- * @author Tianyu
+ *  this is a JFrame showing the doctors after saving or the patient info, it might take several seconds to communicate
+ *  with the server.
+ *
  */
-public class Login_Error extends JFrame {
-    public Login_Error() {
+public class Loading_Notice extends JFrame {
+    public Loading_Notice() {
         initComponents();
     }
 
@@ -22,21 +24,17 @@ public class Login_Error extends JFrame {
         label1 = new JLabel();
 
         //======== this ========
-        setMinimumSize(new Dimension(400, 200));
-        setPreferredSize(new Dimension(400, 200));
-        setMaximumSize(new Dimension(400, 200));
         setResizable(false);
-        setAlwaysOnTop(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
             // columns
-            "[579,fill]",
+            "[548,fill]",
             // rows
-            "[288]"));
+            "[88]"));
 
         //---- label1 ----
-        label1.setText("ERROR : Wrong Addresses, Username or Password");
+        label1.setText("Handling the information of the patient, it might take several seconds...");
         label1.setFont(new Font("Arial", Font.PLAIN, 16));
         contentPane.add(label1, "cell 0 0,align center center,grow 0 0");
         pack();

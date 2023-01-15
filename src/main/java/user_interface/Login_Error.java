@@ -1,16 +1,18 @@
 /*
- * Created by JFormDesigner on Sat Jan 14 19:43:50 GMT 2023
+ * Created by JFormDesigner on Sun Jan 15 21:43:58 GMT 2023
  */
-package Interface;
+
+package user_interface;
+
 import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- * this is a JFrame that informs the doctor
+ * @author Tianyu
  */
-public class Report_Notice extends JFrame {
-    public Report_Notice() {
+public class Login_Error extends JFrame {
+    public Login_Error() {
         initComponents();
     }
 
@@ -20,24 +22,22 @@ public class Report_Notice extends JFrame {
         label1 = new JLabel();
 
         //======== this ========
-        setBackground(Color.white);
-        setMinimumSize(new Dimension(500, 130));
-        setPreferredSize(new Dimension(500, 130));
-        setMaximumSize(new Dimension(500, 130));
+        setMinimumSize(new Dimension(400, 200));
+        setPreferredSize(new Dimension(400, 200));
+        setMaximumSize(new Dimension(400, 200));
         setResizable(false);
+        setAlwaysOnTop(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-            "hidemode 3,align center center",
+            "hidemode 3",
             // columns
-            "[506,fill]",
+            "[579,fill]",
             // rows
-            "[247]"));
+            "[288]"));
 
         //---- label1 ----
-        label1.setText("The report has been downloaded to your Desktop!");
-        label1.setFont(new Font("Arial", Font.PLAIN, 17));
-        label1.setForeground(Color.black);
-        label1.setBackground(Color.white);
+        label1.setText("ERROR : Wrong Addresses, Username or Password");
+        label1.setFont(new Font("Arial", Font.PLAIN, 16));
         contentPane.add(label1, "cell 0 0,align center center,grow 0 0");
         pack();
         setLocationRelativeTo(getOwner());

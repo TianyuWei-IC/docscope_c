@@ -1,6 +1,6 @@
 package master;
-import Interface.GUI_test;
-import Interface.Patient_Editor;
+import user_interface.GUI_test;
+import user_interface.Patient_Editor;
 import chartPanel.*;
 import netRelated.netAction;
 import netRelated.responsePack;

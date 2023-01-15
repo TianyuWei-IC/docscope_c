@@ -1,20 +1,16 @@
 /*
- * Created by JFormDesigner on Sat Jan 14 23:15:06 GMT 2023
+ * Created by JFormDesigner on Sat Jan 14 19:43:50 GMT 2023
  */
-
-package Interface;
-
+package user_interface;
 import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- *  this is a JFrame showing the doctors after saving or the patient info, it might take several seconds to communicate
- *  with the server.
- *
+ * this is a JFrame that informs the doctor
  */
-public class Loading_Notice extends JFrame {
-    public Loading_Notice() {
+public class Report_Notice extends JFrame {
+    public Report_Notice() {
         initComponents();
     }
 
@@ -24,18 +20,24 @@ public class Loading_Notice extends JFrame {
         label1 = new JLabel();
 
         //======== this ========
+        setBackground(Color.white);
+        setMinimumSize(new Dimension(500, 130));
+        setPreferredSize(new Dimension(500, 130));
+        setMaximumSize(new Dimension(500, 130));
         setResizable(false);
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-            "hidemode 3",
+            "hidemode 3,align center center",
             // columns
-            "[548,fill]",
+            "[506,fill]",
             // rows
-            "[88]"));
+            "[247]"));
 
         //---- label1 ----
-        label1.setText("Handling the information of the patient, it might take several seconds...");
-        label1.setFont(new Font("Arial", Font.PLAIN, 16));
+        label1.setText("The report has been downloaded to your Desktop!");
+        label1.setFont(new Font("Arial", Font.PLAIN, 17));
+        label1.setForeground(Color.black);
+        label1.setBackground(Color.white);
         contentPane.add(label1, "cell 0 0,align center center,grow 0 0");
         pack();
         setLocationRelativeTo(getOwner());

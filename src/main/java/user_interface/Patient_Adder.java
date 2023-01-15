@@ -1,4 +1,4 @@
-package Interface;
+package user_interface;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;

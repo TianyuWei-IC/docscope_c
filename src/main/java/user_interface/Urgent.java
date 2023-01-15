@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Sun Jan 01 16:22:09 GMT 2023
  */
 
-package Interface;
+package user_interface;
 
 import java.awt.*;
 import javax.swing.*;

@@ -1,6 +1,6 @@
 package netRelated;
 
-import Interface.GUI_test;
+import user_interface.GUI_test;
 import com.google.gson.Gson;
 import master.Patient;
 
