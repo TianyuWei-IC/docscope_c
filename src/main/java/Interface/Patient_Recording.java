@@ -261,6 +261,7 @@ public class Patient_Recording extends JFrame {
         setPreferredSize(new Dimension(500, 300));
         setMinimumSize(new Dimension(500, 300));
         setMaximumSize(new Dimension(500, 300));
+        setResizable(false);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

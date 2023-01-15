@@ -579,6 +579,9 @@ public class Patient_Editor extends JFrame {
         delete_button.setBorderPainted(false);
 
         //======== this ========
+        setResizable(false);
+        setMaximumSize(new Dimension(800, 600));
+        setMinimumSize(new Dimension(800, 600));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

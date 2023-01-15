@@ -499,6 +499,11 @@ public class GUI_test extends JFrame {
         current_patient.setBackground(new Color(84, 160, 173));
         current_patient.setOpaque(true);
         current_patient.setBorderPainted(false);
+
+        if(patient_list.getComponentCount()>=2){
+            Patient exchange = (Patient) patient_list.getComponent(0);
+            exchange.doClick();
+        }
     }
 
     private void initComponents() {
@@ -689,7 +694,7 @@ public class GUI_test extends JFrame {
         {
             value_display.setBackground(new Color(0x54a0ad));
             value_display.setPreferredSize(new Dimension(300, 1017));
-            value_display.setMaximumSize(new Dimension(300, 99999));
+            value_display.setMaximumSize(new Dimension(300, 1017));
             value_display.setMinimumSize(new Dimension(300, 1017));
             value_display.setLayout(new MigLayout(
                 "hidemode 3",

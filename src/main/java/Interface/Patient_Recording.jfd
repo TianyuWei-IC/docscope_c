@@ -13,6 +13,7 @@ new FormModel {
 			"preferredSize": new java.awt.Dimension( 500, 300 )
 			"minimumSize": new java.awt.Dimension( 500, 300 )
 			"maximumSize": new java.awt.Dimension( 500, 300 )
+			"resizable": false
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "PatientRecordingWindowClosing", true ) )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowOpened", "thisWindowOpened", true ) )
 			add( new FormComponent( "javax.swing.JLabel" ) {

@@ -72,7 +72,7 @@ public class Patient_Adder extends JFrame {
     /**
      *when Patient Adder is closed, this will save the changed setting of the patient both in the client and server
      */
-    private void thisWindowClosed(WindowEvent e) throws InterruptedException {
+    private void thisWindowClosed(WindowEvent e){
 
         /*
         if the save button is clicked, we need to create the patient both on client and add all the parameters on the server
@@ -512,14 +512,14 @@ public class Patient_Adder extends JFrame {
         //save_button.disableProperty().bind(this.first_name_field.isEmpty());
 
         //======== this ========
+        setMinimumSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
+        setResizable(false);
+        setMaximumSize(new Dimension(800, 600));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                try {
-                    thisWindowClosed(e);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
+                thisWindowClosed(e);
             }
             @Override
             public void windowClosing(WindowEvent e) {
@@ -600,7 +600,6 @@ public class Patient_Adder extends JFrame {
                     name.add(first_name, "cell 0 0");
 
                     //---- first_name_field ----
-                    first_name_field.setText("TEST");
                     first_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     first_name_field.addKeyListener(new KeyAdapter() {
                         @Override
@@ -616,7 +615,6 @@ public class Patient_Adder extends JFrame {
                     name.add(last_name, "cell 2 0");
 
                     //---- last_name_field ----
-                    last_name_field.setText("TEST");
                     last_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     last_name_field.addKeyListener(new KeyAdapter() {
                         @Override
