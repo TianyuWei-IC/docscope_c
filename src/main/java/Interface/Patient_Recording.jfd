@@ -14,6 +14,7 @@ new FormModel {
 			"minimumSize": new java.awt.Dimension( 500, 300 )
 			"maximumSize": new java.awt.Dimension( 500, 300 )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "PatientRecordingWindowClosing", true ) )
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowOpened", "thisWindowOpened", true ) )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "recording_title"
 				"text": "Recordings"
@@ -69,7 +70,6 @@ new FormModel {
 					name: "dateChooser1"
 					auxiliary() {
 						"JavaCodeGenerator.customCreateCode": "new JDateChooser();"
-						"JavaCodeGenerator.postCreateCode": "dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime(current_patient.reference_value)));\ndateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));\ndateChooser1.setDate(new Date(netAction.getInitialTime(current_patient.reference_value)));"
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
@@ -194,4 +194,3 @@ new FormModel {
 		} )
 	}
 }
-

@@ -162,6 +162,12 @@ public class Patient_Recording extends JFrame {
         display.A1.add(recordingPanel);
     }
 
+    private void thisWindowOpened(WindowEvent e) {
+        dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
+        dateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));
+        dateChooser1.setDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -183,9 +189,6 @@ public class Patient_Recording extends JFrame {
         panel1 = new JPanel();
         label1 = new JLabel();
         dateChooser1 = new JDateChooser();
-        dateChooser1.setMinSelectableDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
-        dateChooser1.setMaxSelectableDate(new Timestamp(System.currentTimeMillis()));
-        dateChooser1.setDate(new Date(netAction.getInitialTime(current_patient.reference_value)));
         time_intervel_select_panel = new JPanel();
         start_time_label = new JLabel();
         String[] hour_pack = new String[24];
@@ -224,6 +227,10 @@ public class Patient_Recording extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 PatientRecordingWindowClosing(e);
+            }
+            @Override
+            public void windowOpened(WindowEvent e) {
+                thisWindowOpened(e);
             }
         });
         var contentPane = getContentPane();
