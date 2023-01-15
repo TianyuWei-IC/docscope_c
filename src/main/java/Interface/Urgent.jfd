@@ -72,7 +72,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "abnormal_signal"
 						"text": "text"
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 20, false )
+						"font": new java.awt.Font( "Arial", 0, 32 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}
@@ -82,7 +82,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "high_low"
 						"text": "text"
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 20, false )
+						"font": new java.awt.Font( "Arial", 0, 32 )
 						auxiliary() {
 							"JavaCodeGenerator.variableModifiers": 1
 						}

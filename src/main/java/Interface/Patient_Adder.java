@@ -34,12 +34,11 @@ public class Patient_Adder extends JFrame {
     }
 
     /**
-     * when the save_button is pressure, the loading window will be pop up telling the server-communication may
+     * when the save_button is pressed, the loading window will be pop up telling the server-communication may
      * takes time. Then dispose the adder window and proceed to PatientAdderWindowClosing(event);, which deals
      * with updating saved results on server
      */
     private void save_button(ActionEvent e) {
-        System.out.println(loading.isVisible());
         loading.setVisible(true);
         loading.setAlwaysOnTop(true);
         this.save_or_not = true;
@@ -74,8 +73,10 @@ public class Patient_Adder extends JFrame {
      *when Patient Adder is closed, this will save the changed setting of the patient both in the client and server
      */
     private void thisWindowClosed(WindowEvent e) throws InterruptedException {
+
         /*
-        if the save button is clicked, 
+        if the save button is clicked, we need to create the patient both on client and add all the parameters on the server
+         based on the info on the Patient Adder panel.
          */
         if(save_or_not) {
             String gender = "male";
@@ -85,9 +86,12 @@ public class Patient_Adder extends JFrame {
                 gender = "male";
             }
             if (mainGUI.patient_list.getComponentCount()!=0){
+                /*
+                if there is a patient already displaying on the mainGUI, access to the patient through its body temperature
+                table which is on the mainGUI. Once the patient is accessed, cancel all its updater/worker.
+                 */
                 Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
                 Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
-
                 Patient previous_patient = current_temp_cl_display.patient;
                 previous_patient.panelEcg1.worker.cancel(true);
                 previous_patient.panelEcg2.worker.cancel(true);
@@ -103,7 +107,9 @@ public class Patient_Adder extends JFrame {
             }else{
                 enableDisplaySettings();
             }
-            // creates a master.Patient object contains all patient's parameters
+            /* creates a Patient object contains all patient's parameters, all the signal will be replaced will
+              be replaced by the display() method which is called in the constructor of the Patient object
+             */
             Patient new_patient = new Patient(
                     first_name_field.getText(),
                     last_name_field.getText(),
@@ -143,8 +149,11 @@ public class Patient_Adder extends JFrame {
                     new_patient.first_name, new_patient.last_name, gender, new_patient.year_of_birth);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            // add the patient to the patient list(JPanel)
             mainGUI.patient_list.add(new_patient);
+            // update the display
             mainGUI.patient_list.updateUI();
+            //close Patient Adder
             loading.dispose();
 
             // now make change the color on the Patient(as a button)
@@ -154,9 +163,11 @@ public class Patient_Adder extends JFrame {
             current_patient.setBackground(new Color(84, 160, 173));
             current_patient.setOpaque(true);
             current_patient.setBorderPainted(false);
+        // if the save button is not click dispose the loading notice
         }else {
             loading.dispose();
         }
+        // regardless saving or directly closing the window, the patient adder button should be enabled
         this.mainGUI.add_new_patient.setEnabled(true);
     }
 
@@ -349,7 +360,7 @@ public class Patient_Adder extends JFrame {
                     (dia_min_value_double>dia_max_value_double)|
                     (resp_min_value_double>resp_max_value_double)|
                     first_name_field.getText().isEmpty()|
-                    last_name_field.getText().isEmpty())
+                    last_name_field.getText().isEmpty()|ref_selector.getComponentCount()==0)
             {
                 save_button.setEnabled(false);
             }else{
@@ -435,6 +446,10 @@ public class Patient_Adder extends JFrame {
     private void last_name_fieldKeyReleased(KeyEvent e) {
         value_check();
     }
+
+    private void thisWindowOpened(WindowEvent e) {
+        value_check();
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void initComponents() {
@@ -510,6 +525,10 @@ public class Patient_Adder extends JFrame {
             public void windowClosing(WindowEvent e) {
                 PatientAdderWindowClosing(e);
             }
+            @Override
+            public void windowOpened(WindowEvent e) {
+                thisWindowOpened(e);
+            }
         });
         var contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
@@ -582,6 +601,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- first_name_field ----
                     first_name_field.setText("TEST");
+                    first_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     first_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {
@@ -597,6 +617,7 @@ public class Patient_Adder extends JFrame {
 
                     //---- last_name_field ----
                     last_name_field.setText("TEST");
+                    last_name_field.setFont(new Font("Arial", Font.PLAIN, 12));
                     last_name_field.addKeyListener(new KeyAdapter() {
                         @Override
                         public void keyReleased(KeyEvent e) {

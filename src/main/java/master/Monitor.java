@@ -1,6 +1,8 @@
 package master;
 
 import Interface.GUI_test;
+import Interface.Server_Login;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -25,9 +27,12 @@ public class Monitor {
                     ex.printStackTrace();
                 }
                 // create the GUI and set visible and exit on close
-                GUI_test mainPanel=new GUI_test();
-                mainPanel.setVisible(true);
-                mainPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                GUI_test mainPanel=new GUI_test();
+//                mainPanel.setVisible(true);
+//                mainPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                Server_Login login = new Server_Login();
+                login.setVisible(true);
+                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
