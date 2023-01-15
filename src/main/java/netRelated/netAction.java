@@ -6,7 +6,6 @@ import master.Patient;
 
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -23,30 +22,40 @@ import java.util.List;
 
 import static java.lang.Math.floor;
 
-
+/**
+ * This class contains all method needed to communicate with the servlet and the database
+ */
 public class netAction {
+    /**
+     * address of the database
+     */
     public static String dbUrl = "jdbc:postgresql://localhost:5432/postgres";
+    /**
+     * address of the servlet
+     */
+    public static String servletUrl="http://localhost:8080/docScope_s/data";
+    /**
+     * username of the database
+     */
+    public static String userName="postgres";
+    /**
+     * password of the database
+     */
+    public static String password="1234";
 
-    public static void databaseUpdate(String order) {
-        Connection conn = null;
-        PreparedStatement s = null;
-        try {
-            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            s = conn.prepareStatement(order);
-            s.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("execute fail in time");
-        }
-        try {
-            s.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println("end connection fail");
-        }
-    }
-
+    /**
+     * Give the response pack of real data between start time and end time
+     * @param startTime corresponding time of the value before the first value needed
+     * @param endTime corresponding time of the first value needed
+     * @param initialTime time the servlet starts
+     * @param type type of the data needed
+     * @param interval sampling interval of data in milli seconds
+     * @param ref reference of the patient
+     * @return value needed and the corresponding time of the last value
+     */
     public static responsePack recordData(long startTime, long endTime, long initialTime,
                                           String type, int interval,String ref) {
+        //set the table name based on type, and change the type name to which the database is using
         String table = ref+"slow";
         if (type == "body temperature") {
             type = "temperature";
@@ -59,48 +68,45 @@ public class netAction {
         } else if (type == "respiratory rate") {
             type = "respiratory";
         }else table=ref+"fast";
-        List<Double> values = new ArrayList<>();
+
         responsePack respPack = new responsePack();
-        Connection conn = null;
-        PreparedStatement s = null;
+        List<Double> values = new ArrayList<>();
         String orderEcg1 = "select " + type + " from " + table + " where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / interval);
-        int index2 = (int) floor((endTime - initialTime) / interval);
-        if (index1 <= 0) {
-            System.out.println("empty");
-        }
+        // calculate the id based on the given time
+        int index1 = (int) floor((double) (startTime - initialTime) / interval);
+        int index2 = (int) floor((double) (endTime - initialTime) / interval);
         try {
-            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            s = conn.prepareStatement(orderEcg1);
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
+            PreparedStatement s = conn.prepareStatement(orderEcg1);
             s.setInt(1, index1);
             s.setInt(2, index2);
-        } catch (SQLException e) {
-            System.out.println("statement fail in value");
-        }
-        try {
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
+                //get the data from the database
                 values.add(resultSet.getDouble(type));
             }
-            respPack.setLastTime(startTime + interval * (values.size()));
-//            System.out.println("returned size is "+values.size());
-//            System.out.println("last time is " + respPack.lastTime);
-//            System.out.println("start time is " + startTime);
-//            System.out.println("end time is " + endTime);
-        } catch (Exception e) {
-            System.out.println("resultSet fail in value");
-        }
-        try {
             s.close();
             conn.close();
-        } catch (SQLException e) {
-            System.out.println("end connection fail");
-        }
+        } catch (SQLException ignored) {}
+        // In case the database does not have the data at end time,
+        // return the actual time corresponding to the last value
+        respPack.setLastTime(startTime + (long) interval * (values.size()));
         respPack.setValueList(values);
         return respPack;
     }
+
+    /**
+     * Give the response pack of averaged data between start time and end time
+     * @param startTime corresponding time of the value before the first value needed
+     * @param endTime corresponding time of the first value needed
+     * @param initialTime time the servlet starts
+     * @param type type of the data needed
+     * @param ref reference of the patient
+     * @return value needed and the corresponding time of the last value
+     */
     public static responsePack averageData(long startTime, long endTime, long initialTime,
                                            String type,String ref) {
+        //set the table name based on type, and change the type name to which the database is using
         String table = ref+"slowaverage";
         if (type == "body temperature") {
             type = "temperature";
@@ -113,34 +119,39 @@ public class netAction {
         } else if (type == "respiratory rate") {
             type = "respiratory";
         }
-        List<Double> values = new ArrayList<>();
+
         responsePack respPack = new responsePack();
-        Connection conn = null;
-        PreparedStatement s = null;
+        List<Double> values = new ArrayList<>();
         String orderEcg1 = "select " + type + " from " + table + " where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / 60000);
-        int index2 = (int) floor((endTime - initialTime) / 60000);
-        if (index1 <= 0) {
-            System.out.println("empty in average");
-        }
+        // calculate the id based on the given time
+        int index1 = (int) floor((double)(startTime - initialTime) / 60000);
+        int index2 = (int) floor((double)(endTime - initialTime) / 60000);
         try {
-            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            s = conn.prepareStatement(orderEcg1);
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
+            PreparedStatement s = conn.prepareStatement(orderEcg1);
             s.setInt(1, index1);
             s.setInt(2, index2);
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
+                //get the data from the database
                 values.add(resultSet.getDouble(type));
             }
-            respPack.setLastTime(startTime + (long) 60000 * (values.size()));
             s.close();
             conn.close();
-        } catch (SQLException e) {
-            System.out.println("netAction fail in average");
-        }
+        } catch (SQLException ignored) {}
+        // In case the database does not have the data at end time,
+        // return the actual time corresponding to the last value
+        respPack.setLastTime(startTime + (long) 60000 * (values.size()));
         respPack.setValueList(values);
         return respPack;
     }
+
+    /**
+     * to find the abnormal intervals for the given patient
+     * @param patient find abnormal intervals for this Patient object
+     * @return abnormal intervals in a list: Heart rate high and low, body temperature high and low,
+     * respiratory rate high and low, systolic pressure high and low, diastolic pressure high and low
+     */
     public static List<List<String>> findAbnormal(Patient patient){
         long initialTime=getInitialTime(patient.reference_value);
         String orderTime = "select * from "+patient.reference_value+"slowaverage";
@@ -156,9 +167,11 @@ public class netAction {
         List<String> diaLow=new ArrayList<>();
         Timestamp timestamp;
         try {
-            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            //get all the average signals of the specific patient from the database
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
             PreparedStatement s = conn.prepareStatement(orderTime);
             ResultSet resultSet = s.executeQuery();
+            //boolean values to determine whether the abnormal happens
             boolean HeartHigh=false;
             boolean HeartLow=false;
             boolean TempHigh=false;
@@ -171,6 +184,8 @@ public class netAction {
             boolean DiaLow=false;
             while (resultSet.next()) {
                 if (resultSet.getDouble("heart")>patient.hr_max){
+                    //Given this type of abnormal did not happen before, the corresponding time
+                    // will add to the list of string as the abnormal starting time
                     if(!HeartHigh) {
                         timestamp = new Timestamp(initialTime + resultSet.getInt("id") * 60000L);
                         heartHigh.add(timestamp.toString().substring(0,16) + " - ");
@@ -186,6 +201,8 @@ public class netAction {
                 }
                 else{
                     if (HeartHigh){
+                        //Given a normal value is found, and that specific abnormal was found before,
+                        //the corresponding time will add to the list of string as the abnormal ending time
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                         heartHigh.set(heartHigh.size()-1,heartHigh.get(heartHigh.size()-1)+timestamp.toString().substring(0,16));
                         HeartHigh=false;
@@ -193,7 +210,6 @@ public class netAction {
                         timestamp=new Timestamp(initialTime+resultSet.getInt("id")* 60000L);
                         heartLow.set(heartLow.size()-1,heartLow.get(heartLow.size()-1)+timestamp.toString().substring(0,16));
                         HeartLow=false;
-//                        System.out.println(resultSet.getDouble("heart")+"   "+patient.hr_min+"-"+patient.hr_max);
                     }
                 }
 
@@ -302,16 +318,21 @@ public class netAction {
                 }
             }
             s.close();
-        } catch (SQLException e) {
-            System.out.println("end statement fail in time");
-        }
+        } catch (SQLException ignored) {}
         return Arrays.asList(heartHigh,heartLow,tempHigh,tempLow,respHigh,respLow,sysHigh,sysLow,diaHigh,diaLow);
     }
+
+    /**
+     * find the start time when the database begin to store the data of the specific patient
+     * @param ref reference of that specific patient
+     * @return correspond time of the first value in the database
+     */
     public static long getInitialTime(String ref) {
         long initialTime = 0;
         String orderTime = "select initialtime from patientlist where reference=?";
         try {
-            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            //get initial time from the database
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
             PreparedStatement s = conn.prepareStatement(orderTime);
             s.setString(1,ref);
             ResultSet resultSet = s.executeQuery();
@@ -319,22 +340,28 @@ public class netAction {
                 initialTime = resultSet.getLong(1);
             }
             s.close();
-        } catch (SQLException e) {
-            System.out.println("end statement fail in time");
-        }
+        } catch (SQLException ignored) {}
         return initialTime;
     }
+
+    /**
+     * get patients' information, if doctor have added them through this application before
+     * get all the references in the database
+     * @param patient_list panel to store patients' information in the application
+     * @param gui the interface of the application
+     * @return list of references
+     */
     public static List<String> getPatientInformation(JPanel patient_list, GUI_test gui){
         String orderTime = "select * from patientlist";
         List<String> references = new ArrayList<>();
         try {
-            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            //get patients' information from the database
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
             PreparedStatement s = conn.prepareStatement(orderTime);
             ResultSet resultSet = s.executeQuery();
-
             while (resultSet.next()) {
-                if (resultSet.getString("firstname") == null) {}
-                else {
+                // null first name means the doctor haven't set this patient before
+                if (resultSet.getString("firstname") != null) {
                     patient_list.add(new Patient(resultSet.getString("firstname"),
                             resultSet.getString("lastname"),
                             resultSet.getString("reference"),
@@ -352,23 +379,28 @@ public class netAction {
                             resultSet.getInt("respiratoryhigh"),
                             gui));
                 }
+                //get all references existing int the database
                 references.add(resultSet.getString("reference"));
             }
-
             s.close();
-        } catch (SQLException e) {
-            System.out.println("end statement fail in time");
-        }
+        } catch (SQLException ignored) {}
         return references;
     }
+
+    /**
+     * post the email address to the servlet
+     * if the email address is null, try to get the email address stored in the servlet
+     * @param emailAddress email address entered by the user
+     * @return email address from the servlet (input is null) or from the inputs
+     */
     public static String postEmailAddress(String emailAddress) {
         String newEmailAddress=null;
         Gson gson = new Gson();
-        String jsonString = gson.toJson(emailAddress);
-        String message = jsonString;
+        String message = gson.toJson(emailAddress);
         byte[] body = message.getBytes(StandardCharsets.UTF_8);
         try {
-            URL myURL = new URL("http://localhost:8080/docScope_s/data");
+            //post the email address
+            URL myURL = new URL(servletUrl);
             HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Accept", "application/json");
@@ -378,6 +410,7 @@ public class netAction {
             try (OutputStream outputStream = conn.getOutputStream()) {
                 outputStream.write(body, 0, body.length);
             }
+            //get the email address from the servlet
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String inputLine;
             while ((inputLine = bufferedReader.readLine()) != null) {
@@ -386,35 +419,31 @@ public class netAction {
             bufferedReader.close();
         }catch (Exception ignore){}
         if (newEmailAddress == null) {
+            //null feedback from the servlet means the servlet has received the email address
+            // or there is no email address in the servlet
             return emailAddress;
         }else return newEmailAddress;
+        //not null feedback means a null email address is posted, and the servlet gives the stored email address
     }
+
+    /**
+     * update information of the specific patient to the database, and tell the servlet it has been updated
+     * @param reference reference of the specific patient
+     * @param threshold new thresholds needed to be updated
+     * @param first_name first name of the patient
+     * @param last_name last name of the patient
+     * @param gender gender of the patient
+     * @param year year of birth of the patient
+     */
     public static void putReference(String reference,List<Double> threshold,
                                     String first_name,String last_name,String gender,int year) {
-        updateThreshold(reference,threshold,first_name,last_name,gender,year);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            System.out.println("sleep fail");
-        }
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(reference);
-        var request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/docScope_s/data"))
-                .header("Content-Type", "application/json")
-                .PUT(HttpRequest.BodyPublishers.ofString(jsonString))
-                .build();
-        try {
-            HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        }catch (Exception ignore){}
-    }
-    public static void updateThreshold(String ref,List<Double> threshold,
-                                       String first_name,String last_name,String gender,int year){
+        // update the database
         String order="update patientList set temperaturehigh=?,temperaturelow=?,hearthigh=?," +
                 "heartlow=?,systolichigh=?,systoliclow=?,diastolichigh=?,diastoliclow=?," +
-                "respiratoryhigh=?,respiratorylow=?,firstname=?,lastname=?,gender=?,yearbirth=? where reference='"+ref+"'";
+                "respiratoryhigh=?,respiratorylow=?,firstname=?,lastname=?,gender=?,yearbirth=? " +
+                "where reference='"+reference+"'";
         try {
-            Connection conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
             PreparedStatement s = conn.prepareStatement(order);
             for(int i=0;i<10;i++) {
                 s.setDouble(i+1, threshold.get(i));
@@ -426,46 +455,41 @@ public class netAction {
             s.executeUpdate();
             s.close();
             conn.close();
-        } catch (SQLException e) {
-            System.out.println("end connection fail");
-        }
-    }
-    public static void deletePatient(String ref){
-        String order="update patientlist set firstname=null,lastname=null where reference=?";
-        Connection conn = null;
-        PreparedStatement s = null;
+        } catch (SQLException ignored) {}
+        // tell the servlet who has been updated
         try {
-            conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
-            s = conn.prepareStatement(order);
+            Thread.sleep(5000);
+        } catch (InterruptedException ignored) {}
+        Gson gson = new Gson();
+        String message = gson.toJson(reference);
+        var req = HttpRequest.newBuilder()
+                .uri(URI.create(servletUrl))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(message))
+                .build();
+        try {
+            //send the reference of the updated patient to the servlet
+            HttpClient.newHttpClient().send(req, HttpResponse.BodyHandlers.ofString());
+        }catch (Exception ignored){}
+    }
+
+    /**
+     * delete the name of the specific patient from the database,
+     * so that the servlet won't check the status of this patient.
+     * but the database will still store that patient's data
+     * @param ref reference of the specific patient
+     */
+    public static void deletePatient(String ref){
+        //update the name of specific patient to null
+        String order="update patientlist set firstname=null,lastname=null where reference=?";
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, userName, password);
+            PreparedStatement s = conn.prepareStatement(order);
             s.setString(1,ref);
             s.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("execute fail in time");
-        }
-        try {
             s.close();
             conn.close();
-        } catch (SQLException e) {
-            System.out.println("end connection fail");
-        }
+        } catch (SQLException ignored) {}
     }
-//    public static void makeGetRequest() throws IOException {
-//        URL myURL = new URL("https://servlet10032.herokuapp.com/patients");
-//        HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
-//        conn.setRequestMethod("GET");
-//        conn.setRequestProperty("Accept", "text/html");
-//        conn.setRequestProperty("charset", "utf-8");
-//
-//        BufferedReader in = new BufferedReader(
-//                new InputStreamReader(myURL.openStream()));
-//
-//        String inputLine;
-//// Read the body of the response
-//        while ((inputLine = in.readLine()) != null) {
-//            System.out.println(inputLine);
-//        }
-//        in.close();
-//
-//    }
 }
 
