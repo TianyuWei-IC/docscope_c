@@ -27,6 +27,7 @@ public class Recording_Display extends JFrame {
         start_time = new JLabel();
         to_label = new JLabel();
         end_time = new JLabel();
+        notice = new JLabel();
         A1 = new JPanel();
 
         //======== this ========
@@ -71,7 +72,11 @@ public class Recording_Display extends JFrame {
                 "[155,fill]" +
                 "[63,fill]" +
                 "[34,fill]" +
-                "[96,fill]",
+                "[96,fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[fill]" +
+                "[444,fill]",
                 // rows
                 "[]"));
 
@@ -94,6 +99,12 @@ public class Recording_Display extends JFrame {
             end_time.setText("text");
             end_time.setFont(new Font("Arial", Font.PLAIN, 12));
             time_info.add(end_time, "cell 3 0");
+
+            //---- notice ----
+            notice.setText("* If you see nothing showing, it is very likely there is no recording during that period, please adjust and try again");
+            notice.setFont(new Font("Arial", Font.BOLD, 12));
+            notice.setForeground(Color.red);
+            time_info.add(notice, "cell 7 0");
         }
         contentPane.add(time_info, "cell 0 1");
 
@@ -122,6 +133,7 @@ public class Recording_Display extends JFrame {
     public JLabel start_time;
     private JLabel to_label;
     public JLabel end_time;
+    private JLabel notice;
     public JPanel A1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

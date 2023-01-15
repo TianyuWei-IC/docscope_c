@@ -17,7 +17,7 @@ public class inputData {
     /**
      * index of the y-axis values of partData that should be updated
      */
-    private int position = 0;
+    int position = 0;
     /**
      * number of the y-axis values
      */

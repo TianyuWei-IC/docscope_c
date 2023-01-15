@@ -42,6 +42,9 @@ public class Urgent extends JFrame {
         setBackground(new Color(0xf60404));
         setForeground(new Color(0xf60404));
         setResizable(false);
+        setMinimumSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
+        setMaximumSize(new Dimension(800, 600));
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
@@ -53,6 +56,7 @@ public class Urgent extends JFrame {
         //======== urgent_panel ========
         {
             urgent_panel.setForeground(Color.white);
+            urgent_panel.setFont(new Font("Arial", Font.PLAIN, 12));
             urgent_panel.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
@@ -120,10 +124,11 @@ public class Urgent extends JFrame {
                 high_low.setFont(new Font("Arial", Font.PLAIN, 32));
                 abnormal_type.add(high_low, "cell 2 0");
             }
-            urgent_panel.add(abnormal_type, "cell 0 1");
+            urgent_panel.add(abnormal_type, "cell 0 1,align center center,grow 0 0");
 
             //======== detected_time_display ========
             {
+                detected_time_display.setFont(new Font("Arial", Font.PLAIN, 12));
                 detected_time_display.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
@@ -139,7 +144,7 @@ public class Urgent extends JFrame {
                 detected_time_display.add(detect_label, "cell 0 0");
 
                 //---- urgent_time ----
-                urgent_time.setFont(urgent_time.getFont().deriveFont(urgent_time.getFont().getSize() + 15f));
+                urgent_time.setFont(new Font("Arial", Font.PLAIN, 27));
                 detected_time_display.add(urgent_time, "cell 1 0");
 
                 //---- on_patient_label ----
@@ -147,7 +152,7 @@ public class Urgent extends JFrame {
                 on_patient_label.setFont(new Font("Arial", Font.PLAIN, 27));
                 detected_time_display.add(on_patient_label, "cell 2 0");
             }
-            urgent_panel.add(detected_time_display, "cell 0 2");
+            urgent_panel.add(detected_time_display, "cell 0 2,align left center,grow 0 0");
 
             //---- patient_name ----
             patient_name.setFont(patient_name.getFont().deriveFont(patient_name.getFont().getSize() + 15f));
@@ -156,7 +161,7 @@ public class Urgent extends JFrame {
             //---- immediate_action_table ----
             immediate_action_table.setText("An immediate action is required!");
             immediate_action_table.setFont(new Font("Arial", Font.PLAIN, 27));
-            urgent_panel.add(immediate_action_table, "cell 0 4");
+            urgent_panel.add(immediate_action_table, "cell 0 4,alignx left,growx 0");
         }
         contentPane.add(urgent_panel, "cell 0 0");
         pack();

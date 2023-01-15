@@ -17,7 +17,7 @@ import java.util.List;
 public class Chart_Label_Display {
     public Patient patient;
     public inputData dataInput;
-    private XYChart chart;
+    public XYChart chart;
 
     public long time;
     public Display_Chart display_chart;
@@ -28,7 +28,7 @@ public class Chart_Label_Display {
     private Double threshold_double_low;
     private Double baseline_value;
     public String type;
-    private Boolean pop_or_not;
+    public Boolean pop_or_not;
     private Timestamp time_urgent = new Timestamp(System.currentTimeMillis());
     private long time_milli;
     public Chart_Label_Update updater;

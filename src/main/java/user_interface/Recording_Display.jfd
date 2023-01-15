@@ -44,7 +44,7 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "[155,fill][63,fill][34,fill][96,fill]"
+				"$columnConstraints": "[155,fill][63,fill][34,fill][96,fill][fill][fill][fill][444,fill]"
 				"$rowConstraints": "[]"
 			} ) {
 				name: "time_info"
@@ -87,6 +87,14 @@ new FormModel {
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "notice"
+					"text": "* If you see nothing showing, it is very likely there is no recording during that period, please adjust and try again"
+					"font": new java.awt.Font( "Arial", 1, 12 )
+					"foreground": sfield java.awt.Color red
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 7 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 1"
