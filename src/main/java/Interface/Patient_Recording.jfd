@@ -5,14 +5,14 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[311,fill]"
+			"$columnConstraints": "[506,fill]"
 			"$rowConstraints": "[53][29][34][35][19][54]"
 		} ) {
 			name: "this"
 			"font": new java.awt.Font( "Dialog", 0, 8 )
-			"preferredSize": new java.awt.Dimension( 420, 300 )
-			"minimumSize": new java.awt.Dimension( 420, 300 )
-			"maximumSize": new java.awt.Dimension( 420, 300 )
+			"preferredSize": new java.awt.Dimension( 500, 300 )
+			"minimumSize": new java.awt.Dimension( 500, 300 )
+			"maximumSize": new java.awt.Dimension( 500, 300 )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "PatientRecordingWindowClosing", true ) )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "recording_title"
@@ -79,7 +79,7 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "[62,fill][80,fill][20,fill]0[26,fill][39,fill][60,fill][50,fill][fill][0,fill][48,fill]"
+				"$columnConstraints": "[62,fill][47,fill]0[0,fill]0[39,fill][60,fill][42,fill]0[0,fill]0[48,fill][fill]"
 				"$rowConstraints": "[46]0[]"
 			} ) {
 				name: "time_intervel_select_panel"
@@ -107,7 +107,7 @@ new FormModel {
 					name: "colon"
 					"text": ":"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 3 0"
+					"value": "cell 2 0"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "start_time_min"
@@ -121,13 +121,13 @@ new FormModel {
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "start_time_min_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 4 0"
+					"value": "cell 3 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "end_time_label"
 					"text": "End Time:"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 5 0"
+					"value": "cell 4 0"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "end_time_hour"
@@ -140,13 +140,13 @@ new FormModel {
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "end_time_hour_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 7 0"
+					"value": "cell 5 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "colon2"
 					"text": ":"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 8 0"
+					"value": "cell 6 0"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "end_time_min"
@@ -159,14 +159,24 @@ new FormModel {
 					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "end_time_min_click", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 9 0"
+					"value": "cell 7 0"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "hidemode 3"
+					"$columnConstraints": "[fill]"
+					"$rowConstraints": "[]"
+				} ) {
+					name: "panel2"
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 8 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
-				"text": "* For ECG,the recommend time interval is 10 seconds"
+				"text": "* For ECG and respiratory pattern, the recommend time interval is 1 minute"
+				"foreground": new java.awt.Color( 255, 0, 51, 255 )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 4"
 			} )
@@ -180,7 +190,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 470, 320 )
+			"size": new java.awt.Dimension( 510, 320 )
 		} )
 	}
 }

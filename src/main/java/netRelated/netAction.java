@@ -101,7 +101,7 @@ public class netAction {
         return respPack;
     }
     public static responsePack averageData(long startTime, long endTime, long initialTime,
-                                           String type, int interval,String ref) {
+                                           String type,String ref) {
         String table = ref+"slowaverage";
         if (type == "body temperature") {
             type = "temperature";
@@ -119,33 +119,25 @@ public class netAction {
         Connection conn = null;
         PreparedStatement s = null;
         String orderEcg1 = "select " + type + " from " + table + " where id>? and id<=?";
-        int index1 = (int) floor((startTime - initialTime) / interval);
-        int index2 = (int) floor((endTime - initialTime) / interval);
+        int index1 = (int) floor((startTime - initialTime) / 60000);
+        int index2 = (int) floor((endTime - initialTime) / 60000);
         if (index1 <= 0) {
-            System.out.println("empty");
+            System.out.println("empty in average");
         }
         try {
             conn = DriverManager.getConnection(dbUrl, "postgres", "1234");
             s = conn.prepareStatement(orderEcg1);
             s.setInt(1, index1);
             s.setInt(2, index2);
-        } catch (SQLException e) {
-            System.out.println("statement fail in value");
-        }
-        try {
             ResultSet resultSet = s.executeQuery();
             while (resultSet.next()) {
                 values.add(resultSet.getDouble(type));
             }
-            respPack.setLastTime(startTime + (long) interval * (values.size()));
-        } catch (Exception e) {
-            System.out.println("resultSet fail in value");
-        }
-        try {
+            respPack.setLastTime(startTime + (long) 60000 * (values.size()));
             s.close();
             conn.close();
         } catch (SQLException e) {
-            System.out.println("end connection fail");
+            System.out.println("netAction fail in average");
         }
         respPack.setValueList(values);
         return respPack;

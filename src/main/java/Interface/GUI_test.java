@@ -15,6 +15,7 @@ import master.*;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Math.floor;
+import static netRelated.netAction.findAbnormal;
 import static netRelated.netAction.getPatientInformation;
 
 import netRelated.netAction;
@@ -34,9 +35,7 @@ public class GUI_test extends JFrame {
         initComponents();
     }
 
-    private void real_time_plots(ActionEvent e) {
-        // TODO add your code here
-    }
+
 
     private void recordings(ActionEvent e) {
         Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
@@ -59,7 +58,17 @@ public class GUI_test extends JFrame {
     }
 
     private void report_button(ActionEvent e) {
-        // TODO add your code here
+        Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
+        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+
+        Patient current_patient = current_temp_cl_display.patient;
+        List<List<String>> timeLine=findAbnormal(current_patient);
+        new CreatePDF("",current_patient.reference_value,timeLine.get(0),timeLine.get(1),timeLine.get(2),
+                timeLine.get(3),timeLine.get(4),timeLine.get(5),timeLine.get(6),timeLine.get(7),timeLine.get(8),
+                timeLine.get(9));
+
+        Report_Notice notice = new Report_Notice();
+        notice.setVisible(true);
     }
 
     private void Temp_update_button(ActionEvent e) {
@@ -350,7 +359,7 @@ public class GUI_test extends JFrame {
     }
 
     private void email_update(ActionEvent e) {
-        // TODO add your code here
+
     }
 
     private void email_addressKeyReleased(KeyEvent e) {
@@ -378,13 +387,25 @@ public class GUI_test extends JFrame {
 
         System.out.println("hi");
         List<String> references=getPatientInformation(this.patient_list,this);
+        if(patient_list.getComponentCount()>0){
+            this.recordings.setEnabled(true);
+            this.report_button.setEnabled(true);
+            this.ECG_update_button.setEnabled(true);
+            this.RESP_rate_update_button.setEnabled(true);
+            this.Temp_update_button.setEnabled(true);
+            this.RESP_pattern_update_button.setEnabled(true);
+            this.HR_update_button.setEnabled(true);
+            this.BP_update_button.setEnabled(true);
+
+        }
+
         this.referenceList = new String[references.size()];
         references.toArray(this.referenceList);
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         patientList_recordings = new JPanel();
         NewPatient = new JPanel();
         label1 = new JLabel();
@@ -1304,7 +1325,7 @@ public class GUI_test extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     public JPanel patientList_recordings;
     public JPanel NewPatient;
     private JLabel label1;

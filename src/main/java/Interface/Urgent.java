@@ -18,7 +18,7 @@ public class Urgent extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         urgent_panel = new JPanel();
         urgent_title = new JPanel();
         urgent_icon = new JLabel();
@@ -41,6 +41,7 @@ public class Urgent extends JFrame {
         //======== this ========
         setBackground(new Color(0xf60404));
         setForeground(new Color(0xf60404));
+        setResizable(false);
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
@@ -153,7 +154,7 @@ public class Urgent extends JFrame {
             urgent_panel.add(patient_name, "cell 0 3");
 
             //---- immediate_action_table ----
-            immediate_action_table.setText("Immediate action is required!");
+            immediate_action_table.setText("An immediate action is required!");
             immediate_action_table.setFont(immediate_action_table.getFont().deriveFont(immediate_action_table.getFont().getSize() + 15f));
             urgent_panel.add(immediate_action_table, "cell 0 4");
         }
@@ -164,7 +165,7 @@ public class Urgent extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JPanel urgent_panel;
     private JPanel urgent_title;
     private JLabel urgent_icon;

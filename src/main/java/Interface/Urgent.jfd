@@ -11,6 +11,7 @@ new FormModel {
 			name: "this"
 			"background": new java.awt.Color( 246, 4, 4, 255 )
 			"foreground": new java.awt.Color( 246, 4, 4, 255 )
+			"resizable": false
 			auxiliary() {
 				"JavaCodeGenerator.postCreateCode": "FlatLightLaf.setup();\nthis.setDefaultLookAndFeelDecorated(true);\nthis.getRootPane().putClientProperty(\"JRootPane.titleBarBackground\", new Color(F60404));\nthis.getRootPane().putClientProperty(\"JRootPane.titleBarForeground\", Color.white);"
 			}
@@ -134,7 +135,7 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "immediate_action_table"
-					"text": "Immediate action is required!"
+					"text": "An immediate action is required!"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 15, false )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 4"

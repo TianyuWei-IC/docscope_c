@@ -41,8 +41,60 @@ public class Patient_Recording extends JFrame {
         this.mainGUI.recordings.setEnabled(true);
     }
 
-    private void generate_button_action(ActionEvent e) throws ParseException {
 
+    private String find_data_type(String signal_pack_select) {
+        if (Objects.equals(signal_pack_select, "ECG Lead I")) {
+            return "ecg1";
+        } else if (signal_pack_select == "ECG lead II") {
+            return "ecg2";
+        } else if (signal_pack_select =="Respiratory Pattern") {
+            return "resp";
+        } else if (signal_pack_select == "Heart Rate") {
+            return "heart rate";
+        } else if (signal_pack_select =="Respiratory Rate") {
+            return "respiratory rate";
+        } else if (signal_pack_select == "Systolic Blood Pressure") {
+            return "systolic blood pressure";
+        } else if (signal_pack_select == "Diastolic Blood Pressure") {
+            return "diastolic blood pressure";
+        } else if (signal_pack_select == "Body Temperature") {
+            return "body temperature";
+        }
+        return signal_pack_select;
+    }
+
+    private void time_value_check_click(){
+        try {
+            Integer start_hour = Integer.parseInt((String) start_time_hour.getSelectedItem());
+            Integer start_min = Integer.parseInt((String) start_time_min.getSelectedItem());
+            Integer end_hour = Integer.parseInt((String)end_time_hour.getSelectedItem());
+            Integer end_min = Integer.parseInt((String) end_time_min.getSelectedItem());
+            System.out.println(dateChooser1.getDate()!=null);
+
+            if (((start_hour<end_hour) | ((start_hour==end_hour) & (start_min<end_min)))& (dateChooser1.getDate()!=null)){
+                generate_button.setEnabled(true);
+            }else{
+                generate_button.setEnabled(false);
+            }
+        }catch(Exception error) {
+            generate_button.setEnabled(false);
+        }
+    }
+
+    private void start_time_hour_click(ActionEvent e) {
+        time_value_check_click();
+    }
+    private void start_time_min_click(ActionEvent e) {
+        time_value_check_click();
+    }
+    private void end_time_hour_click(ActionEvent e) {
+        time_value_check_click();
+    }
+    private void end_time_min_click(ActionEvent e) {
+        time_value_check_click();
+    }
+
+    private void generate_button(ActionEvent e) throws ParseException {
         String Date = String.valueOf(dateChooser1.getDate());
 
 
@@ -83,8 +135,8 @@ public class Patient_Recording extends JFrame {
 
         long dataBaseInitialTime=netAction.getInitialTime();
         //get interval
-        Integer interval =1000;
-        Double period = 0.0166667;
+        Integer interval;
+        Double period = 1.0;
         responsePack respPack;
         if (type=="ecg1"|type=="ecg2"|type=="resp") {
             interval = 2;
@@ -97,9 +149,8 @@ public class Patient_Recording extends JFrame {
             respPack =netAction.averageData(start_in_milli,
                     end_in_milli,
                     dataBaseInitialTime,
-                    type,interval,this.current_patient.reference_value);
+                    type,this.current_patient.reference_value);
         }
-
         display.setVisible(true);
         Recording_Panel recordingPanel = new Recording_Panel(new inputData(respPack.valueList,dataBaseInitialTime,
                 period), respPack.lastTime,type,signal_pack_select,"recording");
@@ -108,62 +159,9 @@ public class Patient_Recording extends JFrame {
     }
 
 
-    private String find_data_type(String signal_pack_select) {
-        if (Objects.equals(signal_pack_select, "ECG Lead I")) {
-            return "ecg1";
-        } else if (signal_pack_select == "ECG lead II") {
-            return "ecg2";
-        } else if (signal_pack_select =="Respiratory Pattern") {
-            return "resp";
-        } else if (signal_pack_select == "Heart Rate") {
-            return "heart rate";
-        } else if (signal_pack_select =="Respiratory Rate") {
-            return "respiratory rate";
-        } else if (signal_pack_select == "Systolic Blood Pressure") {
-            return "systolic blood pressure";
-        } else if (signal_pack_select == "Diastolic Blood Pressure") {
-            return "diastolic blood pressure";
-        } else if (signal_pack_select == "Body Temperature") {
-            return "body temperature";
-        }
-        return signal_pack_select;
-    }
-
-    private  void time_value_check_click(){
-        try {
-            Integer start_hour = Integer.parseInt((String) start_time_hour.getSelectedItem());
-            Integer start_min = Integer.parseInt((String) start_time_min.getSelectedItem());
-            Integer end_hour = Integer.parseInt((String)end_time_hour.getSelectedItem());
-            Integer end_min = Integer.parseInt((String) end_time_min.getSelectedItem());
-            System.out.println(dateChooser1.getDate()!=null);
-
-            if (((start_hour<end_hour) | ((start_hour==end_hour) & (start_min<end_min)))& (dateChooser1.getDate()!=null)){
-                generate_button.setEnabled(true);
-            }else{
-                generate_button.setEnabled(false);
-            }
-        }catch(Exception error) {
-            generate_button.setEnabled(false);
-        }
-    }
-
-    private void start_time_hour_click(ActionEvent e) {
-        time_value_check_click();
-    }
-    private void start_time_min_click(ActionEvent e) {
-        time_value_check_click();
-    }
-    private void end_time_hour_click(ActionEvent e) {
-        time_value_check_click();
-    }
-    private void end_time_min_click(ActionEvent e) {
-        time_value_check_click();
-    }
-
-
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei 
+        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
         recording_title = new JLabel();
         signal_select_label = new JLabel();
         String[] signal_pack = new String[8];
@@ -209,14 +207,15 @@ public class Patient_Recording extends JFrame {
         end_time_hour = new JComboBox(hour_pack);
         colon2 = new JLabel();
         end_time_min = new JComboBox(min_pack);
+        panel2 = new JPanel();
         label2 = new JLabel();
         generate_button = new JButton();
 
         //======== this ========
         setFont(new Font(Font.DIALOG, Font.PLAIN, 8));
-        setPreferredSize(new Dimension(420, 300));
-        setMinimumSize(new Dimension(420, 300));
-        setMaximumSize(new Dimension(420, 300));
+        setPreferredSize(new Dimension(500, 300));
+        setMinimumSize(new Dimension(500, 300));
+        setMaximumSize(new Dimension(500, 300));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -227,7 +226,7 @@ public class Patient_Recording extends JFrame {
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
             // columns
-            "[311,fill]",
+            "[506,fill]",
             // rows
             "[53]" +
             "[29]" +
@@ -277,15 +276,14 @@ public class Patient_Recording extends JFrame {
                 "hidemode 3",
                 // columns
                 "[62,fill]" +
-                "[80,fill]" +
-                "[20,fill]0" +
-                "[26,fill]" +
+                "[47,fill]0" +
+                "[0,fill]0" +
                 "[39,fill]" +
                 "[60,fill]" +
-                "[50,fill]" +
-                "[fill]" +
-                "[0,fill]" +
-                "[48,fill]",
+                "[42,fill]0" +
+                "[0,fill]0" +
+                "[48,fill]" +
+                "[fill]",
                 // rows
                 "[46]0" +
                 "[]"));
@@ -303,41 +301,53 @@ public class Patient_Recording extends JFrame {
 
             //---- colon ----
             colon.setText(":");
-            time_intervel_select_panel.add(colon, "cell 3 0");
+            time_intervel_select_panel.add(colon, "cell 2 0");
 
             //---- start_time_min ----
             start_time_min.setMinimumSize(new Dimension(50, 30));
             start_time_min.setPreferredSize(new Dimension(50, 30));
             start_time_min.setMaximumSize(new Dimension(50, 30));
             start_time_min.addActionListener(e -> start_time_min_click(e));
-            time_intervel_select_panel.add(start_time_min, "cell 4 0");
+            time_intervel_select_panel.add(start_time_min, "cell 3 0");
 
             //---- end_time_label ----
             end_time_label.setText("End Time:");
-            time_intervel_select_panel.add(end_time_label, "cell 5 0");
+            time_intervel_select_panel.add(end_time_label, "cell 4 0");
 
             //---- end_time_hour ----
             end_time_hour.setMinimumSize(new Dimension(50, 30));
             end_time_hour.setPreferredSize(new Dimension(50, 30));
             end_time_hour.setMaximumSize(new Dimension(50, 30));
             end_time_hour.addActionListener(e -> end_time_hour_click(e));
-            time_intervel_select_panel.add(end_time_hour, "cell 7 0");
+            time_intervel_select_panel.add(end_time_hour, "cell 5 0");
 
             //---- colon2 ----
             colon2.setText(":");
-            time_intervel_select_panel.add(colon2, "cell 8 0");
+            time_intervel_select_panel.add(colon2, "cell 6 0");
 
             //---- end_time_min ----
             end_time_min.setMinimumSize(new Dimension(50, 30));
             end_time_min.setPreferredSize(new Dimension(50, 30));
             end_time_min.setMaximumSize(new Dimension(50, 30));
             end_time_min.addActionListener(e -> end_time_min_click(e));
-            time_intervel_select_panel.add(end_time_min, "cell 9 0");
+            time_intervel_select_panel.add(end_time_min, "cell 7 0");
+
+            //======== panel2 ========
+            {
+                panel2.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[fill]",
+                    // rows
+                    "[]"));
+            }
+            time_intervel_select_panel.add(panel2, "cell 8 0");
         }
         contentPane.add(time_intervel_select_panel, "cell 0 3");
 
         //---- label2 ----
-        label2.setText("* For ECG,the recommend time interval is 10 seconds");
+        label2.setText("* For ECG and respiratory pattern, the recommend time interval is 1 minute");
+        label2.setForeground(new Color(0xff0033));
         contentPane.add(label2, "cell 0 4");
 
         //---- generate_button ----
@@ -345,7 +355,7 @@ public class Patient_Recording extends JFrame {
         generate_button.setEnabled(false);
         generate_button.addActionListener(e -> {
             try {
-                generate_button_action(e);
+                generate_button(e);
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -357,7 +367,7 @@ public class Patient_Recording extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei 
+    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
     private JLabel recording_title;
     private JLabel signal_select_label;
     public JComboBox signal_selector;
@@ -375,6 +385,7 @@ public class Patient_Recording extends JFrame {
     public JComboBox end_time_hour;
     private JLabel colon2;
     public JComboBox end_time_min;
+    private JPanel panel2;
     private JLabel label2;
     private JButton generate_button;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

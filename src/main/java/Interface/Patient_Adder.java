@@ -37,6 +37,9 @@ public class Patient_Adder extends JFrame {
 
     private void save_button(ActionEvent e) {
 
+        Report_Notice loading = new Report_Notice();
+        loading.setVisible(true);
+
         String gender = "male";
         if (female_button.isSelected()){
             gender = "female";
@@ -108,6 +111,7 @@ public class Patient_Adder extends JFrame {
 //        System.out.println(mainGUI.referenceList.length);
         //System.out.println(mainGUI.patient_list.getComponentCount());
         this.mainGUI.add_new_patient.setEnabled(true);
+        loading.dispose();
         this.dispose();
 
     }
