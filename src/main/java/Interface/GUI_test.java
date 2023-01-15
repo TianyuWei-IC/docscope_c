@@ -409,6 +409,14 @@ public class GUI_test extends JFrame {
 
         this.referenceList = new String[references.size()];
         references.toArray(this.referenceList);
+
+        Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
+        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+        Patient current_patient = current_temp_cl_display.patient;
+        current_patient.setBackground(new Color(84, 160, 173));
+        current_patient.setOpaque(true);
+        current_patient.setBorderPainted(false);
+
     }
 
     private void initComponents() {
@@ -597,7 +605,7 @@ public class GUI_test extends JFrame {
         {
             value_display.setBackground(new Color(0x54a0ad));
             value_display.setPreferredSize(new Dimension(300, 1017));
-            value_display.setMaximumSize(new Dimension(300, 1017));
+            value_display.setMaximumSize(new Dimension(300, 99999));
             value_display.setMinimumSize(new Dimension(300, 1017));
             value_display.setLayout(new MigLayout(
                 "hidemode 3",

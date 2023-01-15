@@ -98,6 +98,9 @@ public class Patient extends JButton {
         this.resp_min= resp_min;
         this.resp_max= resp_max;
         this.mainGUI = mainGUI;
+        this.setBackground(new Color(193, 211, 224));
+        this.setOpaque(true);
+        this.setBorderPainted(false);
 
         String patient_full_name = this.first_name+" "+this.last_name;
         this.setText("<html>" + patient_full_name.replaceAll("<break>", "<br>") + "</html>");
@@ -123,7 +126,7 @@ public class Patient extends JButton {
         this.time_milli = time.getTime();
     }
 
-    private void switch_patient(ActionEvent e) {
+    public void switch_patient(ActionEvent e) {
         // find the previous patients
         Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
@@ -141,6 +144,9 @@ public class Patient extends JButton {
             previous_patient.panelRespiratoryPattern.worker.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
             System.out.println(previous_patient.panelEcg1.worker.isCancelled());
+            previous_patient.setBackground(new Color(193, 211, 224));
+            previous_patient.setOpaque(true);
+            previous_patient.setBorderPainted(false);
         }
 
         display(this.reference_value);
@@ -150,6 +156,9 @@ public class Patient extends JButton {
             Patient_Editor editor = new Patient_Editor(this.mainGUI, this);
             editor.setVisible(true);
         }
+        this.setBackground(new Color(84, 160, 173));
+        this.setOpaque(true);
+        this.setBorderPainted(false);
         this.time_milli = time_now.getTime();
     }
 

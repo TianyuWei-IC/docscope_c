@@ -14,6 +14,7 @@ import master.Patient;
 import net.miginfocom.swing.*;
 import netRelated.netAction;
 
+import static java.awt.AWTEvent.MOUSE_EVENT_MASK;
 import static java.awt.event.WindowEvent.WINDOW_CLOSED;
 import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 import static java.lang.Double.parseDouble;
@@ -35,6 +36,8 @@ public class Patient_Adder extends JFrame {
     private Boolean save_or_not = false;
 
     private loading_notice loading = new loading_notice();
+    private ActionEvent click;
+
     public Patient_Adder(GUI_test mainGUI) {
         this.mainGUI = mainGUI;
         loading.setVisible(false);
@@ -42,6 +45,7 @@ public class Patient_Adder extends JFrame {
     }
 
     private void save_button(ActionEvent e) {
+        this.click = e;
         System.out.println(loading.isVisible());
         loading.setVisible(true);
         loading.setAlwaysOnTop(true);
@@ -70,7 +74,7 @@ public class Patient_Adder extends JFrame {
         this.mainGUI.report_button.setEnabled(true);
     }
 
-    private void thisWindowClosed(WindowEvent e) {
+    private void thisWindowClosed(WindowEvent e) throws InterruptedException {
         if(save_or_not) {
             String gender = "male";
             if (female_button.isSelected()){
@@ -82,7 +86,6 @@ public class Patient_Adder extends JFrame {
                 Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
                 Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
 
-
                 Patient previous_patient = current_temp_cl_display.patient;
                 previous_patient.panelEcg1.worker.cancel(true);
                 previous_patient.panelEcg2.worker.cancel(true);
@@ -92,6 +95,9 @@ public class Patient_Adder extends JFrame {
                 previous_patient.panelSysBloodPressure.updater.cancel(true);
                 previous_patient.panelRespiratoryPattern.worker.cancel(true);
                 previous_patient.panelHeartRate.updater.cancel(true);
+                previous_patient.setBackground(new Color(193, 211, 224));
+                previous_patient.setOpaque(true);
+                previous_patient.setBorderPainted(false);
             }else{
                 enableDisplaySettings();
             }
@@ -135,7 +141,10 @@ public class Patient_Adder extends JFrame {
             // now make change the color on the Patient(as a button)
             Display_Chart current_Temp = (Display_Chart) mainGUI.body_temp_table.getComponent(0);
             Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
-
+            Patient current_patient = current_temp_cl_display.patient;
+            current_patient.setBackground(new Color(84, 160, 173));
+            current_patient.setOpaque(true);
+            current_patient.setBorderPainted(false);
         }else {
             loading.dispose();
         }
@@ -416,7 +425,11 @@ public class Patient_Adder extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                thisWindowClosed(e);
+                try {
+                    thisWindowClosed(e);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             @Override
             public void windowClosing(WindowEvent e) {

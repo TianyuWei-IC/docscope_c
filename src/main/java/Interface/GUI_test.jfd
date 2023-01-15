@@ -106,7 +106,7 @@ new FormModel {
 				name: "value_display"
 				"background": new java.awt.Color( 84, 160, 173, 255 )
 				"preferredSize": new java.awt.Dimension( 300, 1017 )
-				"maximumSize": new java.awt.Dimension( 300, 1017 )
+				"maximumSize": new java.awt.Dimension( 300, 99999 )
 				"minimumSize": new java.awt.Dimension( 300, 1017 )
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
