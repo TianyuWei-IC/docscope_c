@@ -7,7 +7,6 @@ application{
     mainClass = 'master.Monitor'
 }
 
-group 'org.example'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
