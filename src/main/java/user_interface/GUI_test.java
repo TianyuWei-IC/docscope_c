@@ -486,18 +486,18 @@ public class GUI_test extends JFrame {
             this.RESP_pattern_update_button.setEnabled(true);
             this.HR_update_button.setEnabled(true);
             this.BP_update_button.setEnabled(true);
+
+            // the following lines set the current_displaying patient as selected by changing the color
+            Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
+            Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
+            Patient current_patient = current_temp_cl_display.patient;
+            current_patient.setBackground(new Color(84, 160, 173));
+            current_patient.setOpaque(true);
+            current_patient.setBorderPainted(false);
         }
         // changed into String[] so that it can be sent into JComboBox
         this.referenceList = new String[references.size()];
         references.toArray(this.referenceList);
-
-        // the following lines set the current_displaying patient as selected by changing the color
-        Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
-        Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
-        Patient current_patient = current_temp_cl_display.patient;
-        current_patient.setBackground(new Color(84, 160, 173));
-        current_patient.setOpaque(true);
-        current_patient.setBorderPainted(false);
 
         if(patient_list.getComponentCount()>=2){
             Patient exchange = (Patient) patient_list.getComponent(0);
