@@ -57,7 +57,7 @@ class Chart_Label_DisplayTest {
         List[] data = input.getData(newData,2);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
 
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "ecg1", "title");
         String previous_value = chart_label.chart.getSeriesMap().values().stream().toString();
@@ -93,7 +93,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         chart_label.pop_or_not = true;
         chart_label.urgent_or_warning(40.0);// check if there is a popup Urgent frame
@@ -119,7 +119,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         chart_label.pop_or_not = false;
         chart_label.urgent_or_warning(40.0);// check no window is popped up
@@ -144,7 +144,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         chart_label.pop_or_not = true;
         chart_label.urgent_or_warning(34.0);// check if there is a popup Urgent frame
@@ -170,7 +170,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         chart_label.pop_or_not = false;
         chart_label.urgent_or_warning(34.0);// check no window is popped up
@@ -195,7 +195,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         // 37.5 is within the range of warning
         chart_label.urgent_or_warning(37.5);
@@ -220,7 +220,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         // 35.5 is within the range of warning
         chart_label.urgent_or_warning(35.5);
@@ -245,7 +245,7 @@ class Chart_Label_DisplayTest {
         inputData input = new inputData(initialValue, time, period);
         // create a patient
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "body temperature", "title");
         // 35.5 is within the range of warning
         chart_label.urgent_or_warning(36);
