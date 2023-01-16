@@ -4,7 +4,7 @@ plugins {
 }
 
 application{
-    mainClass = 'Monitor'
+    mainClass = 'master.Monitor'
 }
 
 group 'org.example'
