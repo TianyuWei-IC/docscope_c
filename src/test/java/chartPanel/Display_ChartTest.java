@@ -26,7 +26,7 @@ class Display_ChartTest {
         // create inputData for inputting into SerieschartPane
         inputData input = new inputData(initialValue, time, period);
         GUI_test mainGUI = new GUI_test();
-        Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+        Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
 
         Chart_Label_Display chart_label = new Chart_Label_Display(current_patient, input, time, "ecg1", "title");
 
