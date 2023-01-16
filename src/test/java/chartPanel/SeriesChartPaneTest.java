@@ -29,7 +29,7 @@ class SeriesChartPaneTest {
 
             // create a patient
             GUI_test mainGUI = new GUI_test();
-            Patient current_patient = new Patient("Person","current","abnormal_patient","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
+            Patient current_patient = new Patient("Person","current","normal_2","male",2002,35.0,38.0,50,110,85,145,55,90,12,20, mainGUI);
 
             SeriesChartPane chartPane = new SeriesChartPane(input,time,"ecg1", current_patient,"title","real time");
             assertEquals(input,chartPane.getDataInput());
