@@ -12,59 +12,67 @@ new FormModel {
 			"resizable": false
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "[169,fill][195,fill]"
+				"$columnConstraints": "[fill][155,fill][195,fill]"
 				"$rowConstraints": "[44]"
 			} ) {
 				name: "name_info"
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "Patient_name"
-					"text": "text"
-					"font": new java.awt.Font( "Arial", 0, 12 )
-					auxiliary() {
-						"JavaCodeGenerator.variableModifiers": 1
-					}
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "hidemode 3"
+					"$columnConstraints": "[fill]"
+					"$rowConstraints": "[]"
+				} ) {
+					name: "panel1"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "signal_type"
+					name: "Patient_name"
 					"text": "text"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 0, 16 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 1 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "signal_type"
+					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 16 )
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 0"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "[155,fill][63,fill][34,fill][96,fill][fill][fill][fill][444,fill]"
+				"$columnConstraints": "[fill][155,fill][51,fill][34,fill][60,fill][fill][fill][444,fill]"
 				"$rowConstraints": "[]"
 			} ) {
 				name: "time_info"
 				auxiliary() {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "Date"
-					"text": "text"
-					"font": new java.awt.Font( "Arial", 0, 12 )
-					auxiliary() {
-						"JavaCodeGenerator.variableModifiers": 1
-					}
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+					"$layoutConstraints": "hidemode 3"
+					"$columnConstraints": "[fill]"
+					"$rowConstraints": "[]"
+				} ) {
+					name: "panel2"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "start_time"
+					name: "Date"
 					"text": "text"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 0, 14 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
@@ -72,21 +80,31 @@ new FormModel {
 					"value": "cell 1 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "to_label"
-					"text": "to"
-					"font": new java.awt.Font( "Arial", 0, 12 )
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 0"
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "end_time"
+					name: "start_time"
 					"text": "text"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 0, 14 )
 					auxiliary() {
 						"JavaCodeGenerator.variableModifiers": 1
 					}
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "to_label"
+					"text": "to"
+					"font": new java.awt.Font( "Arial", 0, 14 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 3 0"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "end_time"
+					"text": "text"
+					"font": new java.awt.Font( "Arial", 0, 14 )
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "notice"
@@ -109,7 +127,7 @@ new FormModel {
 					"JavaCodeGenerator.variableModifiers": 1
 				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 2"
+				"value": "cell 0 2,gapy 1"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 5, 0 )

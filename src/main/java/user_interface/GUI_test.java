@@ -33,7 +33,6 @@ public class GUI_test extends JFrame {
         Display_Chart current_Temp = (Display_Chart) this.body_temp_table.getComponent(0);
         Chart_Label_Display current_temp_cl_display = current_Temp.find_cl_display();
         Patient current_patient = current_temp_cl_display.patient;
-        System.out.println(current_patient.first_name);
 
         Patient_Recording recorder = new Patient_Recording(this,current_patient);
         recorder.setVisible(true);
@@ -269,7 +268,7 @@ public class GUI_test extends JFrame {
      * key enter detection for updating time interval
      */
     private void ECG_display_intervalKeyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+
         int l =  ECG_display_interval.getText().length();
         if (((e.getKeyChar() >= '0' && e.getKeyChar() <= '9')|(e.getKeyCode()==8)|(e.getKeyCode()==37)|(e.getKeyCode()==39))& (l<=1)) {
             ECG_display_interval.setEditable(true);

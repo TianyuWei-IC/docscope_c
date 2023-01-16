@@ -141,7 +141,6 @@ public class CreatePDF {
 
             //close the document
             document.close();
-            System.out.println("PDF Done");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -416,11 +416,11 @@ public class Patient_Editor extends JFrame {
             Double resp_min_value_double = parseDouble(resp_min.getText());
             Double resp_max_value_double = parseDouble(resp_max.getText());
 
-            if((temp_min_value_double>temp_max_value_double)|
-                    (hr_min_value_double>hr_max_value_double)|
-                    (sys_min_value_double>sys_max_value_double)|
-                    (dia_min_value_double>dia_max_value_double)|
-                    (resp_min_value_double>resp_max_value_double)|
+            if((temp_min_value_double>=temp_max_value_double)|
+                    (hr_min_value_double>=hr_max_value_double)|
+                    (sys_min_value_double>=sys_max_value_double)|
+                    (dia_min_value_double>=dia_max_value_double)|
+                    (resp_min_value_double>=resp_max_value_double)|
                     first_name_field.getText().isEmpty()|
                     last_name_field.getText().isEmpty())
             {

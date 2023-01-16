@@ -166,8 +166,6 @@ public class Patient_Recording extends JFrame {
         }catch (Exception ignore){}
         start_in_milli = start_date.getTime();
         end_in_milli = end_date.getTime();
-        System.out.println(start_in_milli);
-        System.out.println(end_in_milli);
 
         long dataBaseInitialTime=netAction.getInitialTime(current_patient.reference_value);
         //get interval
@@ -252,6 +250,7 @@ public class Patient_Recording extends JFrame {
         colon2 = new JLabel();
         end_time_min = new JComboBox(min_pack);
         panel2 = new JPanel();
+        label3 = new JLabel();
         label2 = new JLabel();
         generate_button = new JButton();
 
@@ -281,22 +280,27 @@ public class Patient_Recording extends JFrame {
             "[29]" +
             "[34]" +
             "[35]" +
+            "[]" +
             "[19]" +
-            "[54]"));
+            "[54]" +
+            "[]"));
 
         //---- recording_title ----
-        recording_title.setText("Recordings");
-        recording_title.setFont(recording_title.getFont().deriveFont(recording_title.getFont().getSize() + 6f));
+        recording_title.setText(" Recordings");
+        recording_title.setFont(new Font("Arial", Font.PLAIN, 18));
         contentPane.add(recording_title, "cell 0 0");
 
         //---- signal_select_label ----
-        signal_select_label.setText("Please Select a Signal:");
-        signal_select_label.setFont(signal_select_label.getFont().deriveFont(signal_select_label.getFont().getSize() + 2f));
+        signal_select_label.setText("  Please Select a Signal:");
+        signal_select_label.setFont(new Font("Arial", Font.PLAIN, 14));
         signal_select_label.setPreferredSize(new Dimension(180, 22));
         signal_select_label.setMinimumSize(new Dimension(180, 22));
         signal_select_label.setMaximumSize(new Dimension(180, 22));
         signal_select_label.setIconTextGap(0);
-        contentPane.add(signal_select_label, "cell 0 1");
+        contentPane.add(signal_select_label, "cell 0 1,alignx left,growx 0");
+
+        //---- signal_selector ----
+        signal_selector.setFont(new Font("Arial", Font.PLAIN, 12));
         contentPane.add(signal_selector, "cell 0 1");
         contentPane.add(blank2, "cell 0 1");
         contentPane.add(blank, "cell 0 1");
@@ -313,11 +317,11 @@ public class Patient_Recording extends JFrame {
 
             //---- label1 ----
             label1.setText("Choose the Date:");
-            label1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            label1.setFont(new Font("Arial", Font.PLAIN, 14));
             panel1.add(label1, "cell 0 0");
             panel1.add(dateChooser1, "cell 1 0");
         }
-        contentPane.add(panel1, "cell 0 2");
+        contentPane.add(panel1, "cell 0 2,align left center,grow 0 0");
 
         //======== time_intervel_select_panel ========
         {
@@ -339,6 +343,7 @@ public class Patient_Recording extends JFrame {
 
             //---- start_time_label ----
             start_time_label.setText("Start Time:");
+            start_time_label.setFont(new Font("Arial", Font.PLAIN, 14));
             time_intervel_select_panel.add(start_time_label, "cell 0 0");
 
             //---- start_time_hour ----
@@ -361,6 +366,7 @@ public class Patient_Recording extends JFrame {
 
             //---- end_time_label ----
             end_time_label.setText("End Time:");
+            end_time_label.setFont(new Font("Arial", Font.PLAIN, 14));
             time_intervel_select_panel.add(end_time_label, "cell 4 0");
 
             //---- end_time_hour ----
@@ -392,18 +398,26 @@ public class Patient_Recording extends JFrame {
             }
             time_intervel_select_panel.add(panel2, "cell 8 0");
         }
-        contentPane.add(time_intervel_select_panel, "cell 0 3");
+        contentPane.add(time_intervel_select_panel, "cell 0 3,alignx left,growx 0");
+
+        //---- label3 ----
+        label3.setText("   * For ECG and respiratory pattern, the recommend time interval is 1 minute");
+        label3.setForeground(new Color(0xff0033));
+        label3.setFont(new Font("Arial", Font.PLAIN, 12));
+        contentPane.add(label3, "cell 0 4,alignx left,growx 0");
 
         //---- label2 ----
-        label2.setText("* For ECG and respiratory pattern, the recommend time interval is 1 minute");
+        label2.setText("   * For the rest of signals, the minimal displable interval for their averages is 2 minutes");
         label2.setForeground(new Color(0xff0033));
-        contentPane.add(label2, "cell 0 4");
+        label2.setFont(new Font("Arial", Font.PLAIN, 12));
+        contentPane.add(label2, "cell 0 5,alignx left,growx 0");
 
         //---- generate_button ----
         generate_button.setText("Generate");
         generate_button.setEnabled(false);
+        generate_button.setFont(new Font("Arial", Font.PLAIN, 12));
         generate_button.addActionListener(e -> generate_button(e));
-        contentPane.add(generate_button, "cell 0 5");
+        contentPane.add(generate_button, "cell 0 6");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -429,6 +443,7 @@ public class Patient_Recording extends JFrame {
     private JLabel colon2;
     public JComboBox end_time_min;
     private JPanel panel2;
+    private JLabel label3;
     private JLabel label2;
     private JButton generate_button;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

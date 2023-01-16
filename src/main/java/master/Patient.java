@@ -149,7 +149,6 @@ public class Patient extends JButton {
             previous_patient.panelSysBloodPressure.updater.cancel(true);
             previous_patient.panelRespiratoryPattern.worker.cancel(true);
             previous_patient.panelHeartRate.updater.cancel(true);
-            System.out.println(previous_patient.panelEcg1.worker.isCancelled());
             // set the previous patient into the default color
             previous_patient.setBackground(new Color(193, 211, 224));
             previous_patient.setOpaque(true);

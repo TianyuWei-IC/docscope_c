@@ -90,7 +90,7 @@ public class Server_Login extends JFrame {
         contentPane.add(label1, "cell 0 0,align center center,grow 0 0");
 
         //---- servlet_address ----
-        servlet_address.setText("http://localhost:8080/");
+        servlet_address.setText("http://localhost:8080");
         servlet_address.setFont(new Font("Arial", Font.PLAIN, 16));
         contentPane.add(servlet_address, "cell 0 1");
 
@@ -132,7 +132,7 @@ public class Server_Login extends JFrame {
             panel1.add(username, "cell 1 0");
 
             //---- label5 ----
-            label5.setText("password");
+            label5.setText("Password");
             label5.setFont(new Font("Arial", Font.PLAIN, 14));
             panel1.add(label5, "cell 2 0,alignx center,growx 0");
 
