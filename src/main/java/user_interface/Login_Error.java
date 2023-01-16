@@ -18,7 +18,7 @@ public class Login_Error extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+        // Generated using JFormDesigner Educational license 
         label1 = new JLabel();
 
         //======== this ========
@@ -45,7 +45,7 @@ public class Login_Error extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+    // Generated using JFormDesigner Educational license 
     private JLabel label1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

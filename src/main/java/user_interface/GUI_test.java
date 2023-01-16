@@ -507,7 +507,7 @@ public class GUI_test extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+        // Generated using JFormDesigner Educational license
         patientList_recordings = new JPanel();
         NewPatient = new JPanel();
         label1 = new JLabel();
@@ -1459,7 +1459,7 @@ public class GUI_test extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+    // Generated using JFormDesigner Educational license
     public JPanel patientList_recordings;
     public JPanel NewPatient;
     private JLabel label1;

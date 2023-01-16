@@ -51,7 +51,7 @@ public class Server_Login extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+        // Generated using JFormDesigner Educational license 
         label1 = new JLabel();
         servlet_address = new JTextField();
         label6 = new JLabel();
@@ -158,7 +158,7 @@ public class Server_Login extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    // Generated using JFormDesigner Educational license - Tianyu Wei (天宇 魏)
+    // Generated using JFormDesigner Educational license 
     private JLabel label1;
     public JTextField servlet_address;
     private JLabel label6;
