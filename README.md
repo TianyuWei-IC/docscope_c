@@ -5,4 +5,4 @@ To solve this issue, please manually change this setting for main and test folde
 
 When building the client, please start the server first, and wait for it to start for 10 sec, otherwise the unit test in the client might fail.
 
-The GUI of this client is designed for #1920x1080 resolution with scaling of 100%. Failing to have this monitor setup might lead to distortion. 
+The GUI of this client is designed for 1920x1080 resolution with scaling of 100%. Failing to have this monitor setup might lead to distortion. 
